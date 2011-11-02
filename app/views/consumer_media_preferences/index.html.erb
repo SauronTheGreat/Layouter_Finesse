@@ -1,0 +1,30 @@
+<%= content_for :main_content do %>
+<h1>Listing consumer_media_preferences</h1>
+
+<table>
+  <tr>
+    <th>Media</th>
+    <th>Consumer category</th>
+    <th>Index</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @consumer_media_preferences.each do |consumer_media_preference| %>
+  <tr>
+    <td><%= consumer_media_preference.media_id %></td>
+    <td><%= consumer_media_preference.consumer_category_id %></td>
+    <td><%= consumer_media_preference.index %></td>
+    <td><%= link_to 'Show', consumer_media_preference %></td>
+    <td><%= link_to 'Edit', edit_consumer_media_preference_path(consumer_media_preference) %></td>
+    <td><%= link_to 'Destroy', consumer_media_preference, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Consumer media preference', new_consumer_media_preference_path %>
+
+<% end %>

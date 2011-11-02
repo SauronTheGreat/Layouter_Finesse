@@ -1,0 +1,25 @@
+<%= form_for(@mathematical_model_input) do |f| %>
+  <% if @mathematical_model_input.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mathematical_model_input.errors.count, "error") %> prohibited this mathematical_model_input from being saved:</h2>
+
+      <ul>
+      <% @mathematical_model_input.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mathematical_model_id %><br />
+    <%= f.number_field :mathematical_model_id %>
+  </div>
+  <div class="field">
+    <%= f.label :environmental_parameter_id %><br />
+    <%= f.number_field :environmental_parameter_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

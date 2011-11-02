@@ -1,0 +1,25 @@
+<%= form_tag :action => 'create' %>
+<table cellspacing="30">
+
+        <tr>
+
+  <% @student_group_users.each_with_index do |sguser, index| %>
+      <%= fields_for "student_group_users[#{index}]", sguser do |f| %>
+
+          <%= f.hidden_field :student_group_id, :value=>params[:student_group_id] %>
+          <td><%= f.label @users[index].fullname %>
+            <% if StudentGroupUser.find_by_user_id(@users[index].id).nil? %>
+                <% @state=false %>
+                <% else %>
+                <% @state=true %>
+                <% end %>
+
+          <%= f.check_box :user_id,{:checked=>@state},@users[index].id,0 %></td>
+          <% if (index+1)  % 3==0 and index>0 %></tr>
+                      <% end %>
+
+
+      <% end %>
+  <% end %>
+</table>
+<%= submit_tag %>

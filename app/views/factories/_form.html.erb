@@ -1,0 +1,49 @@
+<%= form_for(@factory) do |f| %>
+  <% if @factory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@factory.errors.count, "error") %> prohibited this factory from being saved:</h2>
+
+      <ul>
+      <% @factory.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_employees %><br />
+    <%= f.number_field :number_of_employees %>
+  </div>
+  <div class="field">
+    <%= f.label :market_id %><br />
+    <%= f.select :market_id ,Market.all.collect{|m|[m.name,m.id]}%>
+  </div>
+  <div class="field">
+    <%= f.label :number_of_shifts %><br />
+    <%= f.number_field :number_of_shifts %>
+  </div>
+  <div class="field">
+    <%= f.label :cost_to_build %><br />
+    <%= f.number_field :cost_to_build %>
+  </div>
+  <div class="field">
+    <%= f.label :cost_to_run %><br />
+    <%= f.number_field :cost_to_run %>
+  </div>
+  <div class="field">
+    <%= f.label :capacity %><br />
+    <%= f.number_field :capacity %>
+  </div>
+  <div class="field">
+    <%= f.label :production_time_per_unit %><br />
+    <%= f.number_field :production_time_per_unit %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

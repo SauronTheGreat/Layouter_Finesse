@@ -1,0 +1,12 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @raw_material.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_raw_material_path(@raw_material) %> |
+<%= link_to 'Back', raw_materials_path %>
+<% end %>

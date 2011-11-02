@@ -1,0 +1,34 @@
+<%= content_for :main_content do %>
+<h1>Listing markets</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Catchment of dealers</th>
+    <th>Catchment of vendors</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @markets.each do |market| %>
+  <tr>
+    <td><%= market.name %></td>
+    <td><%= market.catchment_of_dealers %></td>
+    <td><%= market.catchment_of_vendors %></td>
+    <td><%= link_to 'Show', market %></td>
+    <td><%= link_to 'Edit', edit_market_path(market) %></td>
+    <td><%= link_to 'Set Distances', new_market_distance_path(:market_id=>market.id) %></td>
+    <td><%= link_to 'View Distances', view_distances_path(:market_id=>market.id) %></td>
+
+
+    <td><%= link_to 'Destroy', market, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Market', new_market_path %>
+<% end %>

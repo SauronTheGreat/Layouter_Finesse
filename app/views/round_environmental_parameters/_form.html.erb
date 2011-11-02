@@ -1,0 +1,25 @@
+<%= form_for(@round_environmental_parameter) do |f| %>
+  <% if @round_environmental_parameter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@round_environmental_parameter.errors.count, "error") %> prohibited this round_environmental_parameter from being saved:</h2>
+
+      <ul>
+      <% @round_environmental_parameter.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :round %><br />
+    <%= f.number_field :round %>
+  </div>
+  <div class="field">
+    <%= f.label :environmental_parameter_id %><br />
+    <%= f.number_field :environmental_parameter_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

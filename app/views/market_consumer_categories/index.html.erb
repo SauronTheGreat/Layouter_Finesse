@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing market_consumer_categories</h1>
+
+<table>
+  <tr>
+    <th>Market</th>
+    <th>Consumer category</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @market_consumer_categories.each do |market_consumer_category| %>
+  <tr>
+    <td><%= market_consumer_category.market_id %></td>
+    <td><%= market_consumer_category.consumer_category_id %></td>
+    <td><%= market_consumer_category.value %></td>
+    <td><%= link_to 'Show', market_consumer_category %></td>
+    <td><%= link_to 'Edit', edit_market_consumer_category_path(market_consumer_category) %></td>
+    <td><%= link_to 'Destroy', market_consumer_category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Market consumer category', new_market_consumer_category_path %>
+<% end %>

@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing market_distances</h1>
+
+<table>
+  <tr>
+    <th>Source market</th>
+    <th>Distance market</th>
+    <th>Distance</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @market_distances.each do |market_distance| %>
+  <tr>
+    <td><%= market_distance.source_market_id %></td>
+    <td><%= market_distance.distance_market_id %></td>
+    <td><%= market_distance.distance %></td>
+    <td><%= link_to 'Show', market_distance %></td>
+    <td><%= link_to 'Edit', edit_market_distance_path(market_distance) %></td>
+    <td><%= link_to 'Destroy', market_distance, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Market distance', new_market_distance_path %>
+<% end %>

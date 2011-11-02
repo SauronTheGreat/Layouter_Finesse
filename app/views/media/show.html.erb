@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @medium.name %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @medium.cost %>
+</p>
+
+<p>
+  <b>Impact:</b>
+  <%= @medium.impact_id %>
+</p>
+<p>
+  <b>Unit:</b>
+  <%= @medium.unit_id %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_medium_path(@medium) %> |
+<%= link_to 'Back', media_path %>
+<% end %>

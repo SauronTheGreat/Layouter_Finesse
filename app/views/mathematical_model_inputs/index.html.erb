@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<h1>Listing mathematical_model_inputs</h1>
+
+<table>
+  <tr>
+    <th>Mathematical model</th>
+    <th>Environmental parameter</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mathematical_model_inputs.each do |mathematical_model_input| %>
+  <tr>
+    <td><%= mathematical_model_input.mathematical_model_id %></td>
+    <td><%= mathematical_model_input.environmental_parameter_id %></td>
+    <td><%= link_to 'Show', mathematical_model_input %></td>
+    <td><%= link_to 'Edit', edit_mathematical_model_input_path(mathematical_model_input) %></td>
+    <td><%= link_to 'Destroy', mathematical_model_input, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Mathematical model input', new_mathematical_model_input_path %>
+<% end %>

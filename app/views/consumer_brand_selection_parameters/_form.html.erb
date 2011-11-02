@@ -1,0 +1,29 @@
+<%= form_for(@consumer_brand_selection_parameter) do |f| %>
+  <% if @consumer_brand_selection_parameter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@consumer_brand_selection_parameter.errors.count, "error") %> prohibited this consumer_brand_selection_parameter from being saved:</h2>
+
+      <ul>
+      <% @consumer_brand_selection_parameter.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :brand_selection_parameter_id %><br />
+    <%= f.number_field :brand_selection_parameter_id %>
+  </div>
+  <div class="field">
+    <%= f.label :min_value %><br />
+    <%= f.number_field :min_value %>
+  </div>
+  <div class="field">
+    <%= f.label :max_value %><br />
+    <%= f.number_field :max_value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

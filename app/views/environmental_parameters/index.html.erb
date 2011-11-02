@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+
+<h1>Listing environmental_parameters</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @environmental_parameters.each do |environmental_parameter| %>
+  <tr>
+    <td><%= environmental_parameter.name %></td>
+    <td><%= environmental_parameter.value %></td>
+    <td><%= link_to 'Show', environmental_parameter %></td>
+    <td><%= link_to 'Edit', edit_environmental_parameter_path(environmental_parameter) %></td>
+    <td><%= link_to 'Destroy', environmental_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Environmental parameter', new_environmental_parameter_path %>
+
+<% end %>

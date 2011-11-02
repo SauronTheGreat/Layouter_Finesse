@@ -1,0 +1,40 @@
+<%= content_for :main_content do %>
+<h1>Listing factories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Number of employees</th>
+    <th>Market</th>
+    <th>Number of shifts</th>
+    <th>Cost to build</th>
+    <th>Cost to run</th>
+    <th>Capacity</th>
+    <th>Production time per unit</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @factories.each do |factory| %>
+  <tr>
+    <td><%= factory.name %></td>
+    <td><%= factory.number_of_employees %></td>
+    <td><%= factory.market_id %></td>
+    <td><%= factory.number_of_shifts %></td>
+    <td><%= factory.cost_to_build %></td>
+    <td><%= factory.cost_to_run %></td>
+    <td><%= factory.capacity %></td>
+    <td><%= factory.production_time_per_unit %></td>
+    <td><%= link_to 'Show', factory %></td>
+    <td><%= link_to 'Edit', edit_factory_path(factory) %></td>
+    <td><%= link_to 'Destroy', factory, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Factory', new_factory_path %>
+
+<% end %>

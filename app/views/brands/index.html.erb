@@ -1,0 +1,33 @@
+<%= content_for :main_content do %>
+<h1>Listing brands</h1>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Name</th>
+    <th>Price per unit</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+
+  </tr>
+
+<% @brands.each do |brand| %>
+  <tr>
+    <td><%= brand.player_id %></td>
+    <td><%= brand.name %></td>
+    <td><%= brand.price_per_unit %></td>
+    <td><%= link_to 'Show', brand %></td>
+    <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
+    <td><%= link_to 'Destroy', brand, confirm: 'Are you sure?', method: :delete %></td>
+    <td> <%= link_to "play", new_player_round_expense_path(:round_id=>@round.id, :player_id=> @player.id,:brand_id=>brand.id) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Brand', new_brand_path(:player_id=>@player.id) %>
+
+<% end %>

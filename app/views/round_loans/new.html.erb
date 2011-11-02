@@ -1,0 +1,46 @@
+<%= content_for :main_content do %>
+<div style="width: 50%">
+  <h1>New round_loan</h1>
+
+  <%= form_for(@round_loan) do |f| %>
+      <% if @round_loan.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@round_loan.errors.count, "error") %> prohibited this round_loan from being saved:</h2>
+
+            <ul>
+              <% @round_loan.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+
+      <%= f.hidden_field :round_id, :value=>@round.id %>
+
+
+      <%= f.select :loan_id, @loan_list %>
+
+      <div class="field">
+        <%= f.label :amount %>
+        <br/>
+        <%= f.number_field :amount %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+  <% end %>
+
+
+</div>
+<div style="width: 50% ;margin-left: 50%">
+  <ul>
+    <% @included_loan_list.each do |loan| %>
+
+    <li><%= Loan.find(loan.loan_id).name %></li>
+
+    <% end %>
+  </ul>
+  <%= link_to 'Done', rounds_path(:simulation_id=>@round.simulation_id) %>
+
+</div><% end %>

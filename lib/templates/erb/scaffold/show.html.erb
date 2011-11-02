@@ -1,0 +1,33 @@
+<%%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<%% end %>
+
+<%%= content_for :header do %>
+<%% end %>
+
+<%%= content_for :main_content do %>
+
+<% attributes.each do |attribute| -%>
+    <p>
+      <b><%= attribute.human_name %>:</b>
+      <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+    </p>
+
+<% end -%>
+
+<%% end %>
+<br/>
+<br/>
+<%%= content_for :navigation do %>
+<%% end %>
+
+<%%= content_for :extra do %>
+<%%= link_to image_tag(icon("edit"),:size=>"100x100"), edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), :title=>'Edit' %>
+<%%= link_to image_tag(icon("back"),:size=>"100x100"), <%= index_helper %>_path, :title=>'Back' %>
+<%% end %>
+
+<%%= content_for :footer do %>
+<%% end %>

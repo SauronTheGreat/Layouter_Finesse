@@ -1,0 +1,87 @@
+<style>
+    body {
+        margin: 0 auto;
+        background-color: #<%= back_color %>;
+        color: #<%= text_color %>;
+        <% if current_page_layout(params[:controller].parameterize,params[:action].parameterize) %>
+        font-family: <%= current_page_layout(params[:controller].parameterize,params[:action].parameterize).font_theme.name %>;
+        font-weight: <%= current_page_layout(params[:controller].parameterize,params[:action].parameterize).font_weight %>;
+        font-size: <%= current_page_layout(params[:controller].parameterize,params[:action].parameterize).font_size %>px;
+        <% end %>
+    }
+
+    div#header {
+        background: transparent;
+        background-color: #<%= header_color %>;
+        color: #<%= header_text_color %>;
+        text-indent: 20px;
+    }
+
+    div#header h1 {
+        background: transparent;
+        color: black;
+        color: #<%= header_text_color %>;
+    }
+
+    div#navigation {
+        background: transparent;
+        background-color: #<%= navigation_panel_color %>;
+    }
+
+    div#extra {
+        background: transparent;
+        background-color: #<%= extra_panel_color %>;
+    }
+
+    div#footer {
+        background: transparent;
+        background-color: #<%= footer_panel_color %>;
+    }
+
+    #content {
+        background: transparent;
+        background-color: #<%= main_color %>;
+        color: #<%= text_color %>;
+    }
+
+    a {
+        color: #<%= link_color %>;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #<%= link_color_hover %>;
+    }
+
+    #flash_notice {
+        background-color: #<%= highlight_color %>;
+    }
+
+    #flash_error, #flash_alert {
+        background-color: #<%= highlight_color %>;
+    }
+
+    <% if rounded_corners %>
+    #header {
+        border-radius: 10px;
+    }
+
+    #content {
+        border-radius: 10px;
+    }
+
+    #navigation {
+        border-radius: 10px;
+    }
+
+    #footer {
+        border-radius: 10px;
+    }
+
+    #extra {
+        border-radius: 10px;
+    }
+    
+    <% end %>
+        
+</style>

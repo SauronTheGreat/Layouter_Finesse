@@ -1,0 +1,49 @@
+<%= content_for :main_content do %>
+<h2>You are viewing the details for ...<%= @decision_parameter.name %></h2>
+<p>
+  <b>Mathematical Model Used:</b>
+  <u><%= @mathematical_model.name %></u>
+</p>
+
+<p>
+  <b>Formula Used:</b>
+  <u><%= @mathematical_model.formula %></u>
+</p>
+
+
+<table>
+  <tr>
+    <th>
+      Constants
+    </th>
+    <% @constants.each do |constant| %>
+
+        <td>
+          <%= constant.constant_name.to_s+"="+MathematicalModelConstantValue.find_by_mathematical_model_constant_id_and_decision_parameter_id(constant.id,@decision_parameter.id).value.to_s %>
+
+        </td>
+    <% end %>
+
+  </tr>
+  <tr>
+
+    <th>
+      Variables
+    </th>
+    <% @variables.each do |variable| %>
+
+        <td>
+
+          <% @value=MathematicalModelVariableValue.find_by_mathematical_model_variable_id_and_decision_parameter_id(variable.id,@decision_parameter.id).environmental_parameter_id  %>
+          <% @environmental_parameter=EnvironmentalParameter.find(@value) %>
+
+
+          <%= variable.variable_name.to_s+"="+@environmental_parameter.name%>
+        </td>
+    <% end %>
+
+
+  </tr>
+</table>
+
+<% end %>

@@ -1,0 +1,23 @@
+<h1>Listing hrincentives</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hrincentives.each do |hrincentive| %>
+  <tr>
+    <td><%= hrincentive.name %></td>
+    <td><%= link_to 'Show', hrincentive %></td>
+    <td><%= link_to 'Edit', edit_hrincentive_path(hrincentive) %></td>
+    <td><%= link_to 'Destroy', hrincentive, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hrincentive', new_hrincentive_path %>

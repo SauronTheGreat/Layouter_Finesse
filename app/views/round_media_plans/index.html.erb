@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<h1>Listing round_media_plans</h1>
+
+<table>
+  <tr>
+    <th>Round</th>
+    <th>Media plan</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @round_media_plans.each do |round_media_plan| %>
+  <tr>
+    <td><%= round_media_plan.round_id %></td>
+    <td><%= round_media_plan.media_plan_id %></td>
+    <td><%= link_to 'Show', round_media_plan %></td>
+    <td><%= link_to 'Edit', edit_round_media_plan_path(round_media_plan) %></td>
+    <td><%= link_to 'Destroy', round_media_plan, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Round media plan', new_round_media_plan_path %>
+<% end %>

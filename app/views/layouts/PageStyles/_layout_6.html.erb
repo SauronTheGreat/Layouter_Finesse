@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    $(function() {
+        $('#navigation, #content, #extra').equalHeightColumns();
+    });
+</script>
+
+<div id="header_wrapper" class="container_12">
+  <div id="header" class="grid_12 alpha">
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% end %>
+    Finesse Portal
+    <%= yield(:header) %>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div id="main_wrapper" class="container_12">
+  <div id="navigation" class="grid_3 alpha">
+    <%= render '/layouts/Partials/navigation_vertical' %>
+    <%= yield(:navigation) %>
+  </div>
+  <div id="content" class="grid_6">
+    <%= yield(:main_content) %>
+  </div>
+  <div id="extra" class="grid_3 omega">
+    <%= yield(:extra) %>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div id="footer_wrapper" class="container_12">
+  <div id="footer" class="grid_12 alpha">
+    <%= yield(:footer) %>
+  </div>
+</div>

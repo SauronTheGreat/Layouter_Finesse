@@ -1,0 +1,63 @@
+<%= content_for :main_content do %>
+<h1>Listing player_financials</h1>
+
+<table>
+  <tr>
+    <th>Round</th>
+    <th>Player</th>
+    <th>Income</th>
+    <th>Cogs</th>
+    <th>Employee cost</th>
+    <th>Sga</th>
+    <th>Ebitda</th>
+    <th>Interest</th>
+    <th>Investment income</th>
+    <th>Depreciation</th>
+    <th>Pbt</th>
+    <th>Tax</th>
+    <th>Pat</th>
+    <th>Long term loans</th>
+    <th>Short term loans</th>
+    <th>Net worth</th>
+    <th>Fixed assets</th>
+    <th>Investments</th>
+    <th>Inventory</th>
+    <th>Cash</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @player_financials.each do |player_financial| %>
+  <tr>
+    <td><%= player_financial.round_id %></td>
+    <td><%= player_financial.player_id %></td>
+    <td><%= player_financial.income %></td>
+    <td><%= player_financial.cogs %></td>
+    <td><%= player_financial.employee_cost %></td>
+    <td><%= player_financial.sga %></td>
+    <td><%= player_financial.ebitda %></td>
+    <td><%= player_financial.interest %></td>
+    <td><%= player_financial.investment_income %></td>
+    <td><%= player_financial.depreciation %></td>
+    <td><%= player_financial.pbt %></td>
+    <td><%= player_financial.tax %></td>
+    <td><%= player_financial.pat %></td>
+    <td><%= player_financial.long_term_loans %></td>
+    <td><%= player_financial.short_term_loans %></td>
+    <td><%= player_financial.net_worth %></td>
+    <td><%= player_financial.fixed_assets %></td>
+    <td><%= player_financial.investments %></td>
+    <td><%= player_financial.inventory %></td>
+    <td><%= player_financial.cash %></td>
+    <td><%= link_to 'Show', player_financial %></td>
+    <td><%= link_to 'Edit', edit_player_financial_path(player_financial) %></td>
+    <td><%= link_to 'Destroy', player_financial, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Player financial', new_player_financial_path %>
+<% end %>

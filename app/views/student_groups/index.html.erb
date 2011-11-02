@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing student_groups</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Facilitator group</th>
+    <th>Case study</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @student_groups.each do |student_group| %>
+  <tr>
+    <td><%= student_group.name %></td>
+    <td><%= student_group.facilitator_group_id %></td>
+    <td><%= student_group.case_study_id %></td>
+    <td><%= link_to 'Show', student_group %></td>
+    <td><%= link_to 'Edit', edit_student_group_path(student_group) %></td>
+    <td><%= link_to 'Destroy', student_group, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Student group', new_student_group_path(:facilitator_group_id=>@facilitator_group.id) %>
+<% end %>

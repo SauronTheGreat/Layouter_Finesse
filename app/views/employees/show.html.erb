@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Employee category:</b>
+  <%= @employee.employee_category_id %>
+</p>
+
+<p>
+  <b>Efficiency:</b>
+  <%= @employee.efficiency %>
+</p>
+
+<p>
+  <b>Happiness quotient:</b>
+  <%= @employee.happiness_quotient %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @employee.cost %>
+</p>
+
+<p>
+  <b>Effect on quality cost:</b>
+  <%= @employee.effect_on_quality_cost %>
+</p>
+
+<p>
+  <b>Effect on sales:</b>
+  <%= @employee.effect_on_sales %>
+</p>
+
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<h2>Displaying Parameters for <%= @product.name %></h2>
+
+
+<table>
+  <tr>
+    <th>Parameter Name</th>
+    <th>Parameter Value</th>
+
+  </tr>
+  <% @product_parameters.each do |parameter| %>
+      <tr>
+
+        <td><%= RawMaterial.find(parameter.raw_material_id).name %></td>
+
+        <td><%= parameter.value %></td>
+
+
+      </tr>
+  <% end %>
+
+</table><% end %>

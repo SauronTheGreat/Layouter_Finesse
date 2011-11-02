@@ -1,0 +1,29 @@
+<%= form_for(@player_loan) do |f| %>
+  <% if @player_loan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@player_loan.errors.count, "error") %> prohibited this player_loan from being saved:</h2>
+
+      <ul>
+      <% @player_loan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :player_id %><br />
+    <%= f.number_field :player_id %>
+  </div>
+  <div class="field">
+    <%= f.label :loan_id %><br />
+    <%= f.number_field :loan_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.number_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

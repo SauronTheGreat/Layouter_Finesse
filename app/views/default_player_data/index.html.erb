@@ -1,0 +1,60 @@
+<%= content_for :main_content do %>
+<h1>Listing default_player_data</h1>
+
+<table>
+  <tr>
+    <th>Income</th>
+    <th>Cogs</th>
+    <th>Employee cost</th>
+    <th>Sga</th>
+    <th>Ebitda</th>
+    <th>Interest</th>
+    <th>Investment income</th>
+    <th>Depreciation</th>
+    <th>Pbt</th>
+    <th>Tax</th>
+    <th>Pat</th>
+    <th>Long term loans</th>
+    <th>Short term loans</th>
+    <th>Net worth</th>
+    <th>Fixed assets</th>
+    <th>Investments</th>
+    <th>Inventory</th>
+    <th>Cash</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @default_player_data.each do |default_player_datum| %>
+  <tr>
+    <td><%= default_player_datum.income %></td>
+    <td><%= default_player_datum.cogs %></td>
+    <td><%= default_player_datum.employee_cost %></td>
+    <td><%= default_player_datum.sga %></td>
+    <td><%= default_player_datum.ebitda %></td>
+    <td><%= default_player_datum.interest %></td>
+    <td><%= default_player_datum.investment_income %></td>
+    <td><%= default_player_datum.depreciation %></td>
+    <td><%= default_player_datum.pbt %></td>
+    <td><%= default_player_datum.tax %></td>
+    <td><%= default_player_datum.pat %></td>
+    <td><%= default_player_datum.long_term_loans %></td>
+    <td><%= default_player_datum.short_term_loans %></td>
+    <td><%= default_player_datum.net_worth %></td>
+    <td><%= default_player_datum.fixed_assets %></td>
+    <td><%= default_player_datum.investments %></td>
+    <td><%= default_player_datum.inventory %></td>
+    <td><%= default_player_datum.cash %></td>
+    <td><%= link_to 'Show', default_player_datum %></td>
+    <td><%= link_to 'Edit', edit_default_player_datum_path(default_player_datum) %></td>
+    <td><%= link_to 'Destroy', default_player_datum, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Default player datum', new_default_player_datum_path %>
+
+<% end %>

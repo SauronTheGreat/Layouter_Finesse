@@ -1,0 +1,95 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @simulation.name %>
+</p>
+
+<p>
+  <b>Facilitator:</b>
+  <%=User.find(Facilitator.find(@simulation.facilitator_id).user_id).username %>
+</p>
+
+<p>
+  <b>Max players:</b>
+  <%= @simulation.max_players %>
+</p>
+
+<p>
+  <b>Product Used:</b>
+  <%= Product.find(@simulation.product_id).name %>
+</p>
+
+<p>
+  <b>Freight Cost</b>
+  <%= @simulation.freight_cost %>
+</p>
+
+<p>
+  <b>Weight Per Unit</b>
+  <%= @simulation.weight_per_unit %>
+</p>
+
+<p>
+  <b>Max rounds:</b>
+  <%= @simulation.max_rounds %>
+</p>
+
+<p>
+  <b>Markets</b>
+<% if @markets.count==0 %>
+    <p>No markets selected yet</p>
+    <% else %>
+  <ul>
+
+    <% @markets.each do |market| %>
+    <li><%= Market.find(market.market_id).name %></li>
+    <% end %>
+    <% end %>
+
+  </ul>
+</p>
+
+
+
+
+
+
+<p>
+  <b>Decision Parameters</b>
+  <ul>
+    <% if @decision_parameters.count==0 %>
+    <p>No Decision Parameter selected yet </p>
+        <% else %>
+    <% @decision_parameters.each do |parameter| %>
+    <li><%= DecisionParameter.find(parameter.decision_parameter_id).name %></li>
+            <% end %>
+    <% end %>
+  </ul>
+</p>
+
+
+<p>
+  <b>Case Study </b>
+
+    <%=  @simulation.case_study_id %>
+</p>
+
+
+
+
+
+<%= link_to 'Edit', edit_simulation_path(@simulation) %> |
+<%= link_to 'Back', simulations_path %> |
+
+<%= link_to 'Set Markets', new_simulation_market_path(:simulation_id=>@simulation.id) %>|
+<%= link_to 'Set Decision Parameters', new_simulation_decision_parameter_path(:simulation_id=>@simulation.id) %>|
+<%= link_to "Proceed for Round Data Population",rounds_path(:simulation_id=>@simulation.id) %>|
+<%= link_to "Set Student Group",get_student_group_path(:simulation_id=>@simulation.id) %>  |
+
+<%= link_to "Initiate Simulation page",select_initiate_simulation_path(:simulation_id=>@simulation.id) %>
+
+
+
+<% end %>

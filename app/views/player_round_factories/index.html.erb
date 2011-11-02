@@ -1,0 +1,27 @@
+<h1>Listing player_round_factories</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Round</th>
+    <th>Factory</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @player_round_factories.each do |player_round_factory| %>
+  <tr>
+    <td><%= player_round_factory. %></td>
+    <td><%= player_round_factory.round_id %></td>
+    <td><%= player_round_factory.factory_id %></td>
+    <td><%= link_to 'Show', player_round_factory %></td>
+    <td><%= link_to 'Edit', edit_player_round_factory_path(player_round_factory) %></td>
+    <td><%= link_to 'Destroy', player_round_factory, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Player round factory', new_player_round_factory_path %>

@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing player_loans</h1>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Loan</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @player_loans.each do |player_loan| %>
+  <tr>
+    <td><%= player_loan.player_id %></td>
+    <td><%= player_loan.loan_id %></td>
+    <td><%= player_loan.amount %></td>
+    <td><%= link_to 'Show', player_loan %></td>
+    <td><%= link_to 'Edit', edit_player_loan_path(player_loan) %></td>
+    <td><%= link_to 'Destroy', player_loan, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Player loan', new_player_loan_path %>
+<% end %>

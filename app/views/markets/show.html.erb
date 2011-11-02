@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @market.name %>
+</p>
+
+<p>
+  <b>Catchment of dealers:</b>
+  <%= @market.catchment_of_dealers %>
+</p>
+
+<p>
+  <b>Catchment of vendors:</b>
+  <%= @market.catchment_of_vendors %>
+</p>
+
+
+<%= link_to 'Edit', edit_market_path(@market) %> |
+<%= link_to 'Back', markets_path %>
+<% end %>

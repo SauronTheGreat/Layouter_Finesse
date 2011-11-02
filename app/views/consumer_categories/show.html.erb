@@ -1,0 +1,36 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @consumer_category.name %>
+</p>
+<p>
+  <b>Price Range:</b>
+  <%= @consumer_category.price_range %>
+</p>
+
+<p>
+  <b>Dealer Push Range:</b>
+  <%= @consumer_category.dealer_push_range.class %>
+</p>
+
+<p>
+  <b>Personal taste Range:</b>
+  <%= @consumer_category.personal_taste_range.class %>
+</p>
+
+<p>
+  <b>Media Push Range:</b>
+  <%= @consumer_category.media_push_range.class %>
+</p>
+
+
+
+
+
+<%= link_to 'Edit', edit_consumer_category_path(@consumer_category) %> |
+<%= link_to 'Back', consumer_categories_path %>
+
+
+<% end %>

@@ -1,0 +1,73 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @media_plan.name %>
+</p>
+<% @details=@media_plan.media_plan_details %>
+
+<b>Details of Spendings</b>
+
+<table>
+  <tr>
+    <th>Media</th>
+    <th>Amount</th>
+  </tr>
+  <% @details.each do |detail| %>
+      <tr>
+        <td>
+          <%= Medium.find(detail.media_id).name %>
+        </td>
+        <td><%= detail.amount %></td>
+      </tr>
+  <% end %>
+
+</table>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!--below is the form to add new detail to the media plan-->
+
+<%= form_for(@media_plan_detail) do |f| %>
+    <% if @media_plan_detail.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@media_plan_detail.errors.count, "error") %> prohibited this media_plan_detail from being
+            saved:</h2>
+
+          <ul>
+            <% @media_plan_detail.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <%= f.hidden_field :media_plan_id, :value=>@media_plan.id %>
+
+    <div class="field">
+      <%= f.label :media_id %>
+      <br/>
+      <%= f.select :media_id,@media_list %>
+    </div>
+    <div class="field">
+      <%= f.label :amount %>
+      <br/>
+      <%= f.number_field :amount %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+
+
+<%= link_to "Done",finalize_media_plan_path(:media_plan_id=>@media_plan.id) %>
+<% end %>

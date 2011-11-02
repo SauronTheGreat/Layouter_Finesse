@@ -1,0 +1,28 @@
+
+<%= content_for :main_content do %>
+<h1>Listing expense_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @expense_types.each do |expense_type| %>
+  <tr>
+    <td><%= expense_type.name %></td>
+    <td><%= link_to 'Show', expense_type %></td>
+    <td><%= link_to 'Edit', edit_expense_type_path(expense_type) %></td>
+    <td><%= link_to "Show Expenses",view_expenses_path(:expense_type_id=>expense_type.id) %></td>
+    <td><%= link_to 'Destroy', expense_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Expense type', new_expense_type_path %>
+
+<% end %>

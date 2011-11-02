@@ -1,0 +1,31 @@
+<%= content_for :main_content do %>
+
+<h1>Listing expense_options</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Expense</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @expense_options.each do |expense_option| %>
+  <tr>
+    <td><%= expense_option.name %></td>
+    <td><%= expense_option.expense_id %></td>
+    <td><%= expense_option.amount %></td>
+    <td><%= link_to 'Show', expense_option %></td>
+    <td><%= link_to 'Edit', edit_expense_option_path(expense_option) %></td>
+    <td><%= link_to 'Destroy', expense_option, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Expense option', new_expense_option_path %>
+
+<% end %>

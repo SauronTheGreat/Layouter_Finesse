@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<h1>Listing simulation_decision_parameters</h1>
+
+<table>
+  <tr>
+    <th>Simulation</th>
+    <th>Decision parameter</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @simulation_decision_parameters.each do |simulation_decision_parameter| %>
+  <tr>
+    <td><%= simulation_decision_parameter.simulation_id %></td>
+    <td><%= simulation_decision_parameter.decision_parameter_id %></td>
+    <td><%= link_to 'Show', simulation_decision_parameter %></td>
+    <td><%= link_to 'Edit', edit_simulation_decision_parameter_path(simulation_decision_parameter) %></td>
+    <td><%= link_to 'Destroy', simulation_decision_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Simulation decision parameter', new_simulation_decision_parameter_path %>
+<% end %>

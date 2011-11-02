@@ -1,0 +1,44 @@
+<%%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<%% end %>
+
+<%%= content_for :header do %>
+<h1>Listing <%= plural_table_name %></h1>
+<%% end %>
+
+<%%= content_for :main_content do %>
+<table>
+  <tr>
+<% attributes.each do |attribute| -%>
+    <th><%= attribute.human_name %></th>
+<% end -%>
+    <th></th>
+  </tr>
+
+<%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+  <tr>
+<% attributes.each do |attribute| -%>
+    <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+<% end -%>
+    <td>
+    <%%= link_to image_tag(icon("show"),:size=>"64x64"), <%= singular_table_name %>, :title=>'Show' %>
+    <%%= link_to image_tag(icon("edit"),:size=>"64x64"), edit_<%= singular_table_name %>_path(<%= singular_table_name %>), :title=>'Edit' %>
+    <%%= link_to image_tag(icon("delete"),:size=>"64x64"), <%= singular_table_name %>, <%= key_value :confirm, "'Are you sure?'" %>, <%= key_value :method, ":delete" %>, :title=>'Delete' %>
+    </td>
+  </tr>
+<%% end %>
+</table>
+<%% end %>
+
+<br />
+<%%= content_for :navigation do %>
+<%% end %>
+<%%= content_for :extra do %>
+<%%= link_to image_tag('new_icon.png',:size=>"100x100"), new_<%= singular_table_name %>_path, :title=>"Add a <%= singular_table_name %>" %>
+<%% end %>
+<%%= content_for :footer do %>
+<%% end %>
+

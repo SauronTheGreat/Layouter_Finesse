@@ -1,0 +1,2 @@
+module FactoryVendorsHelper
+end

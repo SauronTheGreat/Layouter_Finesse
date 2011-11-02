@@ -1,0 +1,26 @@
+<%= content_for :main_content do %>
+<h1>Listing consumer_categories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @consumer_categories.each do |consumer_category| %>
+  <tr>
+    <td><%= consumer_category.name %></td>
+    <td><%= link_to 'Show', consumer_category %></td>
+    <td><%= link_to 'Edit', edit_consumer_category_path(consumer_category) %></td>
+    <td><%= link_to 'Destroy', consumer_category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Consumer category', new_consumer_category_path %>
+
+<% end %>

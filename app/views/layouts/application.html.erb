@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="HAPedit 3.1">
+  <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+  <script type="text/javascript">
+      var ADAPT_CONFIG = {
+          path: '/assets/960css/',
+          dynamic : true,
+          range: [
+              '0px to 760px = mobile.css',
+              '760px to 980px = 720.css',
+              '980px to 1280px = 960.css',
+              '1280px to 1600px = 1200.css',
+              '1600px to 1920px = 1560.css',
+              '1920px = fluid.css'
+          ]
+      }
+  </script>
+
+
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag "jquery_ui_#{jquery_css}" %>
+
+  <%= yield :head %>
+
+  <%= render '/layouts/Partials/basic' %>
+
+</head>
+
+<body id="<%= params[:controller].parameterize %>_controller">
+
+
+<% @current_page=Page.first(:conditions=>['controller_name=? and action_name=?', params[:controller].parameterize, params[:action].parameterize]) %>
+
+<% if @current_page %>
+    <% if @current_page_layout=@current_page.page_layout %>
+        <% if @current_page_layout.theme_active %>
+            <%= render "/layouts/PageStyles/layout_"+"#{@current_page_layout.layout_theme.number}" %>
+        <% end %>
+    <% else %>
+        <%= render "/layouts/PageStyles/layout_"+"#{home_page_layout.layout_theme.number}" %>
+    <% end %>
+<% else %>
+    <%= render "/layouts/PageStyles/layout_"+"#{home_page_layout.layout_theme.number}" %>
+<% end %>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<%= form_tag :action => 'create' %>
+<% @player_round_loans.each_with_index do |player_round_loan, index| %>
+    <%= fields_for "player_round_loans[#{index}]", player_round_loan do |f| %>
+
+        <% @loan=Loan.find(@round_loans[index].loan_id) %>
+
+        <%= f.hidden_field :round_id, :value=>@round.id %>
+        <%= f.hidden_field :player_id, :value=>@player.id %>
+        <%= f.hidden_field :loan_id, :value=>@loan.id %>
+        <%= f.hidden_field :brand_id, :value=>@brand.id %>
+
+
+        <%= f.label @loan.name %>
+        <%= f.text_field :amount %>
+
+
+
+
+
+        <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>

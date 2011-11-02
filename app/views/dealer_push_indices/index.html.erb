@@ -1,0 +1,27 @@
+<h1>Listing dealer_push_indices</h1>
+
+<table>
+  <tr>
+    <th>Dealer</th>
+    <th>Brand</th>
+    <th>Push index value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dealer_push_indices.each do |dealer_push_index| %>
+  <tr>
+    <td><%= dealer_push_index.dealer_id %></td>
+    <td><%= dealer_push_index.brand_id %></td>
+    <td><%= dealer_push_index.push_index_value %></td>
+    <td><%= link_to 'Show', dealer_push_index %></td>
+    <td><%= link_to 'Edit', edit_dealer_push_index_path(dealer_push_index) %></td>
+    <td><%= link_to 'Destroy', dealer_push_index, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dealer push index', new_dealer_push_index_path %>

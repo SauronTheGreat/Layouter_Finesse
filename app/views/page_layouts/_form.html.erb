@@ -1,0 +1,54 @@
+<%= content_for :head do %>
+    <script type="text/javascript">
+        $(function() {
+            $('#content, #navigation, #extra').equalHeightColumns();
+        });
+    </script>
+<% end %>
+
+<%= content_for :main_content do %>
+    <%= form_for @page_layout do |f| %>
+        <%= f.error_messages %>
+        <br/>
+        <br/>
+        <table>
+          <tr>
+            <th>CSS Style:</th>
+            <td><%= f.select :layout_theme_id, LayoutTheme.all.collect { |theme| [theme.name, theme.id] } %></td>
+          </tr>
+          <tr>
+            <th>Font:</th>
+            <td><%= f.select :font_theme_id, FontTheme.all.collect { |theme| [theme.name, theme.id] } %></td>
+          </tr>
+          <tr>
+            <th>Font Weight: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <td><%= f.select :font_weight, [["Normal", "normal"], ["Bold", "bold"], ["Bolder", "bolder"], ["Lighter", "lighter"]] %></td>
+          </tr>
+          <tr>
+            <th>Font Size:</th>
+            <td><%= f.text_field :font_size %>px</td>
+          </tr>
+          <tr>
+            <th>Enable/Disable Theme for the Page:</th>
+            <td><%= f.check_box :theme_active %>px</td>
+          </tr>
+        </table>
+        <%= f.hidden_field :page_id, :value=>@page.id %>
+        <%= hidden_field_tag :path, params[:path] %>
+
+        <br/>
+
+        <p><%= f.submit %></p>
+        <%= link_to image_tag(icon("back"), :size=>"100x100"), params[:path], :title=>'Back' %>
+        <br/>
+        <br/>
+    <% end %>
+<% end %>
+
+<%= content_for :navigation do %>
+
+<% end %>
+<%= content_for :extra do %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>

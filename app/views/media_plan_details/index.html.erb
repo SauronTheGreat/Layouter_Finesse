@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing media_plan_details</h1>
+
+<table>
+  <tr>
+    <th>Media plan</th>
+    <th>Media</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @media_plan_details.each do |media_plan_detail| %>
+  <tr>
+    <td><%= media_plan_detail.media_plan_id %></td>
+    <td><%= media_plan_detail.media_id %></td>
+    <td><%= media_plan_detail.amount %></td>
+    <td><%= link_to 'Show', media_plan_detail %></td>
+    <td><%= link_to 'Edit', edit_media_plan_detail_path(media_plan_detail) %></td>
+    <td><%= link_to 'Destroy', media_plan_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Media plan detail', new_media_plan_detail_path %>
+<% end %>

@@ -1,0 +1,52 @@
+<%= content_for :head do %>
+    <script type="text/javascript">
+        $(function() {
+            <%=raw @plugin_sample.script_markup %>
+        });
+    </script>
+    <% if @plugin_sample.lesson %>
+        <link href='/assets/<%= @plugin_sample.name %>.css' media="screen" rel="stylesheet" type="text/css"/>
+    <% end %>
+<% end %>
+
+<%= content_for :header do %>
+    <h1><%= @plugin_sample.name %></h1>
+<% end %>
+
+<%= content_for :main_content do %>
+    <p>
+      <%= raw @plugin_sample.html_markup %>
+    </p>
+    <br/>
+    <br/>
+    <br/>
+    <% unless @plugin_sample.id==7 %>
+        To use this plugin,add the following to the script section of your page:
+        <br/>
+        <br/>
+        <div style="background-color: black;color:white;padding:4px;">
+          <%= simple_format(@plugin_sample.script_markup) %>
+        </div>
+        <br/>
+        <% if @plugin_sample.lesson %>
+            and add the following to the head section of the page:
+            <br/>
+            <br/>
+            <div style="background-color: black;color:white;padding:4px;">
+              <%= @plugin_sample.lesson %>
+            </div>
+            <br/>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= content_for :navigation do %>
+<% end %>
+
+<%= content_for :extra do %>
+    <%= link_to image_tag(icon("edit"), :size=>"64x64"), edit_plugin_sample_path(@plugin_sample), :title=>'Edit' %>
+    <%= link_to image_tag(icon("back"), :size=>"64x64"), plugin_samples_path, :title=>'Back' %>
+<% end %>
+
+<%= content_for :footer do %>
+<% end %>

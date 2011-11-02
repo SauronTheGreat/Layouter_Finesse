@@ -1,0 +1,18 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mathematical model:</b>
+  <%= @mathematical_model_variable.mathematical_model_id %>
+</p>
+
+<p>
+  <b>Variable name:</b>
+  <%= @mathematical_model_variable.variable_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_mathematical_model_variable_path(@mathematical_model_variable) %> |
+<%= link_to 'Back', mathematical_model_variables_path %>
+
+<% end %>

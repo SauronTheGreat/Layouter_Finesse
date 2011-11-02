@@ -1,0 +1,107 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Round:</b>
+  <%= @player_financial.round_id %>
+</p>
+
+<p>
+  <b>Player:</b>
+  <%= @player_financial.player_id %>
+</p>
+
+<p>
+  <b>Income:</b>
+  <%= @player_financial.income %>
+</p>
+
+<p>
+  <b>Cogs:</b>
+  <%= @player_financial.cogs %>
+</p>
+
+<p>
+  <b>Employee cost:</b>
+  <%= @player_financial.employee_cost %>
+</p>
+
+<p>
+  <b>Sga:</b>
+  <%= @player_financial.sga %>
+</p>
+
+<p>
+  <b>Ebitda:</b>
+  <%= @player_financial.ebitda %>
+</p>
+
+<p>
+  <b>Interest:</b>
+  <%= @player_financial.interest %>
+</p>
+
+<p>
+  <b>Investment income:</b>
+  <%= @player_financial.investment_income %>
+</p>
+
+<p>
+  <b>Depreciation:</b>
+  <%= @player_financial.depreciation %>
+</p>
+
+<p>
+  <b>Pbt:</b>
+  <%= @player_financial.pbt %>
+</p>
+
+<p>
+  <b>Tax:</b>
+  <%= @player_financial.tax %>
+</p>
+
+<p>
+  <b>Pat:</b>
+  <%= @player_financial.pat %>
+</p>
+
+<p>
+  <b>Long term loans:</b>
+  <%= @player_financial.long_term_loans %>
+</p>
+
+<p>
+  <b>Short term loans:</b>
+  <%= @player_financial.short_term_loans %>
+</p>
+
+<p>
+  <b>Net worth:</b>
+  <%= @player_financial.net_worth %>
+</p>
+
+<p>
+  <b>Fixed assets:</b>
+  <%= @player_financial.fixed_assets %>
+</p>
+
+<p>
+  <b>Investments:</b>
+  <%= @player_financial.investments %>
+</p>
+
+<p>
+  <b>Inventory:</b>
+  <%= @player_financial.inventory %>
+</p>
+
+<p>
+  <b>Cash:</b>
+  <%= @player_financial.cash %>
+</p>
+
+
+<%= link_to 'Edit', edit_player_financial_path(@player_financial) %> |
+<%= link_to 'Back', player_financials_path %>
+<% end %>

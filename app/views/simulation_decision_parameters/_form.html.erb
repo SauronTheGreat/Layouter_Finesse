@@ -1,0 +1,19 @@
+
+
+
+<%= form_tag :action => 'create' %>
+<% @simulation_decision_parameters.each_with_index do |decision_parameter, index| %>
+    <%= fields_for "simulation_decision_parameters[#{index}]", decision_parameter do |f| %>
+
+        <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
+
+        <%= f.label "#{@decision_parameters[index].name}" %>
+        <%= f.check_box :decision_parameter_id %>
+         <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>
+

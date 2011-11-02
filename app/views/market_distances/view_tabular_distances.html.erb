@@ -1,0 +1,33 @@
+<%= content_for :main_content do %>
+    <table border="1">
+      <tr>
+        <td></td>
+        <% @markets.each do |market| %>
+            <td>
+              <%= market.name %>
+            </td>
+
+
+        <% end %>
+      </tr>
+
+      <% @markets.each_with_index do |market,index| %>
+
+          <tr>
+            <td><%= market.name %></td>
+            <% @distances[index].each do |distance| %>
+
+
+                <td><%= distance %></td>
+
+
+            <% end %>
+
+
+
+          </tr>
+
+      <% end %>
+
+    </table>
+<% end %>

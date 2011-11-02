@@ -1,0 +1,12 @@
+
+<%= content_for :header do %>
+<h1>Editing factory_vendor</h1>
+<% end %>
+
+
+<%= render 'form' %>
+
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("show"),:size=>"100x100"), @factory_vendor, :title=>'Show' %>
+<%= link_to image_tag(icon("back"),:size=>"100x100"), factory_vendors_path, :title=>'Back' %>
+<% end %>

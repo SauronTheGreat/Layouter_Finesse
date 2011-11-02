@@ -1,0 +1,30 @@
+<%= form_tag :action => 'create' %>
+<% @player_round_expenses.each_with_index do |player_round_expense, index| %>
+    <%= fields_for "player_round_expenses[#{index}]", player_round_expense do |f| %>
+
+        <% @expense=Expense.find(@round_expenses[index].expense_id) %>
+        <% @expense_options=@expense.expense_options %>
+        <%= f.hidden_field :round_id, :value=>@round.id %>
+        <%= f.hidden_field :player_id, :value=>@player.id %>
+
+        <%= f.hidden_field :expense_id, :value=>@expense.id %>
+<%= f.hidden_field :brand_id, :value=>@brand.id %>
+
+        <%= f.label @expense.name %>
+        <% @expense_options.each do |option| %>
+            <%= f.radio_button :expense_option_id,option.id %> - <%= option.amount %>
+        <% end %>
+
+
+
+
+
+
+        <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>
+

@@ -1,0 +1,18 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @environmental_parameter.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @environmental_parameter.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_environmental_parameter_path(@environmental_parameter) %> |
+<%= link_to 'Back', environmental_parameters_path %>
+
+<% end %>

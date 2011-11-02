@@ -1,0 +1,24 @@
+
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @expense_option.name %>
+</p>
+
+<p>
+  <b>Expense:</b>
+  <%= @expense_option.expense_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @expense_option.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_expense_option_path(@expense_option) %> |
+<%= link_to 'Back', expense_options_path %>
+
+<% end %>

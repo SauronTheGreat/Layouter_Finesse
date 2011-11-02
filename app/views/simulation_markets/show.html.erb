@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Simulation:</b>
+  <%= @simulation_market.simulation_id %>
+</p>
+
+<p>
+  <b>Market:</b>
+  <%= @simulation_market.market_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_simulation_market_path(@simulation_market) %> |
+<%= link_to 'Back', simulation_markets_path %>
+<% end %>

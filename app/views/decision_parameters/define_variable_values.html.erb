@@ -1,0 +1,21 @@
+<%= content_for :main_content do %>
+<h2>Editing The Fields for <%= @decision_parameter.name %></h2>
+
+<%= form_tag :action => 'set_variable_values' %>
+<% @variables_values.each_with_index do |variable, index| %>
+    <%= fields_for "variables_values[#{index}]", variable do |f| %>
+
+        <%= f.hidden_field :mathematical_model_variable_id, :value=>@variables[index].id %>
+        <%= f.hidden_field :decision_parameter_id, :value=>@decision_parameter.id %>
+
+        <%= f.label @variables[index].variable_name %> =
+        <%= f.select :environmental_parameter_id,EnvironmentalParameter.all.collect{|ep|[ep.name,ep.id]} %>
+         <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>
+
+<% end %>

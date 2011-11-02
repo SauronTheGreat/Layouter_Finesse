@@ -1,0 +1,14 @@
+<%= form_tag :action => 'create' %>
+<% @expense_options.each_with_index do |option, index| %>
+    <%= fields_for "expense_options[#{index}]", option do |f| %>
+
+        <%= f.hidden_field :expense_id, :value=>@expense.id %>
+        <%= "Option # #{index+1}" %>      <%= f.number_field :amount %>
+        <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>
+

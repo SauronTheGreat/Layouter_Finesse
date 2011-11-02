@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<h1>Listing round_environmental_parameters</h1>
+
+<table>
+  <tr>
+    <th>Round</th>
+    <th>Environmental parameter</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @round_environmental_parameters.each do |round_environmental_parameter| %>
+  <tr>
+    <td><%= round_environmental_parameter.round %></td>
+    <td><%= round_environmental_parameter.environmental_parameter_id %></td>
+    <td><%= link_to 'Show', round_environmental_parameter %></td>
+    <td><%= link_to 'Edit', edit_round_environmental_parameter_path(round_environmental_parameter) %></td>
+    <td><%= link_to 'Destroy', round_environmental_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Round environmental parameter', new_round_environmental_parameter_path %>
+<% end%>

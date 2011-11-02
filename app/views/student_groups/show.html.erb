@@ -1,0 +1,23 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @student_group.name %>
+</p>
+
+<p>
+  <b>Facilitator group:</b>
+  <%= @student_group.facilitator_group_id %>
+</p>
+
+<p>
+  <b>Case study:</b>
+  <%= @student_group.case_study_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_student_group_path(@student_group, :facilitator_group_id=>@student_group.facilitator_group_id) %>
+<%= link_to 'Back', student_groups_path(:facilitator_group_id=>@student_group.facilitator_group_id) %> |
+<%= link_to "Manage Students",new_student_group_user_path(:student_group_id=>@student_group.id) %>
+<% end %>

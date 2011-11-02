@@ -1,0 +1,40 @@
+<%= content_for :main_content do %>
+<h1>Listing decision_parameters</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Value</th>
+    <th>Mathematical model</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @decision_parameters.each do |decision_parameter| %>
+  <tr>
+    <td><%= decision_parameter.name %></td>
+    <td><%= decision_parameter.value %></td>
+    <td><%= decision_parameter.mathematical_model_id %></td>
+
+    <td><%= link_to 'Edit', edit_decision_parameter_path(decision_parameter) %></td>
+    <td><%= link_to "View Details",details_path(:decision_parameter_id=>decision_parameter.id) %></td>
+    <% if current_user.superadmin %>
+    <td><%= link_to 'Show', decision_parameter %></td>
+
+
+    <td><%= link_to 'Destroy', decision_parameter, confirm: 'Are you sure?', method: :delete %></td>
+
+
+
+        <% end %>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
+        <%= link_to 'New Decision parameter', new_decision_parameter_path %>
+<% end %>

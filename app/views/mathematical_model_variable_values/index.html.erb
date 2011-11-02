@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing mathematical_model_variable_values</h1>
+
+<table>
+  <tr>
+    <th>Environmental parameter</th>
+    <th>Decision parameter</th>
+    <th>Mathematical model variable</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @mathematical_model_variable_values.each do |mathematical_model_variable_value| %>
+  <tr>
+    <td><%= mathematical_model_variable_value.environmental_parameter_id %></td>
+    <td><%= mathematical_model_variable_value.decision_parameter_id %></td>
+    <td><%= mathematical_model_variable_value.mathematical_model_variable_id %></td>
+    <td><%= link_to 'Show', mathematical_model_variable_value %></td>
+    <td><%= link_to 'Edit', edit_mathematical_model_variable_value_path(mathematical_model_variable_value) %></td>
+    <td><%= link_to 'Destroy', mathematical_model_variable_value, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Mathematical model variable value', new_mathematical_model_variable_value_path %>
+<% end %>

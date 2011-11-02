@@ -1,0 +1,17 @@
+one:
+  back_color: MyString
+  main_color: MyString
+  highlight_color: MyString
+  header_color: MyString
+  text_color: MyString
+  link_color: MyString
+  link_color_hover: MyString
+
+two:
+  back_color: MyString
+  main_color: MyString
+  highlight_color: MyString
+  header_color: MyString
+  text_color: MyString
+  link_color: MyString
+  link_color_hover: MyString

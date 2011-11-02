@@ -1,0 +1,26 @@
+<%= content_for :main_content do %>
+<h1>Listing dealer_categories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dealer_categories.each do |dealer_category| %>
+  <tr>
+    <td><%= dealer_category.name %></td>
+    <td><%= link_to 'Show', dealer_category %></td>
+    <td><%= link_to 'Edit', edit_dealer_category_path(dealer_category) %></td>
+    <td><%= link_to 'Destroy', dealer_category, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dealer category', new_dealer_category_path %>
+
+<% end %>

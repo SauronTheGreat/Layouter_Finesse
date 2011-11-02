@@ -1,0 +1,98 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Income:</b>
+  <%= @default_player_datum.income %>
+</p>
+
+<p>
+  <b>Cogs:</b>
+  <%= @default_player_datum.cogs %>
+</p>
+
+<p>
+  <b>Employee cost:</b>
+  <%= @default_player_datum.employee_cost %>
+</p>
+
+<p>
+  <b>Sga:</b>
+  <%= @default_player_datum.sga %>
+</p>
+
+<p>
+  <b>Ebitda:</b>
+  <%= @default_player_datum.ebitda %>
+</p>
+
+<p>
+  <b>Interest:</b>
+  <%= @default_player_datum.interest %>
+</p>
+
+<p>
+  <b>Investment income:</b>
+  <%= @default_player_datum.investment_income %>
+</p>
+
+<p>
+  <b>Depreciation:</b>
+  <%= @default_player_datum.depreciation %>
+</p>
+
+<p>
+  <b>Pbt:</b>
+  <%= @default_player_datum.pbt %>
+</p>
+
+<p>
+  <b>Tax:</b>
+  <%= @default_player_datum.tax %>
+</p>
+
+<p>
+  <b>Pat:</b>
+  <%= @default_player_datum.pat %>
+</p>
+
+<p>
+  <b>Long term loans:</b>
+  <%= @default_player_datum.long_term_loans %>
+</p>
+
+<p>
+  <b>Short term loans:</b>
+  <%= @default_player_datum.short_term_loans %>
+</p>
+
+<p>
+  <b>Net worth:</b>
+  <%= @default_player_datum.net_worth %>
+</p>
+
+<p>
+  <b>Fixed assets:</b>
+  <%= @default_player_datum.fixed_assets %>
+</p>
+
+<p>
+  <b>Investments:</b>
+  <%= @default_player_datum.investments %>
+</p>
+
+<p>
+  <b>Inventory:</b>
+  <%= @default_player_datum.inventory %>
+</p>
+
+<p>
+  <b>Cash:</b>
+  <%= @default_player_datum.cash %>
+</p>
+
+
+<%= link_to 'Edit', edit_default_player_datum_path(@default_player_datum) %> |
+<%= link_to 'Back', default_player_data_path %>
+
+<% end %>

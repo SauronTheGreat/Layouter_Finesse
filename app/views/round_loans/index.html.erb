@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing round_loans</h1>
+
+<table>
+  <tr>
+    <th>Round</th>
+    <th>Loan</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @round_loans.each do |round_loan| %>
+  <tr>
+    <td><%= round_loan.round_id %></td>
+    <td><%= round_loan.loan_id %></td>
+    <td><%= round_loan.amount %></td>
+    <td><%= link_to 'Show', round_loan %></td>
+    <td><%= link_to 'Edit', edit_round_loan_path(round_loan) %></td>
+    <td><%= link_to 'Destroy', round_loan, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Round loan', new_round_loan_path %>
+<% end %>

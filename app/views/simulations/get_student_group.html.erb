@@ -1,0 +1,13 @@
+<%= content_for :main_content do %>
+<h2>Listing Student Groups...</h2>
+
+
+<b>Student Group</b>
+<%= form_tag :action => 'set_student_group' do |form| %>
+     <%= hidden_field_tag :simulation_id,@simulation.id %>
+    <%= select_tag :student_group_id,options_for_select(@student_groups) %>
+    <%= submit_tag %>
+
+
+<% end %>
+<% end %>

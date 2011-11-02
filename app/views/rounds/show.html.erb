@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @round.name %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @round.number %>
+</p>
+
+
+<%= link_to 'Edit', edit_round_path(@round) %> |
+<%= link_to 'Back', rounds_path %>
+<% end %>

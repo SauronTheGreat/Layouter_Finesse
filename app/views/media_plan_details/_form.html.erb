@@ -1,0 +1,29 @@
+<%= form_for(@media_plan_detail) do |f| %>
+  <% if @media_plan_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@media_plan_detail.errors.count, "error") %> prohibited this media_plan_detail from being saved:</h2>
+
+      <ul>
+      <% @media_plan_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :media_plan_id %><br />
+    <%= f.number_field :media_plan_id %>
+  </div>
+  <div class="field">
+    <%= f.label :media_id %><br />
+    <%= f.number_field :media_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.number_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

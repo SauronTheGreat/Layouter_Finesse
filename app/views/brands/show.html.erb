@@ -1,0 +1,23 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Player:</b>
+  <%= @brand.player_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @brand.name %>
+</p>
+
+<p>
+  <b>Price per unit:</b>
+  <%= @brand.price_per_unit %>
+</p>
+
+
+<%= link_to 'Edit', edit_brand_path(@brand) %> |
+<%= link_to 'Back', brands_path(:player_id=>@brand.player_id) %>
+
+<% end %>

@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Media plan:</b>
+  <%= @media_plan_detail.media_plan_id %>
+</p>
+
+<p>
+  <b>Media:</b>
+  <%= @media_plan_detail.media_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @media_plan_detail.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_media_plan_detail_path(@media_plan_detail) %> |
+<%= link_to 'Back', media_plan_details_path %>
+<% end %>

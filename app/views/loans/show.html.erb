@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @loan.name %>
+</p>
+
+<p>
+  <b>Loan type:</b>
+  <%= @loan.loan_type_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_loan_path(@loan) %> |
+<%= link_to 'Back', loans_path %>
+<% end %>

@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<h1>Listing simulation_markets</h1>
+
+<table>
+  <tr>
+    <th>Simulation</th>
+    <th>Market</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @simulation_markets.each do |simulation_market| %>
+  <tr>
+    <td><%= simulation_market.simulation_id %></td>
+    <td><%= simulation_market.market_id %></td>
+    <td><%= link_to 'Show', simulation_market %></td>
+    <td><%= link_to 'Edit', edit_simulation_market_path(simulation_market) %></td>
+    <td><%= link_to 'Destroy', simulation_market, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Simulation market', new_simulation_market_path %>
+<% end %>

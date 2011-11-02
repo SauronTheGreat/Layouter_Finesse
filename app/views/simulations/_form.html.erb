@@ -1,0 +1,71 @@
+<%= form_for(@simulation) do |f| %>
+  <% if @simulation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@simulation.errors.count, "error") %> prohibited this simulation from being saved:</h2>
+
+      <ul>
+      <% @simulation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+    <%= f.hidden_field :facilitator_id ,:value=>@facilitator.id%>
+
+
+
+    <div class="field">
+      <%= f.label :product_id %><br />
+      <%= f.select :product_id,Product.all.collect{|p|[p.name,p.id]} %>
+    </div>
+
+
+
+    <div class="field">
+      <%= f.label :freight_cost %><br />
+      <%= f.number_field :freight_cost %>
+    </div>
+
+
+
+    <div class="field">
+      <%= f.label :weight_per_unit %><br />
+      <%= f.number_field :weight_per_unit %>
+    </div>
+
+
+
+  <div class="field">
+    <%= f.label :max_players %><br />
+    <%= f.number_field :max_players %>
+  </div>
+  <div class="field">
+    <%= f.label :max_rounds %><br />
+    <%= f.number_field :max_rounds %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :case_study_id %><br />
+    <%= f.select :case_study_id,CaseStudy.all.collect{|cs|[cs.name,cs.id]} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tax_rate %><br />
+    <%= f.text_field :tax_rate %>
+  </div>
+
+
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

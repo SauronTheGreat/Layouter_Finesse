@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Market:</b>
+  <%= @market_consumer_category.market_id %>
+</p>
+
+<p>
+  <b>Consumer category:</b>
+  <%= @market_consumer_category.consumer_category_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @market_consumer_category.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_market_consumer_category_path(@market_consumer_category) %> |
+<%= link_to 'Back', market_consumer_categories_path %>
+<% end %>

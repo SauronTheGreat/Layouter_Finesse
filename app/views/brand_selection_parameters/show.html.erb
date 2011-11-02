@@ -1,0 +1,13 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @brand_selection_parameter.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_brand_selection_parameter_path(@brand_selection_parameter) %> |
+<%= link_to 'Back', brand_selection_parameters_path %>
+
+<% end %>

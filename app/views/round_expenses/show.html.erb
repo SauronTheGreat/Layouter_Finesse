@@ -1,0 +1,22 @@
+
+<%= content_for :main_content do %><p id="notice"><%= notice %></p>
+
+<p>
+  <b>Round:</b>
+  <%= @round_expense.round_id %>
+</p>
+
+<p>
+  <b>Expense:</b>
+  <%= @round_expense.expense_id %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%= @round_expense.summary %>
+</p>
+
+
+<%= link_to 'Edit', edit_round_expense_path(@round_expense) %> |
+<%= link_to 'Back', round_expenses_path %>
+<<% end %>

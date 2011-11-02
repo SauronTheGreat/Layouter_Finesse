@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Round:</b>
+  <%= @round_environmental_parameter.round %>
+</p>
+
+<p>
+  <b>Environmental parameter:</b>
+  <%= @round_environmental_parameter.environmental_parameter_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_round_environmental_parameter_path(@round_environmental_parameter) %> |
+<%= link_to 'Back', round_environmental_parameters_path %>
+<% end %>

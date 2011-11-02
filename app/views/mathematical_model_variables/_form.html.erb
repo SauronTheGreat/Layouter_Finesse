@@ -1,0 +1,14 @@
+<%= form_tag :action => 'create' %>
+<% @mathematical_model_variables.each_with_index do |constant, index| %>
+    <%= fields_for "mathematical_model_variables[#{index}]", constant do |f| %>
+
+        <%= f.hidden_field :mathematical_model_id, :value=>@mathematical_model.id %>
+        <%= f.label "Variable # #{index}" %>
+        <%= f.text_field :variable_name %>
+         <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>

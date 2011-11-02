@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Product:</b>
+  <%= @product_parameter.product_id %>
+</p>
+
+<p>
+  <b>Raw material:</b>
+  <%= @product_parameter.raw_material_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @product_parameter.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_product_parameter_path(@product_parameter) %> |
+<%= link_to 'Back', product_parameters_path %>
+<% end %>

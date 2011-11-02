@@ -1,0 +1,26 @@
+<%= form_for(@facilitator) do |f| %>
+  <% if @facilitator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facilitator.errors.count, "error") %> prohibited this facilitator from being saved:</h2>
+
+      <ul>
+      <% @facilitator.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.select :user_id,User.all.collect{|user|[user.fullname,user.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :client_id %><br />
+    <%= f.select :client_id,Client.all.collect{|client|[client.name,client.id]} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

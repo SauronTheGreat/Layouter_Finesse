@@ -1,0 +1,32 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Investment:</b>
+  <%= @round_investment.investment_id %>
+</p>
+
+<p>
+  <b>Mu:</b>
+  <%= @round_investment.mu %>
+</p>
+
+<p>
+  <b>Sigma:</b>
+  <%= @round_investment.sigma %>
+</p>
+
+<p>
+  <b>Roi:</b>
+  <%= @round_investment.roi %>
+</p>
+
+<p>
+  <b>Round:</b>
+  <%= @round_investment.round_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_round_investment_path(@round_investment) %> |
+<%= link_to 'Back', round_investments_path %>
+<%      end %>

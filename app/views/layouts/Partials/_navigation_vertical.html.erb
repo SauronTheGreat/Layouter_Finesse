@@ -1,0 +1,37 @@
+<!-- This is the Admin Control which only the Admin should get to see -->
+<% if current_user %>
+<% if current_user.admin  %>
+
+<% if @current_page_layout %>
+    <%= link_to image_tag(icon("home"), :size=>"80x80"), '/', :title=> "Home" %>
+    <br/>
+    <%= link_to image_tag(icon("layout"), :size=>"80x80"), edit_page_layout_path(@current_page_layout, :page_id=>@current_page.id, :path=>request.fullpath), :title=> "Select layout for this controller-action combination" %>
+    <br/>
+    <%= link_to image_tag(icon("theme"), :size=>"80x80"), edit_color_theme_path(ColorTheme.first), :title=> "Select a color theme" %>
+    <br/>
+    <%= link_to image_tag(icon("search"), :size=>"80x80"), plugin_samples_path, :title=> "Built-in JQuery Plugins " %>
+    <br/>
+<% else %>
+    <% if params[:controller] == "page_layouts" %>
+    <% else %>
+        <%= link_to image_tag(icon("home"), :size=>"80x80"), '/', :title=> "Home" %>
+        <br/>
+        <%= link_to image_tag(icon("layout"), :size=>"80x80"), new_page_layout_path(:controller_name=>params[:controller].parameterize, :action_name=>params[:action].parameterize, :path=>request.fullpath), :title=> "Select layout for this controller-action combination" %>
+        <br/>
+        <%= link_to image_tag(icon("theme"), :size=>"80x80"), edit_color_theme_path(ColorTheme.first), :title=> "Select a color theme" %>
+        <br/>
+        <%= link_to image_tag(icon("search"), :size=>"80x80"), plugin_samples_path, :title=> "Built-in JQuery Plugins " %>
+        <br/>
+    <% end %>
+<% end %>
+
+<% end  %>
+
+<% end  %>
+
+
+<!-- End of Admin Control Panel -->
+
+<!-- This is the Regular Navigation Panel which everybody gets to see -->
+
+<!-- End of Regular Navigation Panel -->

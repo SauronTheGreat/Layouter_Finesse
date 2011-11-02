@@ -1,0 +1,30 @@
+<%= content_for :main_content do %>
+<h1>Listing consumer_brand_selection_parameters</h1>
+
+<table>
+  <tr>
+    <th>Brand selection parameter</th>
+    <th>Min value</th>
+    <th>Max value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @consumer_brand_selection_parameters.each do |consumer_brand_selection_parameter| %>
+  <tr>
+    <td><%= consumer_brand_selection_parameter.brand_selection_parameter_id %></td>
+    <td><%= consumer_brand_selection_parameter.min_value %></td>
+    <td><%= consumer_brand_selection_parameter.max_value %></td>
+    <td><%= link_to 'Show', consumer_brand_selection_parameter %></td>
+    <td><%= link_to 'Edit', edit_consumer_brand_selection_parameter_path(consumer_brand_selection_parameter) %></td>
+    <td><%= link_to 'Destroy', consumer_brand_selection_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Consumer brand selection parameter', new_consumer_brand_selection_parameter_path %>
+
+<% end %>

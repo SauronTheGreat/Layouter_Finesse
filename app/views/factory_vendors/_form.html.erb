@@ -1,0 +1,40 @@
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :main_content do %>
+
+<%= form_for(@factory_vendor) do |f| %>
+<% if @factory_vendor.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@factory_vendor.errors.count, "error") %> prohibited this factory_vendor
+    from being saved:</h2>
+
+  <ul>
+    <% @factory_vendor.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+
+    <%= f.label :vendor_id %><br/>
+    <%= f.number_field :vendor_id %>
+    <br/><br/>
+
+    <%= f.label :factory_id %><br/>
+    <%= f.number_field :factory_id %>
+    <br/><br/>
+
+<p><%= f.submit %></p>
+<% end %>
+<% end %>
+
+<%= content_for :navigation do %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>

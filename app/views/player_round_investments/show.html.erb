@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Player:</b>
+  <%= @player_round_investment.player_id %>
+</p>
+
+<p>
+  <b>Round:</b>
+  <%= @player_round_investment.round_id %>
+</p>
+
+<p>
+  <b>Round investment:</b>
+  <%= @player_round_investment.round_investment_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @player_round_investment.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_player_round_investment_path(@player_round_investment) %> |
+<%= link_to 'Back', player_round_investments_path %>
+<% end %>

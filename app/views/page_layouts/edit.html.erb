@@ -1,0 +1,14 @@
+
+<%= content_for :header do %>
+    <% if @page_layout.page.controller_name=="welcome" and @page_layout.page.action_name=="index" %>
+        <h1>Select the Home Page Layout</h1>
+        <p>This is the master layout which will be used for across all pages which don't have their own layout.</p>
+        <br/>
+        <br/>
+    <% else %>
+        <h1>Select a Layout for <%= @page_layout.page.controller_name %>/<%= @page_layout.page.action_name %></h1>
+    <% end %>
+<% end %>
+
+<%= render 'form' %>
+

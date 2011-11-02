@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>:</b>
+  <%= @player_round_factory.player_id %>
+</p>
+
+<p>
+  <b>Round:</b>
+  <%= @player_round_factory.round_id %>
+</p>
+
+<p>
+  <b>Factory:</b>
+  <%= @player_round_factory.factory_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_player_round_factory_path(@player_round_factory) %> |
+<%= link_to 'Back', player_round_factories_path %>
+<% end %>

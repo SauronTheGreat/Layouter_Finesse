@@ -1,0 +1,51 @@
+<%= content_for :head do %>
+    <script type="text/javascript">
+        $(function() {
+        });
+    </script>
+<% end %>
+
+<%= content_for :main_content do %>
+
+    <%= form_for(@plugin_sample) do |f| %>
+        <% if @plugin_sample.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@plugin_sample.errors.count, "error") %> prohibited this plugin_sample
+                from being saved:</h2>
+
+              <ul>
+                <% @plugin_sample.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+
+        <%= f.label :name %><br/>
+        <%= f.text_field :name %>
+        <br/><br/>
+        <%= f.label :description %><br/>
+        <%= f.text_field :description %>
+        <br/><br/>
+
+        <%= f.label :script_markup %><br/>
+        <%= f.text_area :script_markup %>
+        <br/><br/>
+
+        <%= f.label :html_markup %><br/>
+        <%= f.text_area :html_markup %>
+        <br/><br/>
+
+        <%= f.label 'Any Other Markup' %><br/>
+        <%= f.text_area :lesson %>
+        <br/><br/>
+
+        <p><%= f.submit %></p>
+    <% end %>
+<% end %>
+
+<%= content_for :navigation do %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>

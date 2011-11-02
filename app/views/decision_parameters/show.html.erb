@@ -1,0 +1,23 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @decision_parameter.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @decision_parameter.value %>
+</p>
+
+<p>
+  <b>Mathematical model:</b>
+  <%= @decision_parameter.mathematical_model_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_decision_parameter_path(@decision_parameter) %> |
+<%= link_to 'Back', decision_parameters_path %>
+
+<% end %>

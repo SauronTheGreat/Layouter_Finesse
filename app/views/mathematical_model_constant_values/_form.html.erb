@@ -1,0 +1,29 @@
+<%= form_for(@mathematical_model_constant_value) do |f| %>
+  <% if @mathematical_model_constant_value.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mathematical_model_constant_value.errors.count, "error") %> prohibited this mathematical_model_constant_value from being saved:</h2>
+
+      <ul>
+      <% @mathematical_model_constant_value.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mathematical_model_constant_id %><br />
+    <%= f.number_field :mathematical_model_constant_id %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.number_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :decision_parameter_id %><br />
+    <%= f.number_field :decision_parameter_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Source market:</b>
+  <%= @market_distance.source_market_id %>
+</p>
+
+<p>
+  <b>Distance market:</b>
+  <%= @market_distance.distance_market_id %>
+</p>
+
+<p>
+  <b>Distance:</b>
+  <%= @market_distance.distance %>
+</p>
+
+
+<%= link_to 'Edit', edit_market_distance_path(@market_distance) %> |
+<%= link_to 'Back', market_distances_path %>
+<% end %>

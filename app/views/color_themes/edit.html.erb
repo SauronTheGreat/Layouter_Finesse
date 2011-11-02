@@ -1,0 +1,229 @@
+<%= content_for :head do %>
+    <script type="text/javascript">
+        $(function() {
+
+            var link_var = '/jquery_sample?theme=' + $("#color_theme_jquery_theme").val();
+            $('#jquery_theme_link').attr('href', link_var);
+            $("#color_theme_jquery_theme").live('change', (function() {
+                link_var = "/jquery_sample?theme=" + $(this).val();
+                $('#jquery_theme_link').attr('href', link_var);
+            }));
+
+            $("#color_theme_icon_theme").live('change', (function() {
+                var theme = $('select#color_theme_icon_theme :selected').val();
+                jQuery.get('/icon_sample?theme=' + theme, function(data) {
+                    $('#icon_list').html(data);
+                });
+                return false;
+            }));
+
+            $('.color_picker').jPicker({
+                window:{
+                    expandable: true
+                }
+            });
+
+            // Tabs
+            $('#tabs').tabs();
+
+        });
+    </script>
+
+    <style type="text/css">
+            /*demo page css*/
+        body {
+            font: 62.5% "Trebuchet MS", sans-serif;
+            margin: 50px;
+        }
+
+        .demoHeaders {
+            margin-top: 2em;
+        }
+
+        #dialog_link {
+            padding: .4em 1em .4em 20px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        #dialog_link span.ui-icon {
+            margin: 0 5px 0 0;
+            position: absolute;
+            left: .2em;
+            top: 50%;
+            margin-top: -8px;
+        }
+
+        ul#icons {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul#icons li {
+            margin: 2px;
+            position: relative;
+            padding: 4px 0;
+            cursor: pointer;
+            float: left;
+            list-style: none;
+        }
+
+        ul#icons span.ui-icon {
+            float: left;
+            margin: 0 4px;
+        }
+    </style>
+
+<% end %>
+
+<%= content_for :header do %>
+    <h1>Customize the Application Theme</h1>
+<% end %>
+
+<%= content_for :main_content do %>
+
+    <%= form_for @color_theme do |f| %>
+        <%= f.error_messages %>
+
+        <div id="tabs" style="width:90%;margin: 0 auto;">
+          <ul>
+            <li><a href="#tabs-1">Panels</a></li>
+            <li><a href="#tabs-2">Text Colors</a></li>
+            <li><a href="#tabs-3">Icon Theme</a></li>
+            <li><a href="#tabs-4">JQuery Theme</a></li>
+          </ul>
+          <div id="tabs-1">
+            <table style="width:100%;">
+              <tr>
+                <td>
+                  <%= f.hidden_field :back_color, :class=>"color_picker" %>
+                  <%= f.label "Background" %>
+                </td>
+                <td rowspan="7">
+                  <%= f.check_box :rounded_corners, :checked=>@color_theme.rounded_corners %>
+                  <%= f.label "Rounded Corners" %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :main_color, :class=>"color_picker" %>
+                  <%= f.label "Window" %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :navigation_panel_color, :class=>"color_picker" %>
+                  <%= f.label "Navigation Panel" %>
+                  <br/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :extra_panel_color, :class=>"color_picker" %>
+                  <%= f.label "Extra Panel" %>
+                  <br/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :footer_panel_color, :class=>"color_picker" %>
+                  <%= f.label "Footer Panel" %>
+                  <br/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :header_color, :class=>"color_picker" %>
+                  <%= f.label "Header Panel" %>
+                  <br/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :highlight_color, :class=>"color_picker" %>
+                  <%= f.label "Notice" %>
+                  <br/>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="tabs-2">
+            <table style="width:100%;">
+              <tr>
+                <th>
+                  <h2>Text Colors</h2>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :text_color, :class=>"color_picker" %>
+                  <%= f.label :text_color %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :header_text_color, :class=>"color_picker" %>
+                  <%= f.label :header_text_color %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :link_color, :class=>"color_picker" %>
+                  <%= f.label :link_color %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <%= f.hidden_field :link_color_hover, :class=>"color_picker" %>
+                  <%= f.label :link_color_hover %>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="tabs-3">
+            <table style="width:100%;">
+              <tr>
+                <td>
+                  <div id="icon_list">
+                    <br/>
+                    Currently you are using the <%= IconTheme.find_by_number(@color_theme.icon_theme).name %> pack
+                    <%= render '/layouts/Partials/icon_sample' %>
+                  </div>
+                </td>
+                <td>
+                  <h2><%= f.label "Change Icon Theme" %></h2>
+                  <%= f.select :icon_theme, IconTheme.all.collect { |theme| [theme.name, theme.number] } %>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id="tabs-4">
+            <table style="width:100%;">
+              <tr>
+                <td>
+                  <h2><%= f.label "Change JQueryUI Theme" %></h2>
+                  <%= f.select :jquery_theme, JqueryTheme.all.collect { |theme| [theme.name, theme.number] } %>
+                </td>
+                <td>
+                  <h2><%= link_to image_tag("jqueryUIsample.png"), "#", :id=>"jquery_theme_link", :title=>"Click to check out component samples in this theme", :popup => ['JQuery Sample', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes'] %>
+                    <br/> Sample</h2>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+        <br/>
+        <br/>
+        <p><%= f.submit "Update Theme" %></p>
+        <br/>
+        <br/>
+    <% end %>
+<% end %>
+<%= content_for :navigation do %>
+<% end %>
+<%= content_for :extra do %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>
+

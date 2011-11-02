@@ -1,0 +1,29 @@
+<%= form_for(@market_consumer_category) do |f| %>
+  <% if @market_consumer_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@market_consumer_category.errors.count, "error") %> prohibited this market_consumer_category from being saved:</h2>
+
+      <ul>
+      <% @market_consumer_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :market_id %><br />
+    <%= f.number_field :market_id %>
+  </div>
+  <div class="field">
+    <%= f.label :consumer_category_id %><br />
+    <%= f.number_field :consumer_category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.number_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

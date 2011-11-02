@@ -1,0 +1,37 @@
+<%= form_for(@round_investment) do |f| %>
+  <% if @round_investment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@round_investment.errors.count, "error") %> prohibited this round_investment from being saved:</h2>
+
+      <ul>
+      <% @round_investment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :investment_id %><br />
+    <%= f.number_field :investment_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mu %><br />
+    <%= f.number_field :mu %>
+  </div>
+  <div class="field">
+    <%= f.label :sigma %><br />
+    <%= f.number_field :sigma %>
+  </div>
+  <div class="field">
+    <%= f.label :roi %><br />
+    <%= f.number_field :roi %>
+  </div>
+  <div class="field">
+    <%= f.label :round_id %><br />
+    <%= f.number_field :round_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

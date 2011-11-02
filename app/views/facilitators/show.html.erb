@@ -1,0 +1,19 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+
+
+<p>
+  <b>User:</b>
+  <%= @facilitator.user_id %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%= @facilitator.client_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_facilitator_path(@facilitator) %> |
+<%= link_to 'Back', facilitators_path %>
+<% end %>

@@ -1,0 +1,29 @@
+<%= content_for :main_content do %>
+<h1>Listing product_parameters</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Raw material</th>
+    <th>Value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @product_parameters.each do |product_parameter| %>
+  <tr>
+    <td><%= product_parameter.product_id %></td>
+    <td><%= product_parameter.raw_material_id %></td>
+    <td><%= product_parameter.value %></td>
+    <td><%= link_to 'Show', product_parameter %></td>
+    <td><%= link_to 'Edit', edit_product_parameter_path(product_parameter) %></td>
+    <td><%= link_to 'Destroy', product_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Product parameter', new_product_parameter_path %>
+<% end  %>

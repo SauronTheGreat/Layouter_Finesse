@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mathematical model:</b>
+  <%= @mathematical_model_constant.mathematical_model_id %>
+</p>
+
+<p>
+  <b>Constant name:</b>
+  <%= @mathematical_model_constant.constant_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_mathematical_model_constant_path(@mathematical_model_constant) %> |
+<%= link_to 'Back', mathematical_model_constants_path %>
+<% end %>

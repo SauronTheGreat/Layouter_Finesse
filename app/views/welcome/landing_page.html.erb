@@ -1,0 +1,108 @@
+<%= content_for :main_content do %>
+    <h1>Welcome To The Finesse Portal</h1>
+    <!--The user has signed in-->
+    <% if current_user %>
+        <h3>You have Signed In as <%= current_user.username %></h3>
+
+        <!--Displaying roles-->
+        <% if current_user.superadmin %>
+            You are a  Super Admin
+        <% elsif current_user.admin %>
+            You are a   Admin
+        <% elsif current_user.facilitator %>
+            You are a  Professor
+        <% else %>
+            You are a Student
+        <% end %>
+
+        <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+    <% else %>
+        <%= link_to "Sign In", new_user_session_path %>
+    <% end %>
+    <br>
+    <br>
+    <hr>
+
+    <% if current_user %>
+        <!--Superadmin View-->
+        <% if current_user.superadmin %>
+            <%= link_to "Manage Mathematical Models", mathematical_models_path %> <br>
+            <%= link_to "Manage Markets", markets_path %><br>
+            <%= link_to "Manage Decision Parameters", decision_parameters_path %><br>
+            <%= link_to "Manage National Dealers", dealers_path %><br>
+            <%= link_to "Manage Products", products_path %><br>
+            <%= link_to "Manage Raw Materials", raw_materials_path %><br>
+            <%= link_to "Manage Market Distances", view_tabular_market_distance_path %>  <br>
+            <%= link_to "Manage Factories", factories_path %><br>
+            <%= link_to "Manage Expense Types", expense_types_path %><br>
+            <%= link_to "Manage Media", media_path %> <br>
+            <%= link_to "Manage Media Units", units_path %><br>
+            <%= link_to "Manage Media Impacts", impacts_path %><br>
+            <%= link_to "Manage Constants", constants_path %><br>
+            <%= link_to "Manage Investment Types", investment_types_path %><br>
+            <%= link_to "Manage Loan Types", loan_types_path %><br>
+
+
+
+
+
+
+            <!--admin view-->
+        <% elsif current_user.admin %>
+            <%= link_to "Manage Clients", clients_path %><br>
+            <%= link_to "Manage Facilitators", facilitators_path %><br>
+            <%= link_to "Manage Environmental Parameters", environmental_parameters_path %><br>
+            <%= link_to "Manage Decision Parameters", decision_parameters_path %><br>
+            <%= link_to "Manage Media Plans", media_plans_path %><br>
+            <%= link_to "Manage Consumer Categories", consumer_categories_path %><br>
+            <%= link_to "Manage Employee Category", employee_categories_path %><br>
+            <%= link_to "Manage Expenses", expenses_path %><br>
+            <%= link_to "Manage Investments", investments_path %><br>
+            <%= link_to "Manage Loans", loans_path %><br>
+            <%= link_to "Mass Upload Users", imports_path %><br>
+            <%= link_to "Default Player Data", new_default_player_datum_path %>
+
+
+
+
+
+
+            <!--facilitator view-->
+        <% elsif current_user.facilitator %>
+            <%= link_to "Manage My Facilitator Groups", facilitator_groups_path %><br>
+            <%= link_to "Manage My Case Studies", case_studies_path %><br>
+            <%= link_to "Manage My Simulations", simulations_path %><br>
+            <%= link_to "View Expenses", expense_types_path %> <br>
+            <%= link_to "Manage Games", games_path %>
+
+
+            <!--player view-->
+
+        <% elsif current_user.student %>
+            <p>There are simulations assigned to you...</p>
+
+            <ul>
+              <% @simulations.each_with_index do |simulation, index| %>
+                  <% if simulation.initiated? %>
+                      <% @active_round=ActiveRound.find_by_simulation_id(simulation.id).round_id %>
+                      <li><%= simulation.name %> <%= link_to "View Brands", brands_path(:player_id=> @players[index].id,:round_id=>@active_round) %>
+                  <% end %>
+
+              <% end %>
+            </ul>
+
+
+
+
+        <% end %>
+    <% end %>
+
+
+<% end %>
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+<%= content_for :main_content do %>
+<h1>Listing raw_materials</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @raw_materials.each do |raw_material| %>
+  <tr>
+    <td><%= raw_material.name %></td>
+    <td><%= link_to 'Show', raw_material %></td>
+    <td><%= link_to 'Edit', edit_raw_material_path(raw_material) %></td>
+    <td><%= link_to 'Destroy', raw_material, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Raw material', new_raw_material_path %>
+<% end %>

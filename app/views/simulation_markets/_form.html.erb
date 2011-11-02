@@ -1,0 +1,18 @@
+
+
+<%= form_tag :action => 'create' %>
+<% @simulation_markets.each_with_index do |market, index| %>
+    <%= fields_for "simulation_markets[#{index}]", market do |f| %>
+
+        <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
+
+        <%= f.label "#{@markets[index].name}" %>
+        <%= f.check_box :market_id %>
+         <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>
+

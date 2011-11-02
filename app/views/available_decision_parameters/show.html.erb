@@ -1,0 +1,13 @@
+
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @available_decision_parameter.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_available_decision_parameter_path(@available_decision_parameter) %> |
+<%= link_to 'Back', available_decision_parameters_path %>
+<% end %>

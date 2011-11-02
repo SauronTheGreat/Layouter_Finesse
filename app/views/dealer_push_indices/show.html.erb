@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dealer:</b>
+  <%= @dealer_push_index.dealer_id %>
+</p>
+
+<p>
+  <b>Brand:</b>
+  <%= @dealer_push_index.brand_id %>
+</p>
+
+<p>
+  <b>Push index value:</b>
+  <%= @dealer_push_index.push_index_value %>
+</p>
+
+
+<%= link_to 'Edit', edit_dealer_push_index_path(@dealer_push_index) %> |
+<%= link_to 'Back', dealer_push_indices_path %>

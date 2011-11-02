@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Player:</b>
+  <%= @player_loan.player_id %>
+</p>
+
+<p>
+  <b>Loan:</b>
+  <%= @player_loan.loan_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @player_loan.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_player_loan_path(@player_loan) %> |
+<%= link_to 'Back', player_loans_path %>
+<% end %>

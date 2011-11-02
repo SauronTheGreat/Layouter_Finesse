@@ -1,0 +1,26 @@
+<%= content_for :main_content do %>
+<h1>Listing brand_selection_parameters</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @brand_selection_parameters.each do |brand_selection_parameter| %>
+  <tr>
+    <td><%= brand_selection_parameter.name %></td>
+    <td><%= link_to 'Show', brand_selection_parameter %></td>
+    <td><%= link_to 'Edit', edit_brand_selection_parameter_path(brand_selection_parameter) %></td>
+    <td><%= link_to 'Destroy', brand_selection_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Brand selection parameter', new_brand_selection_parameter_path %>
+
+<% end %>

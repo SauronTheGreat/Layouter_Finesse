@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Round:</b>
+  <%= @round_loan.round_id %>
+</p>
+
+<p>
+  <b>Loan:</b>
+  <%= @round_loan.loan_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @round_loan.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_round_loan_path(@round_loan) %> |
+<%= link_to 'Back', round_loans_path %>
+<% end %>

@@ -1,0 +1,15 @@
+
+<%= form_tag :action => 'create' %>
+<% @product_parameters.each_with_index do |parameter, index| %>
+    <%= fields_for "product_parameters[#{index}]", parameter do |f| %>
+
+        <%= f.hidden_field :product_id, :value=>@product.id %>
+        <%= f.select :raw_material_id,RawMaterial.all.collect{|rm|[rm.name,rm.id]} %>
+        <%= f.text_field :value %>
+         <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>

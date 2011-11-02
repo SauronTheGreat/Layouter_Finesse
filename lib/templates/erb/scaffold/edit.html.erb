@@ -1,0 +1,12 @@
+
+<%%= content_for :header do %>
+<h1>Editing <%= singular_table_name %></h1>
+<%% end %>
+
+
+<%%= render 'form' %>
+
+<%%= content_for :extra do %>
+<%%= link_to image_tag(icon("show"),:size=>"100x100"), @<%= singular_table_name %>, :title=>'Show' %>
+<%%= link_to image_tag(icon("back"),:size=>"100x100"), <%= index_helper %>_path, :title=>'Back' %>
+<%% end %>

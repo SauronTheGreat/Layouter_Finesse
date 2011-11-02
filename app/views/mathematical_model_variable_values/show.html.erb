@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Environmental parameter:</b>
+  <%= @mathematical_model_variable_value.environmental_parameter_id %>
+</p>
+
+<p>
+  <b>Decision parameter:</b>
+  <%= @mathematical_model_variable_value.decision_parameter_id %>
+</p>
+
+<p>
+  <b>Mathematical model variable:</b>
+  <%= @mathematical_model_variable_value.mathematical_model_variable_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_mathematical_model_variable_value_path(@mathematical_model_variable_value) %> |
+<%= link_to 'Back', mathematical_model_variable_values_path %>
+<% end %>

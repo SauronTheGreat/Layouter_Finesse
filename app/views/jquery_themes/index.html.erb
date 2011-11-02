@@ -1,0 +1,44 @@
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :header do %>
+<h1>Listing jquery_themes</h1>
+<% end %>
+
+<%= content_for :main_content do %>
+<table>
+  <tr>
+
+    <th>Name</th>
+
+    <th></th>
+  </tr>
+
+<% @jquery_themes.each do |jquery_theme| %>
+  <tr>
+
+    <td><%= jquery_theme.name %></td>
+
+    <td>
+    <%= link_to image_tag(icon("show"),:size=>"30x30"), jquery_theme, :title=>'Show' %>
+    <%= link_to image_tag(icon("edit"),:size=>"30x30"), edit_jquery_theme_path(jquery_theme), :title=>'Edit' %>
+    <%= link_to image_tag(icon("delete"),:size=>"30x30"), jquery_theme, :confirm => 'Are you sure?', :method => :delete, :title=>'Delete' %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<% end %>
+
+<br />
+<%= content_for :navigation do %>
+<% end %>
+<%= content_for :extra do %>
+<%= link_to image_tag('new_icon.png',:size=>"30x30"), new_jquery_theme_path, :title=>"Add a jquery_theme" %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>
+

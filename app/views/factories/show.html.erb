@@ -1,0 +1,48 @@
+<%= content_for :main_content do %>
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <b>Name:</b>
+      <%= @factory.name %>
+    </p>
+
+    <p>
+      <b>Number of employees:</b>
+      <%= @factory.number_of_employees %>
+    </p>
+
+    <p>
+      <b>Market:</b>
+      <%= @factory.market_id %>
+    </p>
+
+    <p>
+      <b>Number of shifts:</b>
+      <%= @factory.number_of_shifts %>
+    </p>
+
+    <p>
+      <b>Cost to build:</b>
+      <%= @factory.cost_to_build %>
+    </p>
+
+    <p>
+      <b>Cost to run:</b>
+      <%= @factory.cost_to_run %>
+    </p>
+
+    <p>
+      <b>Capacity:</b>
+      <%= @factory.capacity %>
+    </p>
+
+    <p>
+      <b>Production time per unit:</b>
+      <%= @factory.production_time_per_unit %>
+    </p>
+
+
+    <%= link_to 'Edit', edit_factory_path(@factory) %> |
+    <%= link_to 'Back', factories_path %>
+
+<% end %>

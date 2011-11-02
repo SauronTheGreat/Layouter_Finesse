@@ -1,0 +1,33 @@
+<%= content_for :main_content do %>
+<h1>Listing round_investments</h1>
+
+<table>
+  <tr>
+    <th>Investment</th>
+    <th>Mu</th>
+    <th>Sigma</th>
+    <th>Roi</th>
+    <th>Round</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @round_investments.each do |round_investment| %>
+  <tr>
+    <td><%= round_investment.investment_id %></td>
+    <td><%= round_investment.mu %></td>
+    <td><%= round_investment.sigma %></td>
+    <td><%= round_investment.roi %></td>
+    <td><%= round_investment.round_id %></td>
+    <td><%= link_to 'Show', round_investment %></td>
+    <td><%= link_to 'Edit', edit_round_investment_path(round_investment) %></td>
+    <td><%= link_to 'Destroy', round_investment, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Round investment', new_round_investment_path %>
+<% end %>

@@ -1,0 +1,49 @@
+<%= content_for :main_content do %>
+<h1>Listing simulations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Facilitator</th>
+    <th>Max players</th>
+    <th>Max rounds</th>
+    <th>Freight Cost</th>
+    <th>Weight Per Unit</th>
+    <th>Product Used</th>
+    <th>Case Study Used</th>
+
+
+
+    <th></th>
+    <th></th>
+    <th></th>
+
+    <th></th>
+
+    <th></th>
+  </tr>
+
+<% @simulations.each do |simulation| %>
+  <tr>
+    <td><%= simulation.name %></td>
+    <td><%= simulation.facilitator_id %></td>
+    <td><%= simulation.max_players %></td>
+    <td><%= simulation.max_rounds %></td>
+    <td><%= simulation.freight_cost %></td>
+    <td><%= simulation.weight_per_unit%></td>
+    <td><%= simulation.product_id %></td>
+    <td><%= simulation.case_study_id %></td>
+
+
+    <td><%= link_to 'Show', simulation %></td>
+    <td><%= link_to 'Edit', edit_simulation_path(simulation) %></td>
+
+    <td><%= link_to 'Destroy', simulation, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Simulation', new_simulation_path %>
+<% end %>

@@ -1,0 +1,45 @@
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :header do %>
+<h1>JQuery Plugins that are pre-installed</h1>
+<% end %>
+
+<%= content_for :main_content do %>
+    <br/>
+    <br/>
+    <br/>
+<table style="width:100%">
+         <tr>
+           <th>Name</th>
+           <th>Description</th>
+         </tr>
+<% @plugin_samples.each do |plugin_sample| %>
+  <tr>
+
+    <td style="border:solid 1px black;vertical-align: middle; font-weight: bolder"><%=link_to plugin_sample.name, plugin_sample%></td>
+    <td style="vertical-align: middle;"><%= plugin_sample.description %></td>
+
+    <!--<td>-->
+    <%#= link_to image_tag(icon("show"),:size=>"64x64"), plugin_sample, :title=>'Show' %>
+    <%#= link_to image_tag(icon("edit"),:size=>"64x64"), edit_plugin_sample_path(plugin_sample), :title=>'Edit' %>
+    <%#= link_to image_tag(icon("delete"),:size=>"64x64"), plugin_sample, :confirm => 'Are you sure?', :method => :delete, :title=>'Delete' %>
+    <!--</td>-->
+  </tr>
+<% end %>
+</table>
+<% end %>
+
+<br />
+<%= content_for :navigation do %>
+<% end %>
+<%= content_for :extra do %>
+<%= link_to image_tag('new_icon.png',:size=>"100x100"), new_plugin_sample_path, :title=>"Add a plugin_sample" %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>
+

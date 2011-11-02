@@ -1,0 +1,55 @@
+<%= content_for :main_content do %>
+<div style="width: 50%">
+
+  <h1>New round_expense</h1>
+
+  <!--The code to add new expense for that round-->
+
+
+  <%= form_for(@round_expense) do |f| %>
+      <% if @round_expense.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@round_expense.errors.count, "error") %> prohibited this round_expense from being
+              saved:</h2>
+
+            <ul>
+              <% @round_expense.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+
+      <%= f.hidden_field :round_id, :value=>@round.id %>
+
+      <div class="field">
+        <%= f.label :expense_id %>
+        <br/>
+        <%= f.select :expense_id, @expense_list %>
+      </div>
+      <div class="field">
+        <%= f.label :summary %>
+        <br/>
+        <%= f.text_area :summary %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+  <% end %>
+
+
+</div>
+<div style="width: 50%;margin-left: 50%;margin-top: -25%">
+
+  <!--The code to show all selected expenses    -->
+  <ul>
+  <% @included_expenses.each do |included_expense| %>
+           <li><%= Expense.find(included_expense.expense_id).name %></li>
+  <% end %>
+      </ul>
+
+<%= link_to "done",rounds_path(:simulation_id=>@round.simulation_id) %>
+</div>
+
+<% end %>

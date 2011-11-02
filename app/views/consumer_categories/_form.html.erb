@@ -1,0 +1,51 @@
+<%= form_for(@consumer_category) do |f| %>
+    <% if @consumer_category.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@consumer_category.errors.count, "error") %> prohibited this consumer_category from being
+            saved:</h2>
+
+          <ul>
+            <% @consumer_category.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %>
+      <br/>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :price_range %>
+      <br/>
+      <%= f.text_field :price_range %>
+    </div>
+
+    <div class="field">
+      <%= f.label :personal_taste_range %>
+      <br/>
+      <%= f.text_field :personal_taste_range %>
+    </div>
+
+    <div class="field">
+      <%= f.label :dealer_push_range %>
+      <br/>
+      <%= f.text_field :dealer_push_range %>
+    </div>
+
+    <div class="field">
+      <%= f.label :media_push_range %>
+      <br/>
+      <%= f.text_field :media_push_range %>
+    </div>
+
+
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

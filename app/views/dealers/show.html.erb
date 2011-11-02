@@ -1,0 +1,38 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @dealer.name %>
+</p>
+
+<p>
+  <b>Market:</b>
+  <%= @dealer.market_id %>
+</p>
+
+<p>
+  <b>Catchment of consumers:</b>
+  <%= @dealer.catchment_of_consumers %>
+</p>
+
+<p>
+  <b>Desired commission:</b>
+  <%= @dealer.desired_commission %>
+</p>
+
+<p>
+  <b>Final commission:</b>
+  <%= @dealer.final_commission %>
+</p>
+
+<p>
+  <b>Dealer category:</b>
+  <%= @dealer.dealer_category_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_dealer_path(@dealer) %> |
+<%= link_to 'Back', dealers_path %>
+
+<% end %>

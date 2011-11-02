@@ -1,0 +1,23 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Media:</b>
+  <%= @consumer_media_preference.media_id %>
+</p>
+
+<p>
+  <b>Consumer category:</b>
+  <%= @consumer_media_preference.consumer_category_id %>
+</p>
+
+<p>
+  <b>Index:</b>
+  <%= @consumer_media_preference.index %>
+</p>
+
+
+<%= link_to 'Edit', edit_consumer_media_preference_path(@consumer_media_preference) %> |
+<%= link_to 'Back', consumer_media_preferences_path %>
+
+<% end %>

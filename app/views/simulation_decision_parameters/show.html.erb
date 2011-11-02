@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Simulation:</b>
+  <%= @simulation_decision_parameter.simulation_id %>
+</p>
+
+<p>
+  <b>Decision parameter:</b>
+  <%= @simulation_decision_parameter.decision_parameter_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_simulation_decision_parameter_path(@simulation_decision_parameter) %> |
+<%= link_to 'Back', simulation_decision_parameters_path %>
+<% end %>

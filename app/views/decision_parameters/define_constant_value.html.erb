@@ -1,0 +1,21 @@
+<%= content_for :main_content do %>
+<h2>Editing The Fields for <%= @decision_parameter.name %></h2>
+
+<%= form_tag :action => 'set_constant_value' %>
+<% @constants_values.each_with_index do |constant, index| %>
+    <%= fields_for "constants_values[#{index}]", constant do |f| %>
+
+        <%= f.hidden_field :mathematical_model_constant_id, :value=>@constants[index].id %>
+        <%= f.hidden_field :decision_parameter_id, :value=>@decision_parameter.id %>
+
+        <%= f.label @constants[index].constant_name  %>=
+        <%= f.number_field :value %>
+         <br>
+        <br>
+
+
+    <% end %>
+<% end %>
+<%= submit_tag %>
+
+<% end %>

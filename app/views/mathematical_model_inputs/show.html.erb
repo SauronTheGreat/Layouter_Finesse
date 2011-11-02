@@ -1,0 +1,17 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mathematical model:</b>
+  <%= @mathematical_model_input.mathematical_model_id %>
+</p>
+
+<p>
+  <b>Environmental parameter:</b>
+  <%= @mathematical_model_input.environmental_parameter_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_mathematical_model_input_path(@mathematical_model_input) %> |
+<%= link_to 'Back', mathematical_model_inputs_path %>
+<% end %>

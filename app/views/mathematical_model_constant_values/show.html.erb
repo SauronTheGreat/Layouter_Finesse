@@ -1,0 +1,22 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Mathematical model constant:</b>
+  <%= @mathematical_model_constant_value.mathematical_model_constant_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @mathematical_model_constant_value.value %>
+</p>
+
+<p>
+  <b>Decision parameter:</b>
+  <%= @mathematical_model_constant_value.decision_parameter_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_mathematical_model_constant_value_path(@mathematical_model_constant_value) %> |
+<%= link_to 'Back', mathematical_model_constant_values_path %>
+<% end %>

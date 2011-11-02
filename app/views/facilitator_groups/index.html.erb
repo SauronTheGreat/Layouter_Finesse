@@ -1,0 +1,27 @@
+<%= content_for :main_content do %>
+<h1>Listing facilitator_groups</h1>
+
+<table>
+  <tr>
+    <th>Facilitator group Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @facilitator_groups.each do |facilitator_group| %>
+  <tr>
+    <td><%= facilitator_group.name %></td>
+    <td><%= link_to 'Show', facilitator_group %></td>
+    <td><%= link_to 'Edit', edit_facilitator_group_path(facilitator_group) %></td>
+    <td><%= link_to "Manage Student Groups",student_groups_path(:facilitator_group_id=>facilitator_group.id) %></td>
+    <td><%= link_to 'Destroy', facilitator_group, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Facilitator group', new_facilitator_group_path %>
+
+<% end %>

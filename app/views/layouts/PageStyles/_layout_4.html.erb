@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    $(function() {
+        $('#left_bar, #content').equalHeightColumns();
+    });
+</script>
+
+<div id="main_wrapper" class="container_12">
+
+  <div id="left_bar" class="grid_2 alpha">
+    <div id="header">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= yield(:header) %>
+    </div>
+    <div id="navigation">
+      <%= render '/layouts/Partials/navigation_vertical' %>
+      <%= yield(:navigation) %>
+    </div>
+  </div>
+  <div id="content" class="grid_10 omega">
+    <%= yield(:main_content) %>
+  </div>
+</div>

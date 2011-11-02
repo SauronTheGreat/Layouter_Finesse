@@ -1,0 +1,89 @@
+<%= form_for(@default_player_datum) do |f| %>
+  <% if @default_player_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@default_player_datum.errors.count, "error") %> prohibited this default_player_datum from being saved:</h2>
+
+      <ul>
+      <% @default_player_datum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :income %><br />
+    <%= f.number_field :income %>
+  </div>
+  <div class="field">
+    <%= f.label :cogs %><br />
+    <%= f.number_field :cogs %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_cost %><br />
+    <%= f.number_field :employee_cost %>
+  </div>
+  <div class="field">
+    <%= f.label :sga %><br />
+    <%= f.number_field :sga %>
+  </div>
+  <div class="field">
+    <%= f.label :ebitda %><br />
+    <%= f.number_field :ebitda %>
+  </div>
+  <div class="field">
+    <%= f.label :interest %><br />
+    <%= f.number_field :interest %>
+  </div>
+  <div class="field">
+    <%= f.label :investment_income %><br />
+    <%= f.number_field :investment_income %>
+  </div>
+  <div class="field">
+    <%= f.label :depreciation %><br />
+    <%= f.number_field :depreciation %>
+  </div>
+  <div class="field">
+    <%= f.label :pbt %><br />
+    <%= f.number_field :pbt %>
+  </div>
+  <div class="field">
+    <%= f.label :tax %><br />
+    <%= f.number_field :tax %>
+  </div>
+  <div class="field">
+    <%= f.label :pat %><br />
+    <%= f.number_field :pat %>
+  </div>
+  <div class="field">
+    <%= f.label :long_term_loans %><br />
+    <%= f.number_field :long_term_loans %>
+  </div>
+  <div class="field">
+    <%= f.label :short_term_loans %><br />
+    <%= f.number_field :short_term_loans %>
+  </div>
+  <div class="field">
+    <%= f.label :net_worth %><br />
+    <%= f.number_field :net_worth %>
+  </div>
+  <div class="field">
+    <%= f.label :fixed_assets %><br />
+    <%= f.number_field :fixed_assets %>
+  </div>
+  <div class="field">
+    <%= f.label :investments %><br />
+    <%= f.number_field :investments %>
+  </div>
+  <div class="field">
+    <%= f.label :inventory %><br />
+    <%= f.number_field :inventory %>
+  </div>
+  <div class="field">
+    <%= f.label :cash %><br />
+    <%= f.number_field :cash %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<%= content_for :header do %>
+<h1>New font_theme</h1>
+<% end %>
+
+
+<%= render 'form' %>
+
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("back"),:size=>"64x64"), font_themes_path, :title=>'Back' %>
+<% end %>
+

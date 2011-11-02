@@ -1,0 +1,31 @@
+<%= content_for :main_content do %>
+<h1>New import</h1>
+<h2>Please Ensure that the excel file has the format as specified below</h2>
+<table border="solid 1px  black">
+  <tr>
+    <th>UserName</th>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>Password</th>
+    <th>Email</th>
+    <th>SuperAdmin</th>
+    <th>Admin</th>
+    <th>Facilitator</th>
+    <th>Student</th>
+
+
+
+  </tr>
+
+</table>
+
+<br>
+<br>
+<br>
+<br>
+
+
+<%= render 'form' %>
+
+<%= link_to 'Back', imports_path %>
+<% end %>

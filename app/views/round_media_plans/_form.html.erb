@@ -1,0 +1,25 @@
+<%= form_for(@round_media_plan) do |f| %>
+  <% if @round_media_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@round_media_plan.errors.count, "error") %> prohibited this round_media_plan from being saved:</h2>
+
+      <ul>
+      <% @round_media_plan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :round_id %><br />
+    <%= f.number_field :round_id %>
+  </div>
+  <div class="field">
+    <%= f.label :media_plan_id %><br />
+    <%= f.number_field :media_plan_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

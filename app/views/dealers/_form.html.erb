@@ -1,0 +1,55 @@
+<%= form_for(@dealer) do |f| %>
+    <% if @dealer.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@dealer.errors.count, "error") %> prohibited this dealer from being saved:</h2>
+
+          <ul>
+            <% @dealer.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %>
+      <br/>
+      <%= f.text_field :name %>
+    </div>
+    <!--we do not need a market id since national dealer belongs to every market-->
+    <!--<div class="field">-->
+
+    <!--<%= f.number_field :market_id %>-->
+    <!--</div>-->
+
+    <div class="field">
+      <%= f.label :catchment_of_consumers %>
+      <br/>
+      <%= f.number_field :catchment_of_consumers %>
+    </div>
+    <div class="field">
+      <%= f.label "desired_commission(In %)" %>
+      <br/>
+      <%= f.number_field :desired_commission %>
+    </div>
+
+    <!--final commission cannot be set now since that will be decided by the player-->
+    <!--<div class="field">-->
+      <!--<%= f.label "final_commission(In %)" %>-->
+      <!--<br/>-->
+      <!--<%= f.number_field :final_commission %>-->
+    <!--</div>-->
+
+
+    <!--we do  not need to specify the category since form can be used for national dealers only-->
+    <!--<div class="field">-->
+
+    <!--<%= f.number_field :dealer_category_id %>-->
+    <!--</div>-->
+
+    <%= f.hidden_field :dealer_category_id, :value=>1 %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

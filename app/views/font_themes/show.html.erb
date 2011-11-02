@@ -1,0 +1,33 @@
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :header do %>
+<% end %>
+
+<%= content_for :main_content do %>
+
+
+    <p>
+      <b>Name:</b>
+      <%= @font_theme.name %>
+    </p>
+
+
+
+<% end %>
+<br/>
+<br/>
+<%= content_for :navigation do %>
+<% end %>
+
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("edit"),:size=>"64x64"), edit_font_theme_path(@font_theme), :title=>'Edit' %>
+<%= link_to image_tag(icon("back"),:size=>"64x64"), font_themes_path, :title=>'Back' %>
+<% end %>
+
+<%= content_for :footer do %>
+<% end %>

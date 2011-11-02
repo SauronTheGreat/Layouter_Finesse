@@ -1,0 +1,13 @@
+<%= content_for :main_content do %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @dealer_category.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_dealer_category_path(@dealer_category) %> |
+<%= link_to 'Back', dealer_categories_path %>
+
+<% end %>

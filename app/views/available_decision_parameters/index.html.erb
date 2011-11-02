@@ -1,0 +1,26 @@
+<%= content_for :main_content do %>
+<h1>Listing available_decision_parameters</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @available_decision_parameters.each do |available_decision_parameter| %>
+  <tr>
+    <td><%= available_decision_parameter.name %></td>
+    <td><%= link_to 'Show', available_decision_parameter %></td>
+    <td><%= link_to 'Edit', edit_available_decision_parameter_path(available_decision_parameter) %></td>
+    <td><%= link_to 'Destroy', available_decision_parameter, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Available decision parameter', new_available_decision_parameter_path %>
+
+<% end %>
