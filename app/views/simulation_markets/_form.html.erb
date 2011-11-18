@@ -1,14 +1,19 @@
-
-
 <%= form_tag :action => 'create' %>
 <% @simulation_markets.each_with_index do |market, index| %>
     <%= fields_for "simulation_markets[#{index}]", market do |f| %>
 
+        <% if @simulation_markets_ids.include?(@markets[index].id) %>
+            <% @state=true %>
+        <% else %>
+            <% @state=false %>
+        <% end %>
+
         <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
 
         <%= f.label "#{@markets[index].name}" %>
-        <%= f.check_box :market_id %>
-         <br>
+
+        <%= f.check_box :market_id, {:checked=>@state} %>
+        <br>
         <br>
 
 

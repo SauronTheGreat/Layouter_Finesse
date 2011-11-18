@@ -115,13 +115,25 @@ class SimulationsController < ApplicationController
       @markets=@simulation.simulation_markets
       @markets.each do |market|
         Dealer.create_dealers_of_world(market.market_id)
-        Consumer.create_consumers_from_dealers(market.market_id)
+        #  Dealer.create_national_dealer_preferences()
+        Dealer.all.each do |dealer|
+          DealerPreference.populate_dealer_preferences(dealer.id)
+        end
+        Consumer.create_consumer_from_markets(market.market_id)
         Vendor.create_vendors_from_market(market.market_id, @simulation.id)
       end
-      Factory.all.each do |factory|
-        Factory.set_vendors(@simulation.id,factory.id)
+      #Factory.all.each do |factory|
+      #  Factory.set_vendors(@simulation.id, factory.id)
+      #
+      #end
 
+      SimulationMarket.all.each do |market|
+        @factories=Factory.find_all_by_market_id(market.id)
+        @factories.each do |factory|
+          Factory.set_vendors(@simulation.id, factory.id)
+        end
       end
+
       Player.create_players_from_student_group(@simulation.id)
       @simulation.initiated=true
       @simulation.save!
@@ -134,6 +146,34 @@ class SimulationsController < ApplicationController
     @simulation=Simulation.find(params[:simulation_id])
     @rounds=@simulation.rounds
 
+
+  end
+
+  def initiate_round_calculation
+    @simulation=Simulation.find(params[:simulation_id])
+    @round=Round.find(params[:round_id])
+    DealerPushIndex.destroy_all
+    Player.create_brand_for_ai_player(@simulation.id, @round.id)
+    Player.ai_player_decision(@simulation.id, @round.id)
+
+    @dealers=Dealer.all.each do |dealer|
+      DealerPushIndex.populate_dealer_indices(dealer.id, @simulation.id)
+    end
+
+
+    Consumer.take_buying_decision(@simulation.id)
+
+    Consumer.take_final_decision(@simulation.id)
+
+
+    Player.all.each do |player|
+      PlayerFinancial.calculate_player_financials(@round.id, player.id)
+    end
+
+    @active_round=ActiveRound.find_by_round_id(@round.id)
+    @active_round.delete
+
+    redirect_to root_path
 
   end
 end

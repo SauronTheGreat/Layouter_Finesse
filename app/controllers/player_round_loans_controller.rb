@@ -57,7 +57,11 @@ class PlayerRoundLoansController < ApplicationController
 
     respond_to do |format|
       if @player_round_loans.all?(&:valid?)
-        format.html { redirect_to new_player_round_investment_path(:player_id=>@player_round_loans[0].player_id, :round_id=>@player_round_loans[0].round_id, :brand_id=>@player_round_loans[0].brand_id) }
+        @round=Round.find(@player_round_loans[0].round_id)
+        @round.played=true
+        @round.save!
+       # format.html { redirect_to new_player_round_investment_path(:player_id=>@player_round_loans[0].player_id, :round_id=>@player_round_loans[0].round_id, :brand_id=>@player_round_loans[0].brand_id) }
+        format.html {redirect_to root_path}
         #format.html { redirect_to @player_round_loan, notice: 'Player round loan was successfully created.' }
         format.json { render json: @player_round_loan, status: :created, location: @player_round_loan }
       else

@@ -15,8 +15,9 @@ class ConsumerCategory < ActiveRecord::Base
   serialize :dealer_push_range
   serialize :media_push_range
   serialize :personal_taste_range
+  serialize :disposable_salary_range
   has_many :consumer_media_preferences, :dependent => :destroy
-
+   has_many :consumers,:dependent => :destroy
 
   before_validation :convert_ranges
 
@@ -26,6 +27,8 @@ class ConsumerCategory < ActiveRecord::Base
     self.dealer_push_range=self.dealer_push_range.split('..').inject { |s, e| s.to_i..e.to_i }
     self.media_push_range=self.media_push_range.split('..').inject { |s, e| s.to_i..e.to_i }
     self.personal_taste_range=self.personal_taste_range.split('..').inject { |s, e| s.to_i..e.to_i }
+    self.disposable_salary_range=self.disposable_salary_range.split('..').inject { |s, e| s.to_i..e.to_i }
+
 
 
   end

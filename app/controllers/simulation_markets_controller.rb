@@ -28,6 +28,12 @@ class SimulationMarketsController < ApplicationController
     @simulation=Simulation.find(params[:simulation_id])
     @markets=Market.all
     @simulation_markets=Array.new(Market.all.count) { SimulationMarket.new }
+    @simulation_markets_ids=Array.new
+    @present_markets=SimulationMarket.find_all_by_simulation_id(@simulation.id)
+    @present_markets.each do |simulation_market|
+      @simulation_markets_ids << simulation_market.market_id
+
+    end
 
     #@simulation_market = SimulationMarket.new
 
@@ -49,8 +55,11 @@ class SimulationMarketsController < ApplicationController
     #@simulation_market = SimulationMarket.new(params[:simulation_market])
     @simulation_markets = params[:simulation_markets].values.collect { |smarket| SimulationMarket.new(smarket) }
     @markets=Market.all
+    @simulation=Simulation.find(@simulation_markets[0].simulation_id)
+   SimulationMarket.destroy @simulation.simulation_markets(&:id)
 
-    @simulation_markets.each_with_index do |sm,index|
+
+    @simulation_markets.each_with_index do |sm, index|
       if sm.market_id!=0
         sm.market_id=@markets[index].id
         sm.save!

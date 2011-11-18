@@ -10,10 +10,11 @@ class Round < ActiveRecord::Base
   #this method creates the number of rounds, specified in the simulation
   def self.create_rounds(simulation_id)
     @simulation=Simulation.find(simulation_id)
-    @simulation.max_rounds.times do |round|
+
+    (@simulation.max_rounds+1).times do |round|
       @round=Round.new
       @round.simulation_id=@simulation.id
-      @round.number=round+1
+      @round.number=round
       @round.save!
     end
 

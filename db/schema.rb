@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111102011621) do
+ActiveRecord::Schema.define(:version => 20111111111124) do
 
   create_table "active_rounds", :force => true do |t|
     t.integer  "round_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "price_per_unit"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "simulation_id"
   end
 
   create_table "case_studies", :force => true do |t|
@@ -93,6 +94,8 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.text     "dealer_push_range"
     t.text     "media_push_range"
     t.integer  "annual_consumption"
+    t.integer  "mentality_id"
+    t.text     "disposable_salary_range"
   end
 
   create_table "consumer_media_preferences", :force => true do |t|
@@ -116,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "price_index"
     t.integer  "dealer_push_index"
     t.integer  "media_push_index"
+    t.integer  "disposable_salary"
   end
 
   create_table "dealer_categories", :force => true do |t|
@@ -165,9 +169,9 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "employee_cost"
     t.integer  "sga"
     t.integer  "ebitda"
-    t.integer  "interest"
+    t.integer  "interest_cost"
     t.integer  "investment_income"
-    t.integer  "depreciation"
+    t.integer  "depreciation_cost"
     t.integer  "pbt"
     t.integer  "tax"
     t.integer  "pat"
@@ -361,6 +365,14 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.datetime "updated_at"
   end
 
+  create_table "market_demographics", :force => true do |t|
+    t.integer  "market_id"
+    t.integer  "consumer_category_id"
+    t.integer  "proportion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "market_distances", :force => true do |t|
     t.integer  "source_market_id"
     t.integer  "target_market_id"
@@ -439,12 +451,43 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "no_of_unit"
   end
 
   create_table "media_plans", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "mentalities", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mentality_parameters", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mentality_rankings", :force => true do |t|
+    t.integer  "mentality_id"
+    t.integer  "mentality_parameter_id"
+    t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "range_value"
+  end
+
+  create_table "mentality_values", :force => true do |t|
+    t.integer  "mentality_id"
+    t.integer  "mentality_parameter_id"
+    t.text     "value_range"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "index"
   end
 
   create_table "page_layouts", :force => true do |t|
@@ -473,9 +516,9 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "employee_cost"
     t.integer  "sga"
     t.integer  "ebitda"
-    t.integer  "interest"
+    t.integer  "interest_cost"
     t.integer  "investment_income"
-    t.integer  "depreciation"
+    t.integer  "depreciation_cost"
     t.integer  "pbt"
     t.integer  "tax"
     t.integer  "pat"
@@ -552,6 +595,7 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "student_group_id"
+    t.boolean  "played",                :default => false
   end
 
   create_table "plugin_samples", :force => true do |t|
@@ -579,6 +623,7 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "number_of_parameters"
     t.integer  "weight"
     t.integer  "mfg_cost"
+    t.integer  "mentality_parameter_id"
   end
 
   create_table "raw_materials", :force => true do |t|
@@ -637,6 +682,7 @@ ActiveRecord::Schema.define(:version => 20111102011621) do
     t.integer  "simulation_id"
     t.integer  "rate_of_interest"
     t.integer  "depreciation"
+    t.boolean  "played",           :default => false
   end
 
   create_table "simulation_decision_parameters", :force => true do |t|

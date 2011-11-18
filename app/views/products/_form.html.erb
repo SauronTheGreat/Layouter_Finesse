@@ -31,6 +31,13 @@
     <%= f.number_field :mfg_cost %>
   </div>
 
+  <div class="field">
+    <%= f.label :mentality_parameter_id %><br />
+    <%= f.select :mentality_parameter_id ,MentalityParameter.all.collect{|mp|[mp.name,mp.id]}%>
+  </div>
+
+
+
 
 
   <div class="actions">

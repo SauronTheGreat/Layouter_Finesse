@@ -17,14 +17,14 @@ class PlayerFinancial < ActiveRecord::Base
     @player_financial.employee_cost=@default.employee_cost
     @player_financial.sga=@default.sga
     @player_financial.ebitda=@default.ebitda
-    @player_financial.interest=@default.interest
+    @player_financial.interest_cost=@default.interest_cost
     @player_financial.investment_income=@default.investment_income
-    @player_financial.depreciation=@default.depreciation
+    @player_financial.depreciation_cost=@default.depreciation_cost
     @player_financial.pbt=@default.pbt
     @player_financial.tax=@default.tax
     @player_financial.pat=@default.pat
     @player_financial.player_id=player_id
-    @player_financial.round_id=round_id-1
+    @player_financial.round_id=round_id
     @player_financial.save!
 
 
@@ -69,7 +69,7 @@ class PlayerFinancial < ActiveRecord::Base
       end
     end
     @employee_categories=EmployeeCategory.all
-         total=0
+    total=0
     @factories.each do |factory|
       #@employees=factory.employees
       #now we calculate total salaries given
@@ -100,7 +100,7 @@ class PlayerFinancial < ActiveRecord::Base
       total =total+factory.total_employee_cost
     end
 
-     return total
+    return total
 
 
   end
@@ -134,7 +134,7 @@ class PlayerFinancial < ActiveRecord::Base
 
   def self.calculate_short_term_loans(round_id, player_id)
     #we use this method to return the amount of short term loans taken by the player for current round
-    @short_loan_type=LoanType.find_by_name("Short")
+    @short_loan_type=LoanType.find_by_name("Bridge Loans")
     @player_round_loans=PlayerRoundLoan.find_all_by_player_id_and_round_id(player_id, round_id)
     @total_short_loan=0
 
@@ -159,13 +159,13 @@ class PlayerFinancial < ActiveRecord::Base
 
   def self.calculate_long_term_loans(round_id, player_id)
     #we use this method to return the amount of long term loans taken by the player for current round
-    @short_loan_type=LoanType.find_by_name("Long")
+    @long_loan_type=LoanType.find_by_name("Long Term Loan")
     @player_round_loans=PlayerRoundLoan.find_all_by_player_id_and_round_id(player_id, round_id)
-    @total_short_loan=0
+    @total_long_loan=0
 
     @player_round_loans.each do |player_round_loan|
-      if Loan.find(player_round_loan.loan_id).loan_type_id==@short_loan_type.id
-        @total_long_loan=@total_loan_loan+player_round_loan.amount
+      if Loan.find(player_round_loan.loan_id).loan_type_id==@long_loan_type.id
+        @total_long_loan=@total_long_loan+player_round_loan.amount
 
 
       end
@@ -205,11 +205,13 @@ class PlayerFinancial < ActiveRecord::Base
     @factories=PlayerRoundExpense.find_all_by_player_id_and_round_id(player_id, round_id)
     @total=0
     @factories.each do |expense|
-      @total=@total+Factory.find_by_name(Expense.find(expense.expense_id).name).price
+      if ExpenseType.find(Expense.find(expense.expense_id).expense_type_id).name=="Factory"
+        @total=@total+Factory.find_by_name(Expense.find(expense.expense_id).name).price
+      end
     end
-
     return @total
   end
+
 
   def self.calculate_investment_income(round_id, player_id)
     #we use this to calculate income we have by investments
@@ -224,14 +226,35 @@ class PlayerFinancial < ActiveRecord::Base
 
   end
 
+
+  def self.calculate_factory_expense(round_id, player_id)
+
+    @player_expenses=PlayerRoundExpense.find_all_by_player_id_and_round_id(player_id, round_id)
+    @factories=Array.new
+    @factory_expense_category=ExpenseType.find_by_name("Factory")
+    total=0
+    @player_expenses.each do |expense|
+      if ExpenseType.find(Expense.find(expense.expense_id).expense_type_id).id==@factory_expense_category.id
+        total =total+ ExpenseOption.find(expense.expense_option_id).amount
+      end
+    end
+
+    return total
+  end
+
+
   def self.calculate_player_financials(round_id, player_id)
+    @player=Player.find(player_id)
     @depreciation=Round.find(round_id).depreciation
     if (@depreciation.nil?)
       @depreciation=10
     end
     @tax_rate=Simulation.find(Player.find(player_id).simulation_id).tax_rate
     #we use this to calculate depreciation
-    @prev_player_financial=PlayerFinancial.find_by_player_id_and_round_id(player_id, round_id-1)
+    @current_round=Round.find(round_id)
+    number=@current_round.number-1
+    @prev_round=Round.find_by_number_and_simulation_id(number, @player.simulation_id)
+    @prev_player_financial=PlayerFinancial.find_by_player_id_and_round_id(player_id, @prev_round.id)
     #this indentifies the previous financial record
 
 
@@ -257,6 +280,7 @@ class PlayerFinancial < ActiveRecord::Base
     tax=pbt*@tax_rate/100
     net_worth=@prev_player_financial.total_assets-long_term_loans-short_term_loans
     pat=pbt-tax
+    cash=@prev_player_financial.cash+pat+depreciation-PlayerFinancial.calculate_factory_expense(round_id, player_id)
 
 
     @player_financial.sga= sga
@@ -265,10 +289,11 @@ class PlayerFinancial < ActiveRecord::Base
     @player_financial.short_term_loans=short_term_loans
     @player_financial.long_term_loans=long_term_loans
     @player_financial.cogs=cogs
-    @player_financial.interest=interest
-    @player_financial.depreciation=depreciation
+    @player_financial.interest_cost=interest
+    @player_financial.depreciation_cost=depreciation
     @player_financial.fixed_assets=depreciation
     @player_financial.investment_income=investment_income
+    @player_financial.cash=cash
 
     #now we make calculations for derived attributes....
     @player_financial.ebitda=ebitda

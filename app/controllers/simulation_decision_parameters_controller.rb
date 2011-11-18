@@ -25,9 +25,16 @@ class SimulationDecisionParametersController < ApplicationController
   # GET /simulation_decision_parameters/new.json
   def new
     @simulation=Simulation.find(params[:simulation_id])
-    @simulation_decision_parameters=Array.new(DecisionParameter.all.count){SimulationDecisionParameter.new}
+    @simulation_decision_parameters=Array.new(DecisionParameter.all.count) { SimulationDecisionParameter.new }
     @decision_parameters=DecisionParameter.all
-    #@simulation_decision_parameter = SimulationDecisionParameter.new
+
+    @simulation_parameters_ids=Array.new
+    @present_parameters=SimulationDecisionParameter.find_all_by_simulation_id(@simulation.id)
+    @present_parameters.each do |simulation_parameter|
+      @simulation_parameters_ids << simulation_parameter.decision_parameter_id
+
+    end
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,13 +53,17 @@ class SimulationDecisionParametersController < ApplicationController
 
     @simulation_decision_parameters = params[:simulation_decision_parameters].values.collect { |sdp| SimulationDecisionParameter.new(sdp) }
     @decision_parameters=DecisionParameter.all
-      @simulation_decision_parameters.each_with_index do |sdp,index|
-        if sdp.decision_parameter_id!=0
-          sdp.decision_parameter_id=@decision_parameters[index].id
-          sdp.save!
-        end
-      end
 
+    @simulation=Simulation.find(@simulation_decision_parameters[0].simulation_id)
+     SimulationDecisionParameter.destroy @simulation.simulation_decision_parameters(&:id)
+
+
+    @simulation_decision_parameters.each_with_index do |sdp, index|
+      if sdp.decision_parameter_id!=0
+        sdp.decision_parameter_id=@decision_parameters[index].id
+        sdp.save!
+      end
+    end
 
 
     #@simulation_decision_parameter = SimulationDecisionParameter.new(params[:simulation_decision_parameter])

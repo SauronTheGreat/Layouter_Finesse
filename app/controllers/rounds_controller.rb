@@ -108,6 +108,7 @@ class RoundsController < ApplicationController
 
 
 def set_depreciation
+
     @round=Round.find(params[:round_id])
     @round.depreciation=params[:depreciation]
     if @round.save!

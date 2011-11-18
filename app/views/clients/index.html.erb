@@ -21,7 +21,7 @@
     <td><%= client.client_type %></td>
     <td><%= link_to image_tag(icon("show"), :size=>"60x60"), client %></td>
     <td><%= link_to image_tag(icon("edit"), :size=>"60x60"), edit_client_path(client) %></td>
-    <td><%= link_to image_tag(icon("delete"),:size=>"60x60"), client, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="delete"><%= link_to image_tag(icon("delete"),:size=>"60x60"), client, confirm: 'Are you sure?', method: :delete %></td>
 
   </tr>
 <% end %>

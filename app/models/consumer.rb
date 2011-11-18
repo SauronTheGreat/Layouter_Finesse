@@ -1,8 +1,13 @@
 class Consumer < ActiveRecord::Base
 
+  belongs_to :consumer_category
+  belongs_to :dealer
 
-  #we will create a a method to create consumers based on dealers
-  #This method will have an argument as market id
+# attr_accessible :dealer_id
+
+#we will create a a method to create consumers based on dealers
+#This method will have an argument as market id
+
 
   def self.create_consumers_from_dealers(market_id)
     #first step is to find market
@@ -10,10 +15,11 @@ class Consumer < ActiveRecord::Base
     #then find all the dealers in that market
     @dealers=@market.dealers
 
+
     #for all dealers generate all consumers
     @dealers.each do |dealer|
       #each consumer of each dealer
-      dealer.catchment_of_consumers.times do |consumer|
+      dealer.catchment_of_consumers.times do |i|
         @consumer=Consumer.new
         #now we generate random number to assign a consumer category for each consumer
         #currently we use a random number
@@ -58,7 +64,7 @@ class Consumer < ActiveRecord::Base
         @consumer.price_index=r.rand(@consumer_category.price_range)
         @consumer.dealer_push_index=r.rand(@consumer_category.dealer_push_range)
         @consumer.media_push_index=r.rand(@consumer_category.media_push_range)
-
+        @consumer.disposable_salary=r.rand(@consumer_category.disposable_salary_range)
         @consumer.save!
         #we finally save the consumer
       end
@@ -69,62 +75,307 @@ class Consumer < ActiveRecord::Base
   end
 
 
-  def self.take_final_decision(consumer_id)
-    #first find the consumer whose decision has to be modelled
-    @consumer=Consumer.find(consumer_id)
-    #find the dealer which the consumer belongs to
-    @dealer=Dealer.find(@consumer.dealer_id)
-    #find all brands
-    @brands=Brand.all
+  #this method creates consumers from the market
+  #it is called when we initiate the simulation
+  def self.create_consumer_from_markets(market_id)
+    @market=Market.find(market_id)
 
-    #to take a final decision , we will calculate a score for all the brands and the consumer will buy the brand whose score is highest
+    total_consumers=@market.no_of_consumers
+    #find total consumers from the market
+    @market_demographics=@market.market_demographics
+    @dealers=@market.dealers
+    #get all the dealers....all dealers will get the catchment_of_consumers number of consumers
 
-    #@dealer_score=Array.new
-    #@price_score=Array.new
-    #@media_score=Array.new
-    @final_score=Array.new
+    #@dealers_consumers=Array.new
+    #@dealers.each_with_index do |dealer, index|
+    #  # @dealers_consumers[index]=Array.new
+    #  #@dealers_consumers[dealer.id]=dealer.catchment_of_consumers
+    #  @dealers_consumers << dealer.id
+    #end
+    #@dealers_consumers.collect!{|x| if x.nil? then  0 else x end}
 
-    #now lets calculate score for each brand
-    @brands.each do |brand|
-      #first get the dealer score:
-      @dealer_score = DealerPushIndex.find_by_brand_id_and_dealer_id(brand.id, @dealer.id).push_index_value
-      #now the price score
-      @price_score = brand.price_per_unit
+    #
+    #@dealers_consumers.each do |dealer|
+    #  @dealer=Dealer.find(dealer)
+    #  @dealer.catchment_of_consumers.times do |i|
+    #    @consumer=Consumer.new
+    #    min=ConsumerCategory.first.id
+    #    max=ConsumerCategory.last.id
+    #    category_id=ConsumerCategory.all.to_a.shuffle!.first.id
+    #    @consumer.consumer_category_id=category_id
+    #    @consumer_category=ConsumerCategory.find(category_id)
+    #    #@consumer.consumer_category_id=@consumer_category.id
+    #    r=Random.new
+    #
+    #    #this populates data from consumer category
+    #    @consumer.personal_taste_index=r.rand(@consumer_category.personal_taste_range)
+    #    @consumer.price_index=r.rand(@consumer_category.price_range)
+    #    @consumer.dealer_push_index=r.rand(@consumer_category.dealer_push_range)
+    #    @consumer.media_push_index=r.rand(@consumer_category.media_push_range)
+    #    @consumer.disposable_salary=r.rand(@consumer_category.disposable_salary_range)
+    #
+    #    @consumer.save!
+    #
+    #
+    #  end
+    #
+    #
+    #end
 
-      #now the media score
-      #media is a type of expense and options are "yes" and "no"...so if expense_option_id==1 then its "yes" else its "no"
-      @player_media_plans_for_this_round=PlayerRoundExpense.find_all_by_brand_id(brand.id)
-      @media_type_expense=ExpenseType.find_by_name("Media")
-      total_media=0
-      @player_media_plans_for_this_round.each do |expense|
-        if Expense.find(expense.expense_id).expense_type_id==@media_type_expense.id
-          total_media=total_media+ExpenseOption.find(expense_option_id).amount
-        end
+
+    @market_demographics.each do |category|
+      #this indicates the proportion of each consumer category in the market
+      proportion=total_consumers*category.proportion/100
+      proportion.times do |i|
+        @consumer=Consumer.new
+
+        @consumer_category=ConsumerCategory.find(category.consumer_category_id)
+        @consumer.consumer_category_id=@consumer_category.id
+        r=Random.new
+
+        #this populates data from consumer category
+        @consumer.personal_taste_index=r.rand(@consumer_category.personal_taste_range)
+        @consumer.price_index=r.rand(@consumer_category.price_range)
+        @consumer.dealer_push_index=r.rand(@consumer_category.dealer_push_range)
+        @consumer.media_push_index=r.rand(@consumer_category.media_push_range)
+        @consumer.disposable_salary=r.rand(@consumer_category.disposable_salary_range)
+
+        #now lets decide the dealer for this consumer
+
+        #r=rand(@dealers_consumers.size)
+        #@dealers_consumers.size.times do
+        #  if @dealers_consumers[r].last>0
+        #    @consumer.dealer_id=@dealers_consumers[r].index(@dealers_consumers[r].last)
+        #    @dealers_consumers[r][@consumer.dealer_id]=@dealers_consumers[r][@consumer.dealer_id]-1
+        #    break
+        #  else
+        #    r=rand(@dealers_consumers.size)
+        #    next
+        #
+        #  end
+        #end
+
+        #now dealer is done
+
+        @consumer.dealer_id=0
+        #rest attributes will have to be done later
+        @consumer.save!
+
+
       end
-      @media_score = total_media
-
-      #now we calculate final score and decide the brand which consumer will buy finally
-      @final_score << @consumer.price_index*@price_score+@consumer.media_push_index*@media_score+@consumer.dealer_push_index*@dealer_score
-
 
     end
 
-    @selected_brand_index=@final_score.index(@final_score.max)
 
-
-#now if the weight-age of personal taste for a consumer is higher than sum of others,, then consumer will follow his/her heart else other factors come into the picture
-    if (@consumer.personal_taste_index > 25)
-      #the case when personal taste is higher than everything...
-      x=rand(@brands.count)
-      @selected_brand=Brand.find(@brands[x])
-
-    else
-      @selected_brand=Brand.find(@brands[@selected_brand_index])
-
+    @dealers.each do |dealer|
+      @consumers=Consumer.all(:conditions=>['dealer_id = ? ', 0], :limit=>dealer.catchment_of_consumers)
+      @consumers.each do |consumer|
+        consumer.dealer_id=dealer.id
+        consumer.save!
+      end
     end
-    @consumer.brand_id=@selected_brand.id
-    @consumer.save!
+
 
   end
 
+  def self.assign_dealers(market_id)
+
+    @market=Market.find(market_id)
+    @dealers=@market.dealers
+    @dealers.each do |dealer|
+      @consumers=Consumer.first(dealer.catchment_of_consumers)
+      @consumers.each do |consumer|
+        consumer.dealer_id=dealer.id
+        consumer.save!
+      end
+    end
+
+  end
+
+  #this method helps us to decide whether consumer wil buy or not...
+  #it is called when we initiate round results
+  def self.take_buying_decision(simulation_id)
+    #carry this out for all consumers
+
+
+    #we select brand with least price
+    @simulation=Simulation.find(simulation_id)
+    @product=Product.find(@simulation.product_id)
+    @players=@simulation.players
+    @brands=Array.new
+    @players.each do |player|
+      @brands<< player.brands
+    end
+
+#    @brands.collect!{|a| a[0].class}
+    @brands.sort! { |a, b| a[0].price_per_unit <=> b[0].price_per_unit }
+
+    @markets=@simulation.simulation_markets
+    @dealers=Array.new
+    @markets.each do |market|
+      @dealers<< Market.find(market.market_id).dealers
+
+    end
+
+    return @dealers
+    @consumers=Array.new
+    @dealers.each do |dealer|
+      @consumers << dealer[0].consumers
+    end
+
+
+    # @brands=@brands.sort_by(&:price_per_unit)
+    @consumers.each do |consumer|
+
+      #disposable income are onbtained from the particular consumer
+      disposable_income=consumer.disposable_salary
+      @consumer_category=ConsumerCategory.find(consumer.consumer_category_id)
+      @mentality=Mentality.find(@consumer_category.mentality_id)
+      @mentality_rankings=@mentality.mentality_rankings.sort_by(&:index)
+
+      #we find the simulation we are working...
+      r=Random.new
+
+      @mentality_rankings.each do |mentality_ranking|
+
+        if (@product.mentality_parameter_id==mentality_ranking.mentality_parameter_id)
+          if disposable_income > @brands[0][0].price_per_unit
+            @decision=1
+          else
+            @decision=0
+          end
+          break
+        end
+
+        if mentality_ranking.range_value.class==Fixnum
+          disposable_income=disposable_income-mentality_ranking.range_value
+        else
+          disposable_income=disposable_income-(disposable_income*r.rand(mentality_ranking.range_value))
+
+        end
+
+
+      end
+
+      if @decision==1
+        if (@product.mentality_parameter_id==1 or @product.mentality_parameter_id==2 or @product.mentality_parameter_id==3)
+
+          consumer.probability_of_purchase=100
+          consumer.save!
+        elsif (@product.mentality_parameter_id==4 or @product.mentality_parameter_id==5 or @product.mentality_parameter_id==6)
+          consumer.probability_of_purchase=75
+        else
+          consumer.probability_of_purchase=50
+        end
+
+
+      else
+        consumer.probability_of_purchase=0
+        consumer.final_decision=0
+      end
+      if rand(100)<consumer.probability_of_purchase
+        consumer.final_decision=1
+      else
+        consumer.final_decision=0
+
+      end
+
+      consumer.save!
+    end
+  end
+
+  def self.take_final_decision(simulation_id)
+    #first find simulation under the scanner...
+    @simulation=Simulation.find(simulation_id)
+    @players=@simulation.players
+
+    #first find the consumer whose decision has to be modelled
+
+    @markets=@simulation.simulation_markets
+    @dealers=Array.new
+    @markets.each do |market|
+      @dealers<<Market.find(market.market_id).dealers
+
+    end
+
+    @consumers=Array.new
+    @dealers.each do |dealer|
+      @consumers << dealer[0].consumers
+    end
+
+    @consumers.each do |consumer_arr|
+      consumer_arr.each do |consumer|
+
+
+        #  @consumer=Consumer.find(consumer_id)
+        #find the dealer which the consumer belongs to
+        @dealer=Dealer.find(consumer.dealer_id)
+        #find all brands belonging to the current simulation
+
+        #@brands=Brand.all
+
+        #to take a final decision , we will calculate a score for all the brands and the consumer will buy the brand whose score is highest
+
+        #@dealer_score=Array.new
+        #@price_score=Array.new
+        #@media_score=Array.new
+        @final_score=Array.new
+
+        #now lets calculate score for each brand
+        @players.each do |player|
+
+          @brands=player.brands
+          @brands.each do |brand|
+            #first get the dealer score:
+            @dealer_score = DealerPushIndex.find_by_brand_id_and_dealer_id(brand.id, @dealer.id).push_index_value
+            #now the price score
+            @price_score = brand.price_per_unit
+
+            #now the media score
+            #media is a type of expense and options are "yes" and "no"...so if expense_option_id==1 then its "yes" else its "no"
+            @player_media_plans_for_this_round=PlayerRoundExpense.find_all_by_brand_id(brand.id)
+            @media_type_expense=ExpenseType.find_by_name("Media")
+            total_media=0
+            @player_media_plans_for_this_round.each do |expense|
+              if Expense.find(expense.expense_id).expense_type_id==@media_type_expense.id
+                total_media=total_media+ExpenseOption.find(expense.expense_option_id).amount
+              end
+            end
+            @media_score = total_media
+
+            #now we calculate final score and decide the brand which consumer will buy finally
+            @final_score[brand.id] = consumer.price_index*@price_score+consumer.media_push_index*@media_score+consumer.dealer_push_index*@dealer_score
+
+          end
+        end
+
+
+      @final_score.collect! { |x|
+        if x.nil? then
+          x=0
+        else
+          x
+        end }
+
+      @selected_brand_index=@final_score.index(@final_score.max)
+
+#
+#
+#now if the weight-age of personal taste for a consumer is higher than sum of others,, then consumer will follow his/her heart else other factors come into the picture
+      if (consumer.personal_taste_index > 25)
+        #the case when personal taste is higher than everything...
+        x=rand(@brands.count)
+        @selected_brand=Brand.find(@brands[x])
+
+      else
+        @selected_brand=Brand.find(Brand.find(@selected_brand_index))
+
+      end
+      consumer.brand_id=@selected_brand.id
+      consumer.save!
+
+
+    end
+   end
+  end
 end

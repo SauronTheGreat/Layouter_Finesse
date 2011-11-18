@@ -11,6 +11,7 @@
   </tr>
 
 <% @rounds.each do |round| %>
+      <% if round.number > 0 %>
   <tr>
 
     <td><%= round.number %></td>
@@ -28,6 +29,7 @@
 
 
   </tr>
+          <% end %>
 <% end %>
 </table>
 

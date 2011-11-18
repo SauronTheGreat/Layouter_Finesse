@@ -4,11 +4,16 @@
 <%= form_tag :action => 'create' %>
 <% @simulation_decision_parameters.each_with_index do |decision_parameter, index| %>
     <%= fields_for "simulation_decision_parameters[#{index}]", decision_parameter do |f| %>
+        <% if @simulation_parameters_ids.include?(@decision_parameters[index].id) %>
+            <% @state=true %>
+        <% else %>
+            <% @state=false %>
+        <% end %>
 
         <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
 
         <%= f.label "#{@decision_parameters[index].name}" %>
-        <%= f.check_box :decision_parameter_id %>
+        <%= f.check_box :decision_parameter_id,{:checked=>@state} %>
          <br>
         <br>
 

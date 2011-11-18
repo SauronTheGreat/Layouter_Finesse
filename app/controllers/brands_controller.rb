@@ -4,6 +4,9 @@ class BrandsController < ApplicationController
   def index
     @player=Player.find(params[:player_id])
     @round=Round.find(params[:round_id])
+    @simulation=Simulation.find(@round.simulation_id)
+
+
     @brands=@player.brands
     #@brands = Brand.all
 

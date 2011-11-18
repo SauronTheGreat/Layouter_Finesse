@@ -5,7 +5,9 @@ gem 'rails', '3.1.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+#gem 'sqlite3'
+gem 'mysql2'
+
 gem 'nifty-generators'
 gem 'devise'
 gem 'gritter'
@@ -15,6 +17,16 @@ gem 'spreadsheet'
 
 
 gem 'json'
+group  :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'webrat','0.7.2'
+  gem 'launchy'
+
+
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

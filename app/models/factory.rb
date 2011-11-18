@@ -1,9 +1,10 @@
 class Factory < ActiveRecord::Base
 
   has_many :employees, :dependent => :destroy
-  has_many :factory_vendors,:dependent => :destroy
+  has_many :factory_vendors, :dependent => :destroy
 
   after_save :create_factory_expense, :initiate_employees
+
 
   def create_factory_expense
     @expense_type=ExpenseType.find_by_name("Factory")
@@ -15,6 +16,8 @@ class Factory < ActiveRecord::Base
   def initiate_employees
     Employee.create_employee_by_factory(self.id)
   end
+
+
 
 #this is a method we need to set the vendors that the factory will buy raw material from
 #each factory will have a vendor with least distance

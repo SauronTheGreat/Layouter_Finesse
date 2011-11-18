@@ -27,7 +27,7 @@ class PlayerRoundInvestmentsController < ApplicationController
     @player=Player.find(params[:player_id])
     @round=Round.find(params[:round_id])
     @round_investments=@round.round_investments
-     @brand=Brand.find(params[:brand_id])
+    @brand=Brand.find(params[:brand_id])
     @player_round_investments=Array.new(@round_investments.count) { PlayerRoundInvestment.new }
 
 
@@ -46,16 +46,17 @@ class PlayerRoundInvestmentsController < ApplicationController
   # POST /player_round_investments.json
   def create
 
-    @player_round_investments = params[:player_round_investments].values.collect{ |player_round_investment| PlayerRoundInvestment.new(player_round_investment) }
+    @player_round_investments = params[:player_round_investments].values.collect { |player_round_investment| PlayerRoundInvestment.new(player_round_investment) }
 
-        @player_round_investments.each do |player_round_investment|
-          player_round_investment.save!
-        end
+    @player_round_investments.each do |player_round_investment|
+      player_round_investment.save!
+    end
 
 
     respond_to do |format|
       if @player_round_investments.all?(&:valid?)
-        format.html {redirect_to root_path}
+        # format.html {redirect_to root_path}
+        format.html { redirect_to new_player_round_loan_path(:player_id=>@player_round_investments[0].player_id, :round_id=>@player_round_investments[0].round_id, :brand_id=>@player_round_investments[0].brand_id) }
         #format.html { redirect_to @player_round_investment, notice: 'Player round investment was successfully created.' }
         format.json { render json: @player_round_investment, status: :created, location: @player_round_investment }
       else

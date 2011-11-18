@@ -1,4 +1,14 @@
 Layouter::Application.routes.draw do
+  resources :market_demographics
+
+  resources :mentality_values
+
+  resources :mentality_rankings
+
+  resources :mentalities
+
+  resources :mentality_parameters
+
   resources :factory_vendors
 
   resources :plugin_samples
@@ -189,6 +199,7 @@ Layouter::Application.routes.draw do
   match 'finalize_media_plan'=>'media_plans#finalize_media_plan'
   match 'select_initiate_simulation'=>'simulations#select_initiate_simulation'
   match 'view_tabular_market_distance'=>'market_distances#view_tabular_distances'
+  match 'initiate_round_calculation'=>'simulations#initiate_round_calculation'
 
 
 end

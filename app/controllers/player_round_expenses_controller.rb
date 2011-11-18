@@ -27,7 +27,9 @@ class PlayerRoundExpensesController < ApplicationController
   def new
     @player=Player.find(params[:player_id])
     @round=Round.find(params[:round_id])
-    @round_expenses=@round.round_expenses.collect{|round_expense| if round_expense.visible==true then round_expense else nil end}.compact!
+    @round_expenses=@round.round_expenses.collect{|round_expense| if round_expense.visible==true then round_expense else nil end}.compact
+    #render :text=> @round.round_expenses.collect{|re| if re.visible==true then "1" end}.compact
+    #return
     @brand=Brand.find(params[:brand_id])
 
     @player_round_expenses=Array.new(@round_expenses.count) { PlayerRoundExpense.new }
@@ -53,7 +55,7 @@ class PlayerRoundExpensesController < ApplicationController
      @factory_expense_category=ExpenseType.find_by_name("Factory")
     @player_round_expenses.each do |player_round_expense|
        if ExpenseType.find(Expense.find(player_round_expense.expense_id).expense_type_id).id==@factory_expense_category.id
-         factory=Factory.find_by_name(Expense.find(expense.expense_id).name)
+         factory=Factory.find_by_name(Expense.find(player_round_expense.expense_id).name)
          @player_round_factory=PlayerRoundFactory.new
          @player_round_factory.factory_id=factory.id
          @player_round_factory.player_id=player_round_expense.player_id
@@ -67,12 +69,21 @@ class PlayerRoundExpensesController < ApplicationController
       player_round_expense.save!
     end
 
-    # @player_round_expense = PlayerRoundExpense.new(params[:player_round_expense])
+
+    @curr_round=Round.find(@player_round_expenses[0].round_id)
+    @prev_round=Round.find_by_number_and_simulation_id(@curr_round.number-1,@curr_round.simulation_id)
+
+  @player_financial=PlayerFinancial.find_by_player_id_and_round_id(@player_round_expenses[0].player_id, @prev_round.id)
 
     respond_to do |format|
       if @player_round_expenses.all?(&:valid?)
         #format.html { redirect_to @player_round_expense, notice: 'Player round expense was successfully created.' }
+        if @player_financial.cash <= 0
         format.html { redirect_to new_player_round_loan_path(:player_id=>@player_round_expenses[0].player_id, :round_id=>@player_round_expenses[0].round_id, :brand_id=>@player_round_expenses[0].brand_id) }
+        else
+            format.html { redirect_to new_player_round_investment_path(:player_id=>@player_round_expenses[0].player_id, :round_id=>@player_round_expenses[0].round_id, :brand_id=>@player_round_expenses[0].brand_id) }
+
+         end
         format.json { render json: @player_round_expense, status: :created, location: @player_round_expense }
       else
         format.html { render action: "new" }
