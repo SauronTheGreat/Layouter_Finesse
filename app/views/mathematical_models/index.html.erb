@@ -1,33 +1,44 @@
-<%= content_for :main_content do %>
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :header do %>
 <h1>Listing mathematical_models</h1>
+<% end %>
 
-<table border="1">
+<%= content_for :main_content do %>
+<table>
   <tr>
-    <th>Name</th>
-    <th>Formula</th>
-    <th>Number Of Constants</th>
-    <th>Number Of Variables</th>
-    <th></th>
-    <th></th>
-    <th></th>
 
+    <th>Name</th>
+
+    <th></th>
   </tr>
 
 <% @mathematical_models.each do |mathematical_model| %>
   <tr>
-    <td><%= mathematical_model.name %></td>
-    <td><%= mathematical_model.formula %></td>
-    <td><%= mathematical_model.number_of_constants %></td>
-    <td><%= mathematical_model.number_of_variables %></td>
 
-    <td><%= link_to 'Show', mathematical_model %></td>
-    <td><%= link_to 'Edit', edit_mathematical_model_path(mathematical_model) %></td>
-    <td><%= link_to 'Destroy', mathematical_model, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= mathematical_model.name %></td>
+
+    <td>
+    <%= link_to image_tag(icon("show"),:size=>"64x64"), mathematical_model, :title=>'Show' %>
+    <%= link_to image_tag(icon("edit"),:size=>"64x64"), edit_mathematical_model_path(mathematical_model), :title=>'Edit' %>
+    <%= link_to image_tag(icon("delete"),:size=>"64x64"), mathematical_model, confirm: 'Are you sure?', method: :delete, :title=>'Delete' %>
+    </td>
   </tr>
 <% end %>
 </table>
+<% end %>
 
 <br />
-
-<%= link_to 'New Mathematical model', new_mathematical_model_path %>
+<%= content_for :navigation do %>
 <% end %>
+<%= content_for :extra do %>
+<%= link_to image_tag('new_icon.png',:size=>"100x100"), new_mathematical_model_path, :title=>"Add a mathematical_model" %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>
+

@@ -25,6 +25,7 @@ class MediaController < ApplicationController
   # GET /media/new.json
   def new
     @medium = Medium.new
+     @media = Medium.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class MediaController < ApplicationController
   # GET /media/1/edit
   def edit
     @medium = Medium.find(params[:id])
+    render :layout => false
   end
 
   # POST /media
@@ -44,10 +46,10 @@ class MediaController < ApplicationController
 
     respond_to do |format|
       if @medium.save
-        format.html { redirect_to @medium, notice: 'Medium was successfully created.' }
+        format.html { redirect_to media_path, notice: 'Medium was successfully created.' }
         format.json { render json: @medium, status: :created, location: @medium }
       else
-        format.html { render action: "new" }
+        format.html { render action: "index" }
         format.json { render json: @medium.errors, status: :unprocessable_entity }
       end
     end

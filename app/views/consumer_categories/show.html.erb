@@ -1,36 +1,39 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @consumer_category.name %>
-</p>
-<p>
-  <b>Price Range:</b>
-  <%= @consumer_category.price_range %>
-</p>
-
-<p>
-  <b>Dealer Push Range:</b>
-  <%= @consumer_category.dealer_push_range.class %>
-</p>
-
-<p>
-  <b>Personal taste Range:</b>
-  <%= @consumer_category.personal_taste_range.class %>
-</p>
-
-<p>
-  <b>Media Push Range:</b>
-  <%= @consumer_category.media_push_range.class %>
-</p>
+<%= content_for :page_header do %>
+    Showing <%= @consumer_category.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 
+    <p>
+      <b>Name:</b>
+      <%= @consumer_category.name %>
+    </p>
+
+    <p>
+      <b>Price Range:</b>
+      <%= @consumer_category.price_range %>
+    </p>
+
+    <p>
+      <b>Dealer Push Range:</b>
+      <%= @consumer_category.dealer_push_range %>
+    </p>
+
+    <p>
+      <b>Personal taste Range:</b>
+      <%= @consumer_category.personal_taste_range %>
+    </p>
+
+    <p>
+      <b>Media Push Range:</b>
+      <%= @consumer_category.media_push_range %>
+    </p>
 
 
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_consumer_category_path(@consumer_category) %> |
 <%= link_to 'Back', consumer_categories_path %>
 
-
-<% end %>

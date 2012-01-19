@@ -1,29 +1,91 @@
-<%= content_for :main_content do %>
-<h1>Listing media_plans</h1>
+<script type="text/javascript">
+    $(function() {
+        $('#register_as_expense_form').modal({
+            backdrop: true,
+            keyboard: true
+        });
+
+        $(".expense").click(function(event) {
+
+            event.preventDefault();
+            $(".modal_media_plan_id").attr("value", $(this).attr("id"));
+
+            $("#register_as_expense_form").modal("toggle");
+
+        });
+
+
+    });
+</script>
+
+<%= content_for :page_header do %>
+    Listing <span style="color: white"> Media Plan</span>
+<% end %>
+
+<% @media_plan=MediaPlan.new %>
+<%= content_for :secondary_content do %>
+    <h3>Add New Plan</h3>
+    <div style="margin-left: -20%;margin-top: 20%">
+      <%= render 'form' %>
+    </div>
+<% end %>
+
+
+<div id="register_as_expense_form" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+    Add A Summary
+
+  </div>
+  <div class="modal-body">
+
+    <%= form_tag :action => 'register_as_expense' do %>
+        <div class="clearfix">
+          <%= label_tag :summary %>
+          <div class="input">
+            <%= text_area_tag "summary" %>
+            <%= hidden_field_tag "media_plan_id", 0, :class=>"modal_media_plan_id" %>
+          </div>
+        </div>
+
+        <div class="input">
+          <%= submit_tag "Confirm", :class=>"primary btn" %>
+        </div>
+
+    <% end %>
+  </div>
+
+</div>
+
 
 <table>
   <tr>
     <th>Name</th>
+
     <th></th>
+
     <th></th>
+
     <th></th>
-    <th></th>
+
 
   </tr>
 
-<% @media_plans.each do |media_plan| %>
-  <tr>
-    <td><%= media_plan.name %></td>
-    <td><%= link_to 'Show', media_plan %></td>
-    <td><%= link_to 'Edit', edit_media_plan_path(media_plan) %></td>
-    <td><%= link_to 'Destroy', media_plan, confirm: 'Are you sure?', method: :delete %></td>
-    <td><%= link_to "Register as Expense",register_as_expense_path(:plan_id=>media_plan.id) %></td>
+  <% @media_plans.each do |media_plan| %>
+      <tr>
+        <td><%= media_plan.name %></td>
+        <td><%= link_to 'Show', media_plan %></td>
+        <% if !media_plan.registered_as_expense? %>
+            <td><%= link_to 'Register as expense', media_plan, :class=>"primary btn expense", :id=>media_plan.id %></td>
+        <% end %>
 
-  </tr>
-<% end %>
+        <td><%= button_to 'Destroy', media_plan, confirm: 'Are you sure?', method: :delete %></td>
+
+
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Media plan', new_media_plan_path %>
-<% end%>
+

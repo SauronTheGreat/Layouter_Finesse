@@ -1,46 +1,142 @@
-<%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<style type="text/css">
+    a {
+        font-size: 14px;
+    }
+</style>
 
-      <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="row">
+  <script type="text/javascript">
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
+      function remove_fields(link) {
+          $(link).prev("input[type=hidden]").val("1");
+          $(link).closest(".form1").hide();
+      }
 
-  <div class="field">
-    <%= f.label :number_of_parameters %><br />
-    <%= f.number_field :number_of_parameters %>
-  </div>
-
-  <div class="field">
-    <%= f.label :weight %><br />
-    <%= f.number_field :weight %>
-  </div>
-
-  <div class="field">
-    <%= f.label :mfg_cost %><br />
-    <%= f.number_field :mfg_cost %>
-  </div>
-
-  <div class="field">
-    <%= f.label :mentality_parameter_id %><br />
-    <%= f.select :mentality_parameter_id ,MentalityParameter.all.collect{|mp|[mp.name,mp.id]}%>
-  </div>
+      function add_fields(link, association, content) {
+          var new_id = new Date().getTime();
+          var regexp = new RegExp("new_" + association, "g");
+          $(link).parent().before(content.toString().replace(regexp, new_id));
 
 
+      }
 
 
+  </script>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+
+  <div class="span7 ">
+    <div id="wrapper">
+      <div id="steps">
+        <%= form_for(@product) do |f| %>
+
+
+            <fieldset class="step">
+
+              <legend>Name</legend>
+              <div class="clearfix">
+                <%= f.label :name %>
+                <div class="input">
+                  <%= f.text_field :name, :class=>"xlarge" %>
+                </div>
+              </div>
+
+            </fieldset>
+
+            <fieldset class="step">
+              <legend>Weight</legend>
+              <div class="clearfix">
+                <%= f.label "weight (In kgs)" %>
+                <div class="input">
+                  <%= f.number_field :weight, :class=>"xlarge" %>
+                </div>
+              </div>
+              <div class="clearfix">
+                <%= f.label "Mfg Cost (In Rs/unit) " %>
+                <div class="input">
+                  <%= f.number_field :mfg_cost, :class=>"xlarge" %>
+                </div>
+              </div>
+
+            </fieldset>
+            <fieldset class="step">
+              <legend>Internals</legend>
+              <div class="clearfix">
+                <%= f.label :mentality_parameter_id %>
+                <div class="input">
+                  <%= f.select :mentality_parameter_id, MentalityParameter.all.collect { |mp| [mp.name, mp.id] }, :class=>"xlarge" %>
+                </div>
+              </div>
+              <div class="clearfix">
+                <%= f.label :product_image %>
+                <div class="input">
+                  <%= f.file_field :product_image, :class=>"xlarge" %>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="step">
+
+              <legend>Parameters</legend>
+              <%= f.fields_for :product_parameters do |builder| %>
+
+                  <%= render 'products/product_parameter_fields', :f => builder %>
+              <% end %>
+
+              <p>   <%= link_to_add_fields "Add Parameter", f, :product_parameters %></p>
+
+
+            </fieldset>
+            </div>
+
+
+            <div id="navigation" style="display:none;">
+              <ul>
+                <li class="selected">
+                  <a href="#">Name</a>
+                </li>
+                <li>
+                  <a href="#">Weight</a>
+                </li>
+                <li>
+                  <a href="#">Internals</a>
+                </li>
+                <li>
+                  <a href="#">Parameters</a>
+                </li>
+
+
+              </ul>
+            </div>
+            </div>
+
+
+            <%= content_for :secondary_content do %>
+
+
+                <% if @product.errors.any? %>
+                    <div id="error_explanation">
+                      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being
+                        saved:</h2>
+
+                      <ul>
+                        <% @product.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                <% end %>
+
+
+            <% end %>
+
+            <div class="input">
+
+
+              <%= f.submit "Confirm decision", :class=>"primary btn",:style=>"margin-left:160%" %>
+
+              <br>
+            </div>
+
+        <% end %>
+
+        </div>
+</div>

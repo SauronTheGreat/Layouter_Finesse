@@ -268,7 +268,7 @@ PluginSample.create!(:name=>"Jquery-Media", :description=>"Low effort video inte
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
+#
 @user=User.create!(:email=>"superadmin@finesse.com", :first_name=>"super", :last_name=>"admin", :username=>"superadmin", :password=>"finesse1", :password_confirmation=>"finesse1", :admin=>false, :super_admin=>true, :facilitator=>false)
 @user.superadmin=true
 @user.admin=false
@@ -291,9 +291,15 @@ PluginSample.create!(:name=>"Jquery-Media", :description=>"Low effort video inte
 @user.student=false
 @user.save!
 
+@user=User.create!(:email=>"student@finesse.com", :first_name=>"student", :last_name=>"group", :username=>"student", :password=>"finesse1", :password_confirmation=>"finesse1", :admin=>false, :super_admin=>false, :facilitator=>true)
+@user.superadmin=false
+@user.admin=false
+@user.facilitator=false
+@user.student=true
+@user.save!
 
-@user=User.find_by_username("facilitator")
-Facilitator.create!(:user_id=>@user.id, :client_id=>1)
+
+
 
 @constants=Constant.create!(:name=>"a", :value=>10)
 @constants=Constant.create!(:name=>"k", :value=>10)
@@ -306,16 +312,16 @@ Impact.create!(:name=>"LOW")
 Impact.create!(:name=>"MEDIUM")
 
 
-ExpenseType.create!(:name=>"Finance and Interest cost")
-ExpenseType.create!(:name=>"Power and Fuel")
-ExpenseType.create!(:name=>"Labour and wages")
-ExpenseType.create!(:name=>"Stores and spares")
-ExpenseType.create!(:name=>"Packing materials")
-ExpenseType.create!(:name=>"Stores and spares")
-ExpenseType.create!(:name=>"Insurance")
-ExpenseType.create!(:name=>"Freight and Forwarding")
-ExpenseType.create!(:name=>"Travelling and conveyance")
-ExpenseType.create!(:name=>"Repairs")
+#ExpenseType.create!(:name=>"Finance and Interest cost")
+#ExpenseType.create!(:name=>"Power and Fuel")
+#ExpenseType.create!(:name=>"Labour and wages")
+#ExpenseType.create!(:name=>"Stores and spares")
+#ExpenseType.create!(:name=>"Packing materials")
+#ExpenseType.create!(:name=>"Stores and spares")
+#ExpenseType.create!(:name=>"Insurance")
+#ExpenseType.create!(:name=>"Freight and Forwarding")
+#ExpenseType.create!(:name=>"Travelling and conveyance")
+#ExpenseType.create!(:name=>"Repairs")
 ExpenseType.create!(:name=>"HR")
 ExpenseType.create!(:name=>"Media")
 ExpenseType.create!(:name=>"Channel")
@@ -344,95 +350,98 @@ Unit.create!(:name=>'tenor')
 #Dealer.create!(:name=>"national_dealer3", :catchment_of_consumers=>1000, :desired_commission=>10, :dealer_category_id=>@national_dealer.id)
 #
 #
-Market.create!(:name=>"Bangalore", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>9500)
-Market.create!(:name=>"Mumbai", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>20600)
-Market.create!(:name=>"nagpur", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>4600)
-Market.create!(:name=>"Pune", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>9400)
-Market.create!(:name=>"New Delhi", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>16500)
-Market.create!(:name=>"Gurgoan", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>1500)
-Market.create!(:name=>"Chennai", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>4700)
-Market.create!(:name=>"Hyderabad", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>4000)
-Market.create!(:name=>"Kolkata", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>18000)
-Market.create!(:name=>"Ahmadabad", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>7200)
-Market.create!(:name=>"Chandigarh", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>1000)
 
 
-#banglore
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>2, :distance=>998)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>3, :distance=>1049)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>4, :distance=>835)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>5, :distance=>2061)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>6, :distance=>2054)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>7, :distance=>331)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>8, :distance=>562)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>9, :distance=>1881)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>10, :distance=>1495)
-MarketDistance.create!(:source_market_id=>1, :target_market_id=>11, :distance=>2298)
-
-
-#Mumbai
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>3, :distance=>863)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>4, :distance=>163)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>5, :distance=>1407)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>6, :distance=>1393)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>7, :distance=>1329)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>8, :distance=>711)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>9, :distance=>1987)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>10, :distance=>491)
-MarketDistance.create!(:source_market_id=>2, :target_market_id=>11, :distance=>1637)
-
-#nagpur
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>4, :distance=>880)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>5, :distance=>1012)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>6, :distance=>1042)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>7, :distance=>1083)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>8, :distance=>487)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>9, :distance=>1124)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>10, :distance=>970)
-MarketDistance.create!(:source_market_id=>3, :target_market_id=>11, :distance=>1249)
-
-#Pune
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>5, :distance=>1417)
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>6, :distance=>1416)
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>7, :distance=>1166)
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>8, :distance=>548)
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>9, :distance=>2004)
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>10, :distance=>660)
-MarketDistance.create!(:source_market_id=>4, :target_market_id=>11, :distance=>1654)
-
-#Delhi
-MarketDistance.create!(:source_market_id=>5, :target_market_id=>6, :distance=>30)
-MarketDistance.create!(:source_market_id=>5, :target_market_id=>7, :distance=>2095)
-MarketDistance.create!(:source_market_id=>5, :target_market_id=>8, :distance=>1499)
-MarketDistance.create!(:source_market_id=>5, :target_market_id=>9, :distance=>1416)
-MarketDistance.create!(:source_market_id=>5, :target_market_id=>10, :distance=>915)
-MarketDistance.create!(:source_market_id=>5, :target_market_id=>11, :distance=>238)
-
-#Gurgoan
-MarketDistance.create!(:source_market_id=>6, :target_market_id=>7, :distance=>2088)
-MarketDistance.create!(:source_market_id=>6, :target_market_id=>8, :distance=>1492)
-MarketDistance.create!(:source_market_id=>6, :target_market_id=>9, :distance=>1426)
-MarketDistance.create!(:source_market_id=>6, :target_market_id=>10, :distance=>885)
-MarketDistance.create!(:source_market_id=>6, :target_market_id=>11, :distance=>268)
-
-
-#Chennai
-MarketDistance.create!(:source_market_id=>7, :target_market_id=>8, :distance=>688)
-MarketDistance.create!(:source_market_id=>7, :target_market_id=>9, :distance=>1676)
-MarketDistance.create!(:source_market_id=>7, :target_market_id=>10, :distance=>1826)
-MarketDistance.create!(:source_market_id=>7, :target_market_id=>11, :distance=>2224)
-
-#Hyderabad
-MarketDistance.create!(:source_market_id=>8, :target_market_id=>9, :distance=>1516)
-MarketDistance.create!(:source_market_id=>8, :target_market_id=>10, :distance=>1208)
-MarketDistance.create!(:source_market_id=>8, :target_market_id=>11, :distance=>1736)
-
-#Kolkata
-MarketDistance.create!(:source_market_id=>9, :target_market_id=>10, :distance=>1924)
-MarketDistance.create!(:source_market_id=>9, :target_market_id=>11, :distance=>1646)
-
-#Ahemdabad
-MarketDistance.create!(:source_market_id=>10, :target_market_id=>11, :distance=>1153)
+#
+#Market.create!(:name=>"Bangalore", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>9500)
+#Market.create!(:name=>"Mumbai", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>20600)
+#Market.create!(:name=>"nagpur", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>4600)
+#Market.create!(:name=>"Pune", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>9400)
+#Market.create!(:name=>"New Delhi", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>16500)
+#Market.create!(:name=>"Gurgoan", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>1500)
+#Market.create!(:name=>"Chennai", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>4700)
+#Market.create!(:name=>"Hyderabad", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>4000)
+#Market.create!(:name=>"Kolkata", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>18000)
+#Market.create!(:name=>"Ahmadabad", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>7200)
+#Market.create!(:name=>"Chandigarh", :catchment_of_dealers=>100, :catchment_of_vendors=>10, :no_of_consumers=>1000)
+#
+#
+##banglore
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>2, :distance=>998)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>3, :distance=>1049)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>4, :distance=>835)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>5, :distance=>2061)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>6, :distance=>2054)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>7, :distance=>331)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>8, :distance=>562)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>9, :distance=>1881)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>10, :distance=>1495)
+#MarketDistance.create!(:source_market_id=>1, :target_market_id=>11, :distance=>2298)
+#
+#
+##Mumbai
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>3, :distance=>863)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>4, :distance=>163)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>5, :distance=>1407)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>6, :distance=>1393)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>7, :distance=>1329)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>8, :distance=>711)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>9, :distance=>1987)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>10, :distance=>491)
+#MarketDistance.create!(:source_market_id=>2, :target_market_id=>11, :distance=>1637)
+#
+##nagpur
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>4, :distance=>880)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>5, :distance=>1012)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>6, :distance=>1042)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>7, :distance=>1083)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>8, :distance=>487)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>9, :distance=>1124)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>10, :distance=>970)
+#MarketDistance.create!(:source_market_id=>3, :target_market_id=>11, :distance=>1249)
+#
+##Pune
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>5, :distance=>1417)
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>6, :distance=>1416)
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>7, :distance=>1166)
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>8, :distance=>548)
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>9, :distance=>2004)
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>10, :distance=>660)
+#MarketDistance.create!(:source_market_id=>4, :target_market_id=>11, :distance=>1654)
+#
+##Delhi
+#MarketDistance.create!(:source_market_id=>5, :target_market_id=>6, :distance=>30)
+#MarketDistance.create!(:source_market_id=>5, :target_market_id=>7, :distance=>2095)
+#MarketDistance.create!(:source_market_id=>5, :target_market_id=>8, :distance=>1499)
+#MarketDistance.create!(:source_market_id=>5, :target_market_id=>9, :distance=>1416)
+#MarketDistance.create!(:source_market_id=>5, :target_market_id=>10, :distance=>915)
+#MarketDistance.create!(:source_market_id=>5, :target_market_id=>11, :distance=>238)
+#
+##Gurgoan
+#MarketDistance.create!(:source_market_id=>6, :target_market_id=>7, :distance=>2088)
+#MarketDistance.create!(:source_market_id=>6, :target_market_id=>8, :distance=>1492)
+#MarketDistance.create!(:source_market_id=>6, :target_market_id=>9, :distance=>1426)
+#MarketDistance.create!(:source_market_id=>6, :target_market_id=>10, :distance=>885)
+#MarketDistance.create!(:source_market_id=>6, :target_market_id=>11, :distance=>268)
+#
+#
+##Chennai
+#MarketDistance.create!(:source_market_id=>7, :target_market_id=>8, :distance=>688)
+#MarketDistance.create!(:source_market_id=>7, :target_market_id=>9, :distance=>1676)
+#MarketDistance.create!(:source_market_id=>7, :target_market_id=>10, :distance=>1826)
+#MarketDistance.create!(:source_market_id=>7, :target_market_id=>11, :distance=>2224)
+#
+##Hyderabad
+#MarketDistance.create!(:source_market_id=>8, :target_market_id=>9, :distance=>1516)
+#MarketDistance.create!(:source_market_id=>8, :target_market_id=>10, :distance=>1208)
+#MarketDistance.create!(:source_market_id=>8, :target_market_id=>11, :distance=>1736)
+#
+##Kolkata
+#MarketDistance.create!(:source_market_id=>9, :target_market_id=>10, :distance=>1924)
+#MarketDistance.create!(:source_market_id=>9, :target_market_id=>11, :distance=>1646)
+#
+##Ahemdabad
+#MarketDistance.create!(:source_market_id=>10, :target_market_id=>11, :distance=>1153)
 
 
 #
@@ -456,15 +465,17 @@ InvestmentType.create!(:name=>"Futures and Derivatives")
 
 
 LoanType.create!(:name=>"Long Term Loan")
-LoanType.create!(:name=>"Working Capital Demand Loan")
-LoanType.create!(:name=>"Cash Credit")
-LoanType.create!(:name=>"Bill Discounting")
-LoanType.create!(:name=>"Letters Of Credit")
-LoanType.create!(:name=>"Pre Shipment Finance")
-LoanType.create!(:name=>"Post Shipment Finance")
-LoanType.create!(:name=>"Bridge Loans")
-LoanType.create!(:name=>"Project Financing")
-LoanType.create!(:name=>"Promoter Funding")
+LoanType.create!(:name=>"Short Term Loan")
+
+#LoanType.create!(:name=>"Working Capital Demand Loan")
+#LoanType.create!(:name=>"Cash Credit")
+#LoanType.create!(:name=>"Bill Discounting")
+#LoanType.create!(:name=>"Letters Of Credit")
+#LoanType.create!(:name=>"Pre Shipment Finance")
+#LoanType.create!(:name=>"Post Shipment Finance")
+#LoanType.create!(:name=>"Bridge Loans")
+#LoanType.create!(:name=>"Project Financing")
+#LoanType.create!(:name=>"Promoter Funding")
 
 
 Medium.create!(:name=>"Television Prime Slot", :cost=>1000, :impact_id=>1, :unit_id=>1)
@@ -596,7 +607,8 @@ DefaultPlayerDatum.create!(:fixed_assets=>18815,
                            :depreciation_cost=>3423,
                            :pbt=>1331,
                            :tax=>320,
-                           :pat=> 1011)
+                           :pat=> 1011,
+                            :total_assets=>10000)
 
 
 
@@ -615,7 +627,7 @@ ConsumerCategory.create!(:name=>"category1",:price_range=>"50..78",:personal_tas
 ConsumerCategory.create!(:name=>"category2",:price_range=>"50..78",:personal_taste_range=>"20..80",:dealer_push_range=>"20..40",:media_push_range=>"10..80",:annual_consumption=>200,:disposable_salary_range=>"100000..400000",:mentality_id=>2)
 ConsumerCategory.create!(:name=>"category3",:price_range=>"50..78",:personal_taste_range=>"20..80",:dealer_push_range=>"20..40",:media_push_range=>"10..80",:annual_consumption=>200,:disposable_salary_range=>"100000..400000",:mentality_id=>3)
 ConsumerCategory.create!(:name=>"category4",:price_range=>"50..78",:personal_taste_range=>"20..80",:dealer_push_range=>"20..40",:media_push_range=>"10..80",:annual_consumption=>200,:disposable_salary_range=>"100000..400000",:mentality_id=>4)
-ConsumerCategory.create!(:name=>"category5",:price_range=>"50..78",:personal_taste_range=>"20..80",:dealer_push_range=>"20..40",:media_push_range=>"10..80",:annual_consumption=>200,:disposable_salary_range=>"100000..400000",:mentality_id=>5)
+ConsumerCategory.create!(:name=>"category5",:price_range=>"50..78",:personal_taste_range=>"20..80",:dealer_push_range=>"20..40",:media_push_range=>"10..80",:annual_consumption=>200,:disposable_salary_range=>"100000..400000",:mentality_id=>4)
 
 
 MarketDemographic.create!(:market_id=>1,:consumer_category_id=>1,:proportion=>20)

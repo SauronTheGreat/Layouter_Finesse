@@ -1,10 +1,11 @@
-<%= content_for :main_content do %>
-<h1>Listing dealers</h1>
+<%= content_for :page_header do %>
+    Listing Dealers
+<% end %>
 
 <table>
   <tr>
     <th>Name</th>
-    <th>Market</th>
+
     <th>Catchment of consumers</th>
     <th>Desired commission</th>
     <th>Final commission</th>
@@ -17,7 +18,7 @@
 <% @dealers.each do |dealer| %>
   <tr>
     <td><%= dealer.name %></td>
-    <td><%= dealer.market_id %></td>
+
     <td><%= dealer.catchment_of_consumers %></td>
     <td><%= dealer.desired_commission %></td>
     <td><%= dealer.final_commission %></td>
@@ -33,4 +34,3 @@
 
 <%= link_to 'New Dealer', new_dealer_path %>
 
-<% end %>

@@ -35,6 +35,7 @@ class InvestmentsController < ApplicationController
   # GET /investments/1/edit
   def edit
     @investment = Investment.find(params[:id])
+    render :layout => false
   end
 
   # POST /investments
@@ -44,7 +45,7 @@ class InvestmentsController < ApplicationController
 
     respond_to do |format|
       if @investment.save
-        format.html { redirect_to @investment, notice: 'Investment was successfully created.' }
+        format.html { redirect_to investments_path, notice: 'Investment was successfully created.' }
         format.json { render json: @investment, status: :created, location: @investment }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class InvestmentsController < ApplicationController
 
     respond_to do |format|
       if @investment.update_attributes(params[:investment])
-        format.html { redirect_to @investment, notice: 'Investment was successfully updated.' }
+        format.html { redirect_to investments_path, notice: 'Investment was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

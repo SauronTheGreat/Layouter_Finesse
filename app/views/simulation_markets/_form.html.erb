@@ -1,23 +1,38 @@
-<%= form_tag :action => 'create' %>
-<% @simulation_markets.each_with_index do |market, index| %>
-    <%= fields_for "simulation_markets[#{index}]", market do |f| %>
+<div class="row">
+  <div class="span7 offset3">
+    <%= form_tag :action => 'create' %>
+    <% @simulation_markets.each_with_index do |market, index| %>
+        <%= fields_for "simulation_markets[#{index}]", market do |f| %>
 
-        <% if @simulation_markets_ids.include?(@markets[index].id) %>
-            <% @state=true %>
-        <% else %>
-            <% @state=false %>
+            <% if @simulation_markets_ids.include?(@markets[index].id) %>
+                <% @state=true %>
+            <% else %>
+                <% @state=false %>
+            <% end %>
+
+            <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
+           <div class="clearfix">
+           <label for="appendedInput"><%= f.label "#{@markets[index].name}" %></label>
+            <div class="input">
+            <div class="input-append">
+               <br>
+            <%= f.check_box :market_id, {:checked=>@state} %>
+            </div>
+             </div>
+             </div>
+            <br>
+            <br>
         <% end %>
-
-        <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
-
-        <%= f.label "#{@markets[index].name}" %>
-
-        <%= f.check_box :market_id, {:checked=>@state} %>
-        <br>
-        <br>
-
-
     <% end %>
-<% end %>
-<%= submit_tag %>
 
+    <div class="row">
+      <div class="span1 offset3">
+        <% if params[:action]== "new" %>
+            <%= submit_tag "Submit", :class=>"primary btn" %>
+        <% else %>
+            <%= f.submit_tag "Update", :class=>"primary btn" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

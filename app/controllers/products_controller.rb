@@ -1,6 +1,9 @@
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
+
+  before_filter :allow_only_superadmin
+
   def index
     @products = Product.all
 
@@ -35,12 +38,21 @@ class ProductsController < ApplicationController
   # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
+    if params[:product_details_hidden]
+      @product.number_of_parameters.times do
+        @product.product_parameters.build
+      end
+    end
+
   end
 
   # POST /products
   # POST /products.json
   def create
     @product = Product.new(params[:product])
+
+    #checking the proportion of parameters
+
 
     respond_to do |format|
       if @product.save
@@ -50,6 +62,8 @@ class ProductsController < ApplicationController
         format.html { render action: "new" }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
+
+
     end
   end
 

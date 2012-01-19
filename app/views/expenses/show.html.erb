@@ -1,13 +1,51 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @expense.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_expense_path(@expense) %> |
-<%= link_to 'Back', expenses_path %>
-
+<%= content_for :page_header do %>
+    Showing <%= @expense.name %>
 <% end %>
+
+
+<div class="row">
+  <div class="span7 ">
+    <table>
+      <tr>
+        <td>
+        <b>Name:</b>
+        <%= @expense.name %>
+        </td>
+        <td>
+
+
+
+        Options
+          <ul style="font-size: 15px">
+            <% @expense.expense_options.each_with_index do |option, index| %>
+
+                <li><img src="../assets/tick.png"> <%= option.amount %></li>
+
+            <% end %>
+          </ul>
+        </td>
+
+      </tr>
+
+
+      <tr>
+        <td>
+        <b>Type:</b>
+        <%= ExpenseType.find(@expense.expense_type_id).name %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+        <b>Summary</b>
+        <%= h(@expense.summary) %>
+        </td>
+      </tr>
+
+
+
+
+    </table>
+
+  </div>
+</div>

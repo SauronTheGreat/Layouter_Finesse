@@ -1,12 +1,11 @@
-<%= content_for :main_content do %>
+
 <%= form_tag :action => 'set_depreciation' do %>
 
     <%= hidden_field_tag :round_id,@round.id %>
         <%= label_tag "Depreciation" %>
     <%= text_field_tag :depreciation %>
 
-<%= submit_tag %>
+<%= submit_tag "Submit" ,:class=>"primary btn"%>
 <% end %>
 
 
-<% end %>

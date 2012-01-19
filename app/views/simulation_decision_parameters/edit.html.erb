@@ -1,8 +1,8 @@
-<%= content_for :main_content do %>
-<h1>Editing simulation_decision_parameter</h1>
+<%= content_for :page_header do %>
+    Editing <%= @simulation_decision_parameter.name %>
+<% end %>
 
 <%= render 'form' %>
 
 <%= link_to 'Show', @simulation_decision_parameter %> |
 <%= link_to 'Back', simulation_decision_parameters_path %>
-<% end %>

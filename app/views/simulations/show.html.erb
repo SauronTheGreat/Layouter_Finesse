@@ -1,97 +1,214 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= javascript_include_tag 'jquery_slidingtabs' %>
 
-<p>
-  <b>Name:</b>
-  <%= @simulation.name %>
-</p>
-
-<p>
-  <b>Facilitator:</b>
-  <%=User.find(Facilitator.find(@simulation.facilitator_id).user_id).username %>
-</p>
-
-<p>
-  <b>Max players:</b>
-  <%= @simulation.max_players %>
-</p>
-
-<p>
-  <b>Product Used:</b>
-  <%= Product.find(@simulation.product_id).name %>
-</p>
-
-<p>
-  <b>Freight Cost</b>
-  <%= @simulation.freight_cost %>
-</p>
-
-<p>
-  <b>Weight Per Unit</b>
-  <%= @simulation.weight_per_unit %>
-</p>
-
-<p>
-  <b>Max rounds:</b>
-  <%= @simulation.max_rounds %>
-</p>
-
-<p>
-  <b>Markets</b>
-<% if @markets.count==0 %>
-    <p>No markets selected yet</p>
-    <% else %>
-  <ul>
-
-    <% @markets.each do |market| %>
-    <li><%= Market.find(market.market_id).name %></li>
-    <% end %>
-    <% end %>
-
-  </ul>
-</p>
+<%= stylesheet_link_tag 'demo' %>
+<%= stylesheet_link_tag 'slidingtabs' %>
 
 
+<style type="text/css">
 
 
+    td {
+        text-align: center;
+    }
 
+        .back-logo {
+        background: url('../assets/india_map.png');
 
-<p>
-  <b>Decision Parameters</b>
-  <ul>
-    <% if @decision_parameters.count==0 %>
-    <p>No Decision Parameter selected yet </p>
-        <% else %>
-    <% @decision_parameters.each do |parameter| %>
-    <li><%= DecisionParameter.find(parameter.decision_parameter_id).name %></li>
-            <% end %>
-    <% end %>
-  </ul>
-</p>
+        /*display: block;*/
+        height: 200px;
+        /*text-indent:-9999px;*/
+        width: 200px;
 
+        background-repeat: no-repeat;
+        background-size: 100% 100%
 
-<p>
-  <b>Case Study </b>
+    }
 
-    <%=  @simulation.case_study_id %>
-</p>
+</style>
+<script type="text/javascript">
+    $(function() {
+        $('div#st_vertical').slideTabs({orientation: 'vertical'});
+    });
 
+</script>
 
-
-
-
-<%= link_to 'Edit', edit_simulation_path(@simulation) %> |
-<%= link_to 'Back', simulations_path %> |
-
-<%= link_to 'Set Markets', new_simulation_market_path(:simulation_id=>@simulation.id) %>|
-<%= link_to 'Set Decision Parameters', new_simulation_decision_parameter_path(:simulation_id=>@simulation.id) %>|
-<%= link_to "Proceed for Round Data Population",rounds_path(:simulation_id=>@simulation.id) %>|
-<%= link_to "Set Student Group",get_student_group_path(:simulation_id=>@simulation.id) %>  |
-
-<%= link_to "Initiate Simulation page",select_initiate_simulation_path(:simulation_id=>@simulation.id) %>
-<%= link_to "Initiate Round Calculation page",initiate_round_calculation_path(:simulation_id=>@simulation.id) %>
-
-
-
-
+<%= content_for :page_header do %>
+    Showing <%= @simulation.name %>
 <% end %>
+
+<div class="row">
+  <div id="st_vertical" class="st_vertical offset1">
+    <div class="st_tabs_container st_sliding_active" style="display: block; visibility: visible;">
+
+      <div class="st_slide_container">
+
+
+        <ul class="st_tabs">
+          <li><a class="st_tab" href="#stv_content_1" style="font-size: 14px">Simulation <br> Data</a></li>
+          <li><a class="st_tab" href="#stv_content_2" style="font-size: 14px">Simulation <br>Markets</a></li>
+          <li><a class="st_tab" href="#stv_content_3" style="font-size: 14px">Decision<br> Parameters</a></li>
+          <li><a class="st_tab" href="#stv_content_4" style="font-size: 14px">Decision <br> Makers</a></li>
+          <li><a class="st_tab" href="#stv_content_5" style="font-size: 14px">Edit <br> Data </a></li>
+
+        </ul>
+
+
+      </div>
+    </div>
+
+    <div class="st_view_container" style="visibility: visible; display: block;height: 259px;">
+      <div class="st_view">
+        <div id="stv_content_1" class="st_tab_view st_first_tab_view st_active_view">
+
+          <table style="margin-top:-13px;font-size: 18px " align="center">
+            <tr>
+              <td colspan="2"><p align="center" style="font-size:32px;"><%= @simulation.name %></p></td>
+            </tr>
+
+
+            <tr>
+              <td>
+                Product Used: <b><%= Product.find(@simulation.product_id).name %></b>
+                <br>
+                <br>
+
+                Freight Cost: <b><%= @simulation.freight_cost ||="?" %></b>
+                <br>
+                <br>
+                Weight Per Unit: <b><%= @simulation.weight_per_unit||="?" %></b>
+                <br>
+                <br>
+
+                Max rounds: <b><%= @simulation.max_rounds||="?(edit)" %></b>
+                <br>
+                <br>
+                Tax Rate: <b><%= @simulation.tax_rate||="?(edit)" %>%</b>
+              </td>
+              <td>
+                 <b><%= @simulation.summary %></b>
+              </td>
+            </tr>
+          </table>
+
+
+        </div>
+
+        <div id="stv_content_2" class="st_tab_view">
+          <table style="margin-top:-13px;font-size: 18px " align="center">
+
+            <tr>
+              <td colspan="2"><p align="center" style="font-size:32px "><%= "Selected Markets" %></p></td>
+
+            </tr>
+            <tr>
+              <% if @markets.count==0 %>
+                  <td>No markets selected yet</td>
+              <% else %>
+                  <% @markets.each do |sim_market| %>
+                        <% market=Market.find(sim_market.market_id) %>
+                        <% if !market.positionx.nil? %>
+                            <div class="">
+                            <span class="drag" style=" position:absolute;margin-left:<%= market.positionx*0.4+10%>px;margin-top:<%= market.positiony*0.4+40 %>px">  <%= image_tag 'circle.png', :size=>"10x10", :class=>market.id %>
+                            <a id="<%= market.id %>" data-content="And here's some amazing content. It's very engaging. right?" rel="popover" href="<%= market.id %>" data-original-title="A title"><%= market.name %> </a></span>
+                                                                </div>
+                        <% end %>
+
+
+                    <% end %>
+
+                  <td>
+                <div class="back-logo">
+
+                </div>
+                  </td>
+
+                    <% end %>
+
+
+            </tr>
+          </table>
+
+
+        </div>
+
+        <div id="stv_content_3" class="st_tab_view">
+
+
+          <table style="margin-top:-13px;font-size: 18px " align="center">
+            <tr>
+
+              <td colspan="2"><p align="center" style="font-size:32px "><%= "Decision Parameters" %></p></td>
+
+            </tr>
+            <tr>
+              <% if @decision_parameters.count==0 %>
+                  <td>No Decision Parameter selected yet</td>
+              <% else %>
+
+                  <% @decision_parameters.each_with_index do |parameter, index| %>
+                      <td><%= DecisionParameter.find(parameter.decision_parameter_id).name %></td>
+                      <% if index>0 and index%3==0 %>
+                          </tr>
+                          <tr>
+
+                      <% end %>
+                  <% end %>
+              <% end %>
+
+              </tr></table>
+
+
+        </div>
+
+        <div id="stv_content_4" class="st_tab_view">
+
+
+          <table style="margin-top:-13px;font-size: 18px " align="center">
+
+            <tr>
+              <th colspan="2"><p align="center" style="font-size:32px "><%= "Decision  Maker" %></p></th>
+
+            </tr>
+            <tr>
+
+              <td style="text-align: center;">
+
+                <%= link_to 'Set Markets', new_simulation_market_path(:simulation_id=>@simulation.id), :class => "primary btn", :style => "width:150px;text-align:center" %>
+
+                <br>
+                <br>
+
+                <%= link_to 'Set Decision Parameters', new_simulation_decision_parameter_path(:simulation_id=>@simulation.id), :class => "primary btn", :style => "width:150px;text-align:center" %>
+                <br>
+                <br>
+
+                <%= link_to " Round Data Population", rounds_path(:simulation_id=>@simulation.id), :class => "primary btn", :style => "width:150px;text-align:center" %>
+                <br>
+                <br>
+
+                <%= link_to "Initiate Simulation", select_initiate_simulation_path(:simulation_id=>@simulation.id), :class => "primary btn", :style => "width:150px;text-align:center" %>
+                <br>
+                <br>
+
+              </td>
+
+            </tr>
+          </table>
+
+
+        </div>
+
+        <div id="stv_content_5" class="st_tab_view">
+          <%= render :file=>'simulations/edit' %>
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>
+

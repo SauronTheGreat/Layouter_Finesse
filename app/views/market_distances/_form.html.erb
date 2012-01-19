@@ -1,30 +1,56 @@
-<% if @list_of_markets.count == 0 %>
+<% if params[:target_market_id].nil? %>
+    <% if @list_of_markets.count == 0 %>
+        <h3>All The distances have been set...</h3>
+    <% else %>
 
-    <h3>All The distances have been set...</h3>
+        <%= form_tag :action => 'create' %>
+        <% @market_distances.each_with_index do |distance, index| %>
+            <%= fields_for "market_distances[#{index}]", distance do |f| %>
+                <%= f.hidden_field :source_market_id, :value=>@market.id %>
+                <%= f.hidden_field :target_market_id, :value=>@list_of_markets[index][1] %>
 
+                <div class="clearfix">
+                  <%= f.label :target_market_id, @list_of_markets[index][0] %>
+                  <div class="input">
+                    <%= f.number_field :distance %>
+                  </div>
+                </div>
+                <br>
+                <br>
+            <% end %>
+        <% end %>
+        <%= submit_tag "Submit", :class=>"btn primary" %>
+        <center>
+
+        </center>
+    <% end %>
 <% else %>
 
-    <%= form_tag :action => 'create' %>
-    <% @market_distances.each_with_index do |distance, index| %>
-
-        <%= fields_for "market_distances[#{index}]", distance do |f| %>
-
-
-            <%= f.hidden_field :source_market_id, :value=>@market.id %>
+    <%= form_for(@market_distance) do |f| %>
+        <%= f.hidden_field :source_market_id, :value=>@market.id %>
+        <%= f.hidden_field :target_market_id, :value=>params[:target_market_id] %>
 
 
+        <div class="clearfix">
+          <%= f.label "distance" %>
+          <div class="input">
+            <%= f.number_field :distance %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span1 offset3">
+            <%= f.submit "Submit", :class=>"btn primary" %>
+          </div>
+        </div>
 
 
-            <%= f.select :target_market_id, @list_of_markets %>
-            <%= f.text_field :distance %>
-
-
-            <br>
-            <br>
-
-
-        <% end %>
     <% end %>
-    <%= submit_tag %>
+
+
+
 
 <% end %>
+
+
+

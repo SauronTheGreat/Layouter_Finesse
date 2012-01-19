@@ -1,13 +1,6 @@
-<%= content_for :header do %>
-    <h1>New client</h1>
-
+<%= content_for :page_header do %>
+    New Client
 <% end %>
+<%= render 'form' %>
+<%= link_to 'Back', clients_path %>
 
-<%= content_for :main_content do %>
-
-
-    <%= render 'form' %>
-
-    <%= link_to 'Back', clients_path %>
-
-<% end %>

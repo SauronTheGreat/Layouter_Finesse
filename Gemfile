@@ -1,6 +1,10 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
+gem 'twitter-bootstrap-rails'
+gem 'gritter', '1.0.0'
+
+gem 'capistrano'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -10,19 +14,21 @@ gem 'mysql2'
 
 gem 'nifty-generators'
 gem 'devise'
-gem 'gritter'
+
 gem 'paperclip'
 gem 'devise'
 gem 'spreadsheet'
+gem 'execjs'
+gem 'therubyracer'
 
 
 gem 'json'
-group  :test do
+group :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
-  gem 'capybara'
+  gem 'capybara', '1.0.1'
   gem 'database_cleaner'
-  gem 'webrat','0.7.2'
+  gem 'selenium-webdriver', '2.5.0'
   gem 'launchy'
 
 
@@ -31,7 +37,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
+  gem 'sass-rails', '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end

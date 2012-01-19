@@ -1,0 +1,64 @@
+/**
+ * Created by JetBrains RubyMine.
+ * User: rushabhhathi
+ * Date: 10/1/12
+ * Time: 3:51 PM
+ * To change this template use File | Settings | File Templates.
+ */
+<%= javascript_include_tag "https://www.google.com/jsapi" %>
+
+<% @market=Market.first %>
+
+    google.load("visualization", "1", {packages:["corechart"]});
+
+
+    function drawChart(data, div_name, title) {
+
+        //  var tab_div_name = div_name.replace("-", '');
+
+
+        var chart = new google.visualization.ColumnChart(document.getElementById(div_name));
+        chart.draw(data, {width: 460, height: 240, title: title,
+            hAxis: {title: 'Market', titleTextStyle: {color: 'red'}},
+            vAxis: {title: 'Amount', titleTextStyle: {color: 'red'}}
+
+        });
+    }
+
+
+    //this is for pie chart
+    function drawPieChart(data, div_name, title) {
+
+
+        var chart = new google.visualization.PieChart(document.getElementById(div_name));
+        chart.draw(data, {width: 460, height: 240, title: title});
+    }
+
+
+    $(function() {
+
+        //market data population            //this is for pie chart
+
+
+
+        var market_demographics = new google.visualization.DataTable();
+        market_demographics.addColumn('string', 'Market');
+
+        market_demographics.addColumn('number', 'Amount');
+
+
+        var number_of_rows = parseInt(5);
+
+
+        market_demographics.addRows(number_of_rows);
+
+        <% @market.market_demographics.each_with_index do |market,index| %>
+
+        market_demographics.setValue(parseInt("<%= index %>"), 0, "<%=market.consumer_category_id %>");
+        market_demographics.setValue(parseInt("<%= index %>"), 1, parseInt("<%= market.proportion %>"));
+
+
+        <% end %>
+        drawChart(market_demographics, "chart", "chart");
+    });
+

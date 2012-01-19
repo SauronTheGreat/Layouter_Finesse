@@ -1,0 +1,13 @@
+<%= form_tag :action => 'register_as_expense' %>
+<div class="clearfix">
+  <%= label_tag :summary %>
+  <div class="input">
+    <%= text_area_tag "summary" %>
+    <%= hidden_field_tag "media_plan_id", 0, :class=>",modal_media_plan_id" %>
+  </div>
+</div>
+
+<div class="input">
+  <%= submit_tag "Confirm", :class=>"primary btn" %>
+</div>
+

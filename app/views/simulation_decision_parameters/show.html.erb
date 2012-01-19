@@ -1,5 +1,8 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @simulation_decision_parameter.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 <p>
   <b>Simulation:</b>
@@ -14,4 +17,5 @@
 
 <%= link_to 'Edit', edit_simulation_decision_parameter_path(@simulation_decision_parameter) %> |
 <%= link_to 'Back', simulation_decision_parameters_path %>
-<% end %>
+</div>
+</div>

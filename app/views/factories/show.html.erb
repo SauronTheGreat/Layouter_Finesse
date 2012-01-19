@@ -1,48 +1,94 @@
-<%= content_for :main_content do %>
-    <p id="notice"><%= notice %></p>
+<script type="text/javascript">
+    $(function() {
+        $('#edit_show_form').modal({
+            backdrop: true,
+            keyboard: true
+        });
 
+        $(".edit_show").click(function(event) {
+            event.preventDefault();
+            $.get($(this).attr("href"), function(data) {
+                $(".modal-body").html(data);
+
+            });
+
+            $("#edit_show_form").modal("toggle");
+
+        });
+
+
+    });
+</script>
+
+<div id="edit_show_form" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+
+    <h3>Edit Factory</h3>
+  </div>
+  <div class="modal-body">
+
+  </div>
+
+</div>
+
+
+<%= content_for :page_header do %>
+    Showing <%= @factory.name %>
+<% end %>
+<%= content_for :secondary_content do %>
+
+    <%= link_to 'Edit', edit_factory_path(@factory),:class=>"edit_show",:id=>@factory.id %>
+    <%= link_to 'Back', factories_path %>
+    <br>
+    <br>
+    <%= button_to 'Destroy', @factory, confirm: 'Are you sure?', method: :delete %>
+
+
+<% end %>
+<div class="row">
+  <div class="span7 offset2" style="border: 1px solid black;padding: 3%;border-radius: 10px">
     <p>
       <b>Name:</b>
-      <%= @factory.name %>
+      <u>  <%= @factory.name %></u>
     </p>
 
     <p>
       <b>Number of employees:</b>
-      <%= @factory.number_of_employees %>
+      <u><%= @factory.number_of_employees %></u>
     </p>
 
     <p>
       <b>Market:</b>
-      <%= @factory.market_id %>
+      <u><%= Market.find(@factory.market_id).name %></u>
     </p>
 
     <p>
       <b>Number of shifts:</b>
-      <%= @factory.number_of_shifts %>
+      <u>  <%= @factory.number_of_shifts %></u>
     </p>
 
     <p>
       <b>Cost to build:</b>
-      <%= @factory.cost_to_build %>
+      <u><%= @factory.cost_to_build %> Crs</u>
     </p>
 
     <p>
       <b>Cost to run:</b>
-      <%= @factory.cost_to_run %>
+      <u><%= @factory.cost_to_run %> Crs</u>
     </p>
 
     <p>
       <b>Capacity:</b>
-      <%= @factory.capacity %>
+      <u><%= @factory.capacity %></u>
     </p>
 
     <p>
       <b>Production time per unit:</b>
-      <%= @factory.production_time_per_unit %>
+      <u><%= @factory.production_time_per_unit %></u>
     </p>
 
 
-    <%= link_to 'Edit', edit_factory_path(@factory) %> |
-    <%= link_to 'Back', factories_path %>
+  </div>
+</div>
 
-<% end %>

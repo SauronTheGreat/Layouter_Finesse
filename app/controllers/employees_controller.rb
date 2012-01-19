@@ -1,6 +1,8 @@
 class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
+  before_filter :allow_none
+
   def index
     @employees = Employee.all
 

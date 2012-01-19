@@ -1,25 +1,53 @@
-<%= form_tag :action => 'create' %>
-<table cellspacing="30">
+<script type="text/javascript">
 
-        <tr>
+      $(function(){
 
-  <% @student_group_users.each_with_index do |sguser, index| %>
-      <%= fields_for "student_group_users[#{index}]", sguser do |f| %>
+      })  ;
+      function toggleChecked(status) {
+$("input[type=checkbox]").each( function() {
+$(this).attr("checked",status);
+})
+}
 
-          <%= f.hidden_field :student_group_id, :value=>params[:student_group_id] %>
-          <td><%= f.label @users[index].fullname %>
-            <% if StudentGroupUser.find_by_user_id(@users[index].id).nil? %>
-                <% @state=false %>
-                <% else %>
-                <% @state=true %>
+
+
+
+</script>
+
+<div class="row">
+  <div class="span8 offset4">
+    <%= form_tag :action => 'create' %>
+    <table cellpadding="30px">
+      <tr>
+      <input type="checkbox" onclick="toggleChecked(this.checked)"> Select / Deselect All
+      </tr>
+       <tr>
+         <% @student_group_users.each_with_index do |sguser, index| %>
+            <%= fields_for "student_group_users[#{index}]", sguser do |f| %>
+                 <%= f.hidden_field :student_group_id, :value=>params[:student_group_id] %>
+
+                  <% if StudentGroupUser.find_by_user_id(@users[index].id).nil? %>
+                      <% @state=false %>
+                  <% else %>
+                      <% @state=true %>
+                  <% end %>
+                  <td>
+                        <%= f.check_box :user_id, {:checked=>@state}, @users[index].id, 0 %>&nbsp;<%= @users[index].fullname %>
+
+                </td>
+                <% if (index+1) % 3==0 and index>0 %></tr>
                 <% end %>
-
-          <%= f.check_box :user_id,{:checked=>@state},@users[index].id,0 %></td>
-          <% if (index+1)  % 3==0 and index>0 %></tr>
-                      <% end %>
-
-
-      <% end %>
-  <% end %>
-</table>
-<%= submit_tag %>
+            <% end %>
+        <% end %>
+        </table>
+    <div class="row">
+      <div class="span1 offset3">
+        <% if params[:action]== "new" %>
+            <%= submit_tag "Submit", :class=>"primary btn" %>
+        <% else %>
+            <%= submit_tag "Update", :class=>"primary btn" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,42 +1,65 @@
-<%= content_for :main_content do %>
-<h1>Listing rounds</h1>
+<script type="text/javascript">
+    $(function() {
+        $(".page-header").css("height", "100px");
 
-<table>
-  <tr>
+    });
+</script>
 
-    <th>Number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div id="wrapper" style="margin-left: 130px;border: 2px solid black;border-radius: 12px">
+  <div id="steps">
+    <% @rounds.each_with_index do |round, index| %>
+        <% if round.number>0 %>
+            <%= form_tag :action=>'create' %>
+            <%= hidden_field_tag :simulation_id, @simulation.id %>
+            <fieldset class="step">
+              <legend>Round Number : <%= round.number %></legend>
 
-<% @rounds.each do |round| %>
-      <% if round.number > 0 %>
-  <tr>
-
-    <td><%= round.number %></td>
-    <td><%= link_to 'Show', round %></td>
-    <td><%= link_to 'Edit', edit_round_path(round) %></td>
-    <td><%= link_to 'Destroy', round, confirm: 'Are you sure?', method: :delete %></td>
-    <td><%= link_to "Populate Expenses",new_round_expense_path(:round_id=>round.id) %></td>
-    <td><%= link_to "Populate Investments",new_round_investment_path(:round_id=>round.id) %></td>
-    <td><%= link_to "Populate Environmental Parameters",new_round_environmental_parameter_path(:round_id=>round.id) %></td>
-    <td><%= link_to "Populate Loan Details",new_round_loan_path(:round_id=>round.id) %></td>
-    <td><%= link_to "Populate Rate Of Interest",populate_rate_of_interest_path(:round_id=>round.id) %></td>
-    <td><%= link_to "Populate Depreciation",populate_depreciation_path(:round_id=>round.id) %></td>
+              <% @round=round %>
+              <% @round_expenses=@set_of_round_expenses[index] %>
+              <% @round_investments=@set_of_round_investments[index] %>
+              <% @round_loans=@set_of_round_loans[index] %>
 
 
+              <table>
+                <tr>
+                  <td colspan="2"><%= render :file=>'round_expenses/new' %></td>
+                </tr>
 
 
-  </tr>
+                <tr>
+                  <td style="width: 50%;text-align: left;">
+                    <%= render :file=>'round_investments/new' %>
+                  </td>
+                  <td>
+                    <%= render :file=>'round_loans/new' %>
+                  </td>
+                </tr>
+
+
+              </table>
+            </fieldset>
+
+        <% end %>
+    <% end %>
+  </div>
+  <div id="navigation" style="display:none;">
+    <ul>
+      <% @rounds.each do |round| %>
+
+          <% if round.number>0 %>
+              <li class="selected">
+                <a href="#">Round  <%= round.number %></a>
+              </li>
+
+
           <% end %>
-<% end %>
-</table>
-
-<br />
-
-
-    <%= link_to "Go Back To Simulation Page",simulation_path(@simulation.id) %>
+      <% end %>
+    </ul>
+  </div>
 
 
-<% end %>
+</div>
+<%= submit_tag "Submit", :class=>"primary btn" %>
+
+
+

@@ -1,6 +1,8 @@
 class ConstantsController < ApplicationController
   # GET /constants
   # GET /constants.json
+  layout 'general_layout'
+  before_filter :allow_only_superadmin
   def index
     @constants = Constant.all
 
@@ -35,6 +37,7 @@ class ConstantsController < ApplicationController
   # GET /constants/1/edit
   def edit
     @constant = Constant.find(params[:id])
+    render :layout => false
   end
 
   # POST /constants
@@ -44,7 +47,7 @@ class ConstantsController < ApplicationController
 
     respond_to do |format|
       if @constant.save
-        format.html { redirect_to @constant, notice: 'Constant was successfully created.' }
+        format.html { redirect_to constants_path, notice: 'Constant was successfully created.' }
         format.json { render json: @constant, status: :created, location: @constant }
       else
         format.html { render action: "new" }

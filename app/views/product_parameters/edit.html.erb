@@ -1,8 +1,41 @@
-<%= content_for :main_content do %>
-<h1>Editing product_parameter</h1>
 
-<%= render 'form' %>
+    <h1>Editing product_parameter</h1>
 
-<%= link_to 'Show', @product_parameter %> |
-<%= link_to 'Back', product_parameters_path %>
-                                   <% end %>
+
+    <%= form_for(@product_parameter) do |f| %>
+
+
+
+        <% if @product_parameter.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@product_parameter.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+              <ul>
+                <% @product_parameter.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <%= f.hidden_field :product_id, :value=>@product_parameter.product_id %>
+        <%= f.hidden_field :raw_material_id, :value=>@product_parameter.raw_material_id %>
+
+
+        <div class="clearfix">
+          <%= f.label RawMaterial.find(@product_parameter.raw_material_id).name %>
+          <div class="input">
+            <%= f.number_field :value, :class=>"xlarge" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span7 offset3">
+
+                <%= f.submit "update", :class=>"primary btn" %>
+
+             </div>
+            </div>
+    <% end %>
+
+    <%= link_to 'Show', @product_parameter %> |
+    <%= link_to 'Back', product_parameters_path %>

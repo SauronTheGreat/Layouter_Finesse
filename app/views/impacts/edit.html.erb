@@ -1,6 +1,4 @@
-<h1>Editing impact</h1>
-
+<%= content_for :page_header do %>
+    Editing <%= @impact.name %>
+<% end %>
 <%= render 'form' %>
-
-<%= link_to 'Show', @impact %> |
-<%= link_to 'Back', impacts_path %>

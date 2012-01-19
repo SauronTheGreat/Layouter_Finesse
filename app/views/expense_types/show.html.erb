@@ -1,14 +1,15 @@
+<%= content_for :page_header do %>
+    Showing the expense type <u> <%= @expense_type.name %></u>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+    <p>
+      <b>Name:</b>
+      <%= @expense_type.name %>
+    </p>
 
-<p>
-  <b>Name:</b>
-  <%= @expense_type.name %>
-</p>
-
-
+  </div>
+</div>
 <%= link_to 'Edit', edit_expense_type_path(@expense_type) %> |
 <%= link_to 'Back', expense_types_path %>
-
-<% end %>

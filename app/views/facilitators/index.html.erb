@@ -1,5 +1,6 @@
-<%= content_for :main_content do %>
-<h1>Listing facilitators</h1>
+<%= content_for :page_header do %>
+    Listing Facilitator
+<% end %>
 
 <table>
   <tr>
@@ -14,8 +15,8 @@
 <% @facilitators.each do |facilitator| %>
   <tr>
 
-    <td><%= facilitator.user_id %></td>
-    <td><%= facilitator.client_id %></td>
+    <td><%= User.find(facilitator.user_id).username%></td>
+    <td><%= Client.find(facilitator.client_id).name %></td>
     <td><%= link_to 'Show', facilitator %></td>
     <td><%= link_to 'Edit', edit_facilitator_path(facilitator) %></td>
     <td><%= link_to 'Destroy', facilitator, confirm: 'Are you sure?', method: :delete %></td>
@@ -26,4 +27,3 @@
 <br />
 
 <%= link_to 'New Facilitator', new_facilitator_path %>
-<% end %>

@@ -1,8 +1,14 @@
 class ProductParametersController < ApplicationController
   # GET /product_parameters
+
   # GET /product_parameters.json
+
+  before_filter :allow_only_superadmin
+
+
   def index
-    @product_parameters = ProductParameter.all
+    @product=Product.find(params[:product_id])
+    @product_parameters = @product.product_parameters
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +31,7 @@ class ProductParametersController < ApplicationController
   # GET /product_parameters/new.json
   def new
     @product=Product.find(params[:product_id])
+
     @product_parameters = Array.new(@product.number_of_parameters){ProductParameter.new}
 
     respond_to do |format|

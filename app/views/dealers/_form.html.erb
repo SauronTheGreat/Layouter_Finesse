@@ -1,3 +1,5 @@
+<div class="row">
+<div class="span7 offset3" >
 <%= form_for(@dealer) do |f| %>
     <% if @dealer.errors.any? %>
         <div id="error_explanation">
@@ -11,45 +13,53 @@
         </div>
     <% end %>
 
-    <div class="field">
+    <div class="clearfix">
       <%= f.label :name %>
-      <br/>
-      <%= f.text_field :name %>
+      <div class="input">
+      <%= f.text_field :name, :class=>"xlarge"  %>
     </div>
+     </div>
     <!--we do not need a market id since national dealer belongs to every market-->
     <!--<div class="field">-->
 
  <%= f.hidden_field :market_id,:value=>0 %>
     <!--</div>-->
 
-    <div class="field">
-      <%= f.label :catchment_of_consumers %>
-      <br/>
-      <%= f.number_field :catchment_of_consumers %>
-    </div>
-    <div class="field">
+
+
+
+    <div class="clearfix">
       <%= f.label "desired_commission(In %)" %>
-      <br/>
-      <%= f.number_field :desired_commission %>
+      <div class="input">
+      <%= f.number_field :desired_commission, :class=>"xlarge"  %>
+    </div>
     </div>
 
     <!--final commission cannot be set now since that will be decided by the player-->
     <!--<div class="field">-->
       <!--<%= f.label "final_commission(In %)" %>-->
       <!--<br/>-->
-      <!--<%= f.number_field :final_commission %>-->
+      <!--<%= f.number_field :final_commission, :class=>"xlarge"  %>-->
     <!--</div>-->
 
 
     <!--we do  not need to specify the category since form can be used for national dealers only-->
     <!--<div class="field">-->
 
-    <!--<%= f.number_field :dealer_category_id %>-->
+    <!--<%= f.number_field :dealer_category_id, :class=>"xlarge"  %>-->
     <!--</div>-->
 
     <%= f.hidden_field :dealer_category_id, :value=>1 %>
 
-    <div class="actions">
-      <%= f.submit %>
-    </div>
+    <div class="row">
+       <div class="span1 offset3">
+    <% if params[:action]== "new" %>
+        <%= f.submit "Submit", :class=>"primary btn" %>
+    <% else %>
+        <%= f.submit "Update", :class=>"primary btn" %>
+    <% end %>
+      </div>
+      </div>
 <% end %>
+</div>
+    </div>

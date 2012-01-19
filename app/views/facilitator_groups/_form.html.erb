@@ -1,25 +1,37 @@
-<%= form_for(@facilitator_group) do |f| %>
-  <% if @facilitator_group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@facilitator_group.errors.count, "error") %> prohibited this facilitator_group from being saved:</h2>
 
-      <ul>
-      <% @facilitator_group.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%   @facilitator=Facilitator.find_by_user_id(current_user.id) %>
+<div class="row">
+  <div class="span7 offset3">
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= form_for(@facilitator_group) do |f| %>
+        <% if @facilitator_group.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@facilitator_group.errors.count, "error") %> prohibited this facilitator_group from
+                being saved:</h2>
+
+              <ul>
+                <% @facilitator_group.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <div class="clearfix">
+          <%= f.label :name %>
+         <div class="input">
+          <%= f.text_field :name, :class=>"xlarge" %>
+        </div>
+        </div>
+         <%= f.hidden_field :facilitator_id, :value=>@facilitator.id %>
+        <div class="row">
+          <div class="span1 offset3">
+            <% if params[:action]== "new" %>
+                <%= f.submit "Submit", :class=>"primary btn" %>
+            <% else %>
+                <%= f.submit "Update", :class=>"primary btn" %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
   </div>
-
-     <%= f.hidden_field :facilitator_id,:value=>@facilitator.id %>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

@@ -1,10 +1,12 @@
-<%= content_for :main_content do %>
 
+<%= content_for :header do %>
 <h1>Editing environmental_parameter</h1>
+<% end %>
+
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @environmental_parameter %> |
-<%= link_to 'Back', environmental_parameters_path %>
-
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("show"),:size=>"100x100"), @environmental_parameter, :title=>'Show' %>
+<%= link_to image_tag(icon("back"),:size=>"100x100"), environmental_parameters_path, :title=>'Back' %>
 <% end %>

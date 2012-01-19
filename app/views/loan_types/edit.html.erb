@@ -1,9 +1,36 @@
-<%= content_for :main_content do %>
-<h1>Editing loan_type</h1>
 
-<%= render 'form' %>
+<%= @loan_type.name %>
 
-<%= link_to 'Show', @loan_type %> |
-<%= link_to 'Back', loan_types_path %>
 
-<% end %>
+<div class="row">
+  <div class="span5" style="margin-left: -140px;margin-top: 0px;height: 70px">
+    <%= form_for(@loan_type) do |f| %>
+        <% if @loan_type.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@loan_type.errors.count, "error") %> prohibited this loan_type from being saved:</h2>
+
+              <ul>
+                <% @loan_type.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+
+
+        <div class="input">
+          <%= f.text_field :name, :class=>"span3" %>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="input">
+          <%= f.submit "Confirm Decision", :class=>"primary btn" %>
+        </div>
+
+
+    <% end %>
+  </div>
+</div>

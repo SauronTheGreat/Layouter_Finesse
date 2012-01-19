@@ -1,18 +1,41 @@
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :header do %>
+<% end %>
+
 <%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @environmental_parameter.name %>
-</p>
-
-<p>
-  <b>Value:</b>
-  <%= @environmental_parameter.value %>
-</p>
 
 
-<%= link_to 'Edit', edit_environmental_parameter_path(@environmental_parameter) %> |
-<%= link_to 'Back', environmental_parameters_path %>
+    <p>
+      <b>Name:</b>
+      <%= @environmental_parameter.name %>
+    </p>
 
+
+    <p>
+      <b>Amount:</b>
+      <%= @environmental_parameter.amount %>
+    </p>
+
+
+
+<% end %>
+<br/>
+<br/>
+<%= content_for :navigation do %>
+<% end %>
+
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("edit"),:size=>"100x100"), edit_environmental_parameter_path(@environmental_parameter), :title=>'Edit' %>
+<%= link_to image_tag(icon("back"),:size=>"100x100"), environmental_parameters_path, :title=>'Back' %>
+ <%= link_to "Relate to Decision Parameters",new_environmental_decision_parameter_path(:environmental_parameter_id=>@environmental_parameter.id) %>
+
+<% end %>
+
+<%= content_for :footer do %>
 <% end %>

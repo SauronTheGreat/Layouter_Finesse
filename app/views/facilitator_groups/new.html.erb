@@ -1,8 +1,5 @@
-<%= content_for :main_content do %>
-<h1>New facilitator_group</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', facilitator_groups_path %>
-
+<%= content_for :page_header do %>
+    New Facilitator Group
 <% end %>
+<%= render 'form' %>
+<%= link_to 'Back', facilitator_groups_path %>

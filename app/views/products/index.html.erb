@@ -1,36 +1,34 @@
-<%= content_for :main_content do %>
-<h1>Listing products</h1>
+<%= content_for :page_header do %>
+    Listing <span style="color: white">Products</span>
+<% end %>
+<%= content_for :secondary_content do %>
+
+
+    <%= link_to 'New Product', new_product_path %>
+<% end %>
+
+
+
+
 
 <table>
   <tr>
     <th>Name</th>
-    <th>Number Of Parameters</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
 
-
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
+  <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
 
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= product.number_of_parameters %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
 
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Set Parameters', new_product_parameter_path(:product_id=>product.id) %></td>
-    <td><%= link_to 'View Parameters', view_parameters_path(:product_id=>product.id) %></td>
-
-
-    <td><%= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+      </tr>
+  <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Product', new_product_path %>
-<% end %>
+<br/>

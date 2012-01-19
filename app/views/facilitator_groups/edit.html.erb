@@ -1,9 +1,6 @@
-<%= content_for :main_content do %>
-<h1>Editing facilitator_group</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @facilitator_group %> |
-<%= link_to 'Back', facilitator_groups_path %>
-
+<%= content_for :page_header do %>
+    Editing <%= @facilitator_group.name %>
 <% end %>
+<%= render 'form' %>
+<%= link_to 'Show', @facilitator_group,:class => "primary btn"  %>
+<%= link_to 'Back', facilitator_groups_path,:class => "primary btn"  %>

@@ -1,11 +1,8 @@
-<%= content_for :header do %>
-    <h3> Details for <%= @client.name %></h3>
-
+<%= content_for :page_header do %>
+    Showing <%= @client.name %>
 <% end %>
-
-
-<%= content_for :main_content do %>
-    <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span7 offset3">
 
     <p>
       <b>Name:</b>
@@ -21,9 +18,8 @@
 
     <br>
     <br>
+  </div>
+</div>
 
-
-    <%= link_to 'Edit', edit_client_path(@client) %> |
-    <%= link_to 'Back', clients_path %>
-
-<% end %>
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>

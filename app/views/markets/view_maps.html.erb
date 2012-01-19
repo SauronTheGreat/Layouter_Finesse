@@ -1,0 +1,167 @@
+<style type="text/css">
+    body {
+        font-size: 16px;
+        height: 100%;
+        width: 100%;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+    $(function() {
+        $('#new_market_form').modal({
+            backdrop: true,
+            keyboard: true
+        });
+
+
+        $(".drag").draggable();
+
+        var x = 0;
+        var y = 0;
+        var div_offsetTop = 0;
+        var div_offsetLeft = 0;
+        var status = 0;
+
+        $("a[rel=popover]").popover({
+            live: true
+        })
+                .click(function(e) {
+                    e.preventDefault();
+                    status = 1;
+
+                    $.get("markets/" + $(this).attr("id") + "/edit", function(data) {
+                        $(".modal-body").html(data);
+                        $(".modal-header").html("<h2>Edit a market</h2>");
+                    });
+
+                });
+
+        $("img").click(function() {
+            status = 1;
+
+            $.get("markets/" + $(this).attr("class") + "/edit", function(data) {
+                $(".modal-body").html(data);
+                $(".modal-header").html("<h2>Edit a market</h2>");
+            });
+
+
+        });
+
+
+        div_offsetLeft = document.getElementById("div_main").offsetLeft;
+        div_offsetTop = document.getElementById("div_main").offsetTop;
+        $(".back-logo").click(function(event) {
+
+            if (status == 0) {
+                $.get("markets/new", function(data) {
+                    $(".modal-body").html(data);
+                    $(".modal-header").html("<h2>Create  a  new market</h2>");
+                });
+            }
+            else
+                status = 0;
+
+
+            $("#new_market_form").modal('toggle');
+            x = event.pageX - this.offsetLeft;
+            y = event.pageY - this.offsetTop;
+
+
+        });
+
+
+        $("form").live('submit', function() {
+
+            $(".posx").attr("value", x);
+
+
+            $(".posy").attr("value", y);
+        });
+
+        $(".drag").draggable({
+            stop: function(event, ui) {
+                var current_market = $(this).children("a");
+
+
+                $.post("set_location?market_id=" + current_market.attr('id') + "&positionx=" + ($(this).offset().left - div_offsetLeft) + "&positiony=" + ($(this).offset().top - div_offsetTop), function() {
+                    alert("City successfully moved !");
+                });
+            }
+        });
+
+        $(".distance").click(function() {
+
+
+            $.post("update_market_distance", function(data) {
+                alert("Distances are successfully updated!");
+            });
+
+
+        });
+
+
+    });
+
+
+</script>
+<style type="text/css">
+
+
+    .back-logo {
+        background: url('../assets/india_map.png');
+
+        /*display: block;*/
+        height: 500px;
+        /*text-indent:-9999px;*/
+        width: 500px;
+
+        background-repeat: no-repeat;
+        background-size: 100% 100%
+
+    }
+
+    .drag {
+        height: 20px;
+        width: 20px
+    }
+
+
+</style>
+
+<div class="back-logo" id="div_main">
+  <% @markets.each do |market| %>
+
+      <% if !market.positionx.nil? %>
+          <div class="">
+          <span class="drag" style=" position:absolute;margin-left:<%= market.positionx%>px;margin-top:<%= market.positiony %>px">  <%= image_tag market.market_image.url, :size=>"35x35", :class=>market.id %>
+            <a id="<%= market.id %>" data-content="And here's some amazing content. It's very engaging. right?" rel="popover" href="<%= market.id %>" data-original-title="A title"><%= market.name %> </a></span>
+          </div>
+      <% end %>
+
+
+  <% end %>
+
+
+</div>
+<%= content_for :secondary_content do %>
+
+    <a href="#" class="primary btn distance">Update Distances</a>
+<% end %>
+
+
+
+
+<div id="new_market_form" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+
+    <h3>Create A New market</h3>
+  </div>
+  <div class="modal-body">
+
+  </div>
+
+</div>
+

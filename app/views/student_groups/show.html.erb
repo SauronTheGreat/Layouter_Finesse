@@ -1,5 +1,8 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @student_group.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 <p>
   <b>Name:</b>
@@ -8,16 +11,15 @@
 
 <p>
   <b>Facilitator group:</b>
-  <%= @student_group.facilitator_group_id %>
+  <%= FacilitatorGroup.find(@student_group.facilitator_group_id).name %>
 </p>
+    <div class="row">
+    <div class="span3 offset8">
+    <%= link_to "Manage Students",new_student_group_user_path(:student_group_id=>@student_group.id),:class => "primary btn" %>
+    </div>
+    </div>
+    </div>
+</div>
 
-<p>
-  <b>Case study:</b>
-  <%= @student_group.case_study_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_student_group_path(@student_group, :facilitator_group_id=>@student_group.facilitator_group_id) %>
-<%= link_to 'Back', student_groups_path(:facilitator_group_id=>@student_group.facilitator_group_id) %> |
-<%= link_to "Manage Students",new_student_group_user_path(:student_group_id=>@student_group.id) %>
-<% end %>
+<%= link_to 'Edit', edit_student_group_path(@student_group, :facilitator_group_id=>@student_group.facilitator_group_id),:class => "primary btn" %>
+<%= link_to 'Back', student_groups_path(:facilitator_group_id=>@student_group.facilitator_group_id),:class => "primary btn"  %>

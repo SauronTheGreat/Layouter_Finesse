@@ -1,5 +1,8 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @unit.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 <p>
   <b>Name:</b>
@@ -9,4 +12,5 @@
 
 <%= link_to 'Edit', edit_unit_path(@unit) %> |
 <%= link_to 'Back', units_path %>
-<% end %>
+</div>
+  </div>

@@ -1,33 +1,31 @@
-<%= content_for :main_content do %>
-    <table border="1">
-      <tr>
-        <td></td>
-        <% @markets.each do |market| %>
-            <td>
-              <%= market.name %>
-            </td>
-
-
-        <% end %>
-      </tr>
-
-      <% @markets.each_with_index do |market,index| %>
-
-          <tr>
-            <td><%= market.name %></td>
-            <% @distances[index].each do |distance| %>
-
-
-                <td><%= distance %></td>
-
-
-            <% end %>
-
-
-
-          </tr>
-
+<div style="color:#ffffff;">
+  <table border="1" style="background-color: #000000;color: #ffffff;">
+    <tr>
+      <td></td>
+      <% @markets.each do |market| %>
+          <td>
+            <%= market.name %>
+          </td>
       <% end %>
+    </tr>
 
-    </table>
-<% end %>
+    <% @markets.each_with_index do |source_market, index| %>
+        <tr>
+          <td><%= source_market.name %></td>
+          <% @markets.each do |target_market| %>
+              <% if @tmp_distances[source_market.id][target_market.id].nil? %>
+                  <td><%= link_to "Set Distance",new_market_distance_path(:market_id=>source_market.id,:target_market_id=>target_market.id) %></td>
+                  <% else %>
+          <td><%= @tmp_distances[source_market.id][target_market.id] %></td>
+                  <% end %>
+              <% end %>
+
+
+        </tr>
+    <% end %>
+  </table>
+
+  <div style="color: black;">
+
+    </div>
+</div>

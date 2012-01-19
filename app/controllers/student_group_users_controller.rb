@@ -1,8 +1,19 @@
 class StudentGroupUsersController < ApplicationController
   # GET /student_group_users
   # GET /student_group_users.json
+ # before_filter :check_for_students, :allow_only_facilitator
+  layout nil
+
+  #def check_for_students
+  #  if !User.where('student=true').any?
+  #    @student_group=StudentGroup.find(params[:student_group_id])
+  #    redirect_to @student_group, :notice=>"No student present yet"
+  #  end
+  #end
+
   def index
-    @student_group_users = StudentGroupUser.all
+    @student_group=StudentGroup.find(params[:student_group_id])
+    @student_group_users = @student_group.student_group_users
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +35,19 @@ class StudentGroupUsersController < ApplicationController
   # GET /student_group_users/new
   # GET /student_group_users/new.json
   def new
-    @users=User.all.collect{|user| if !user.superadmin and !user.admin and !user.facilitator then user end}.compact
+
+     @facilitator=Facilitator.find_by_user_id(current_user.id)
+    @facilitator_group=FacilitatorGroup.find_by_facilitator_id(Facilitator.find_by_user_id(current_user.id).id)
+    @students=@facilitator_group.users
+    #@student_group_users=Array.new(@students.count) { StudentGroupUser.new }
+
+
+    @student_group=StudentGroup.find(params[:student_group_id])
+
+    @student_group_users=@student_group.student_group_users
+    @present_users=@student_group_users.collect{|sguser|User.find(sguser.user_id)}
+    @users=@students-@present_users
+
     @student_group_users=Array.new(@users.count) { StudentGroupUser.new }
     #@student_group_user = StudentGroupUser.new
 
@@ -43,24 +66,27 @@ class StudentGroupUsersController < ApplicationController
   # POST /student_group_users.json
   def create
 
+
     #@student_group_user = StudentGroupUser.new(params[:student_group_user])
-   @users=User.all.collect{|user| if !user.superadmin and !user.admin and !user.facilitator then user end}.compact
+    @users=User.all.collect { |user|
+      if !user.superadmin and !user.admin and !user.facilitator then
+        user
+      end }.compact
 
 
     @student_group_users = params[:student_group_users].values.collect { |sguser| StudentGroupUser.new(sguser) }
 
 
     @student_group=StudentGroup.find(@student_group_users[0].student_group_id)
-   StudentGroupUser.destroy @student_group.student_group_users(&:id)
-   #@previous_student_group_users=@student_group.student_group_users
+    StudentGroupUser.destroy @student_group.student_group_users(&:id)
+    #@previous_student_group_users=@student_group.student_group_users
 
 
-
-    @student_group_users.each_with_index do |sguser,index|
+    @student_group_users.each_with_index do |sguser, index|
 
       if sguser.user_id !=0
-      # sguser.user_id=@users[index].id
-       sguser.save!
+        # sguser.user_id=@users[index].id
+        sguser.save!
       end
 
     end
@@ -68,7 +94,7 @@ class StudentGroupUsersController < ApplicationController
 
     respond_to do |format|
       if @student_group_users.all?(&:valid?)
-       format.html{redirect_to @student_group}
+        format.html { redirect_to @student_group, :notice => "Student group was successfully populated" }
         #format.html { redirect_to @student_group_user, notice: 'Student group user was successfully created.' }
         format.json { render json: @student_group_user, status: :created, location: @student_group_user }
       else

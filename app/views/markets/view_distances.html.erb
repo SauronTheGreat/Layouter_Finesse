@@ -1,20 +1,22 @@
-<%= content_for :main_content do %>
-<h2>Listing distances of <%= @market.name %> from each market </h2>
-<table>
+
+
+<%= content_for :page_header do %>
+   Listing distances of <%= @market.name %> from each market
+<% end %>
+
+<table style="color: orange;">
   <tr>
     <th>
       Market Name
     </th>
-    <th>Distance</th>
+    <th>Distance(Kms)</th>
   </tr>
   <% @market_distances.each do |mdistance| %>
-
       <tr>
         <td><%= Market.find(mdistance.target_market_id).name %></td>
         <td>   <%= mdistance.distance %></td>
       </tr>
   <% end %>
-
 </table>
 
-<% end %>
+<h3> <%= link_to 'Back',markets_path %></h3>

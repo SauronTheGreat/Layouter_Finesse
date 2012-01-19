@@ -1,6 +1,16 @@
 class SimulationsController < ApplicationController
   # GET /simulations
   # GET /simulations.json
+
+  before_filter :check_for_products
+
+
+  def check_for_products
+    if !Product.all.any?
+      redirect_to root_path, :alert=>"No Product is created.Please contact your administrator"
+    end
+  end
+
   def index
     @facilitator=Facilitator.find_by_user_id(current_user.id)
 
@@ -18,6 +28,8 @@ class SimulationsController < ApplicationController
     @simulation = Simulation.find(params[:id])
     @decision_parameters=@simulation.simulation_decision_parameters
     @markets=@simulation.simulation_markets
+    @facilitator=Facilitator.find_by_user_id(current_user.id)
+    @student_groups=StudentGroup.all.collect { |sg| [sg.name, sg.id] }
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,6 +41,7 @@ class SimulationsController < ApplicationController
   # GET /simulations/new.json
   def new
     @facilitator=Facilitator.find_by_user_id(current_user.id)
+    @student_groups=StudentGroup.all.collect { |sg| [sg.name, sg.id] }
 
     @simulation = Simulation.new
 
@@ -49,9 +62,11 @@ class SimulationsController < ApplicationController
   def create
     @simulation = Simulation.new(params[:simulation])
 
+
     respond_to do |format|
       if @simulation.save
-        format.html { redirect_to @simulation, notice: 'Simulation was successfully created.' }
+        #   Player.create_players_from_student_group(@simulation.id)
+        format.html { redirect_to simulations_path, notice: 'Simulation was successfully created.' }
         format.json { render json: @simulation, status: :created, location: @simulation }
       else
         format.html { render action: "new" }
@@ -108,18 +123,20 @@ class SimulationsController < ApplicationController
     @active_round=ActiveRound.new
     @active_round.simulation_id=@simulation.id
     @active_round.round_id=@round.id
+
+
     @active_round.save!
 
 
-    if @simulation.initiated==false
+    if @round.calculated==false
       @markets=@simulation.simulation_markets
       @markets.each do |market|
-        Dealer.create_dealers_of_world(market.market_id)
+        Dealer.create_dealers_of_world(market.market_id, @round.id)
         #  Dealer.create_national_dealer_preferences()
         Dealer.all.each do |dealer|
           DealerPreference.populate_dealer_preferences(dealer.id)
         end
-        Consumer.create_consumer_from_markets(market.market_id)
+        Consumer.create_consumer_from_markets(market.market_id, @round.id)
         Vendor.create_vendors_from_market(market.market_id, @simulation.id)
       end
       #Factory.all.each do |factory|
@@ -134,7 +151,7 @@ class SimulationsController < ApplicationController
         end
       end
 
-      Player.create_players_from_student_group(@simulation.id)
+
       @simulation.initiated=true
       @simulation.save!
     end
@@ -156,22 +173,24 @@ class SimulationsController < ApplicationController
     Player.create_brand_for_ai_player(@simulation.id, @round.id)
     Player.ai_player_decision(@simulation.id, @round.id)
 
-    @dealers=Dealer.all.each do |dealer|
+    @dealers=Dealer.where('round_id=?', @round.id).each do |dealer|
       DealerPushIndex.populate_dealer_indices(dealer.id, @simulation.id)
     end
 
 
-    Consumer.take_buying_decision(@simulation.id)
+    Consumer.take_buying_decision(@simulation.id, @round.id)
 
-    Consumer.take_final_decision(@simulation.id)
+    Consumer.take_final_decision(@simulation.id, @round.id)
 
 
-    Player.all.each do |player|
+    Player.where('last_played = ?', @round.id).each do |player|
       PlayerFinancial.calculate_player_financials(@round.id, player.id)
     end
 
     @active_round=ActiveRound.find_by_round_id(@round.id)
     @active_round.delete
+    @round.calculated=true
+    @round.save
 
     redirect_to root_path
 

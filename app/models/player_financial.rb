@@ -23,8 +23,11 @@ class PlayerFinancial < ActiveRecord::Base
     @player_financial.pbt=@default.pbt
     @player_financial.tax=@default.tax
     @player_financial.pat=@default.pat
+    @player_financial.total_assets=@default.total_assets
+
     @player_financial.player_id=player_id
     @player_financial.round_id=round_id
+
     @player_financial.save!
 
 
@@ -64,7 +67,7 @@ class PlayerFinancial < ActiveRecord::Base
     @factories=Array.new
     @factory_expense_category=ExpenseType.find_by_name("Factory")
     @player_expenses.each do |expense|
-      if ExpenseType.find(Expense.find(expense.expense_id).expense_type_id).id==@factory_expense_category.id
+      if ExpenseType.find(Expense.find(expense.expense_id).expense_type_id).id==@factory_expense_category.id and ExpenseOption.find(expense.expense_option_id).amount!=0
         @factories << Factory.find_by_name(Expense.find(expense.expense_id).name)
       end
     end
@@ -106,6 +109,26 @@ class PlayerFinancial < ActiveRecord::Base
   end
 
 
+  def self.number_of_units_sold(player_id)
+
+    @brands=Brand.find_all_by_player_id(player_id)
+    total=0
+    @brands.each do |brand|
+
+
+      ConsumerCategory.all.each do |consumer_category|
+
+        @no_of_consumers=Consumer.find_all_by_brand_id_and_consumer_category_id(brand.id, consumer_category.id).count
+
+        total=total+consumer_category.annual_consumption*@no_of_consumers
+
+      end
+    end
+    total
+
+  end
+
+
   def self.calculate_total_sales(player_id)
     #here we calculate the total sales for each brand in the market.
     #we get the total sales by calculating the following for each brand:
@@ -134,7 +157,7 @@ class PlayerFinancial < ActiveRecord::Base
 
   def self.calculate_short_term_loans(round_id, player_id)
     #we use this method to return the amount of short term loans taken by the player for current round
-    @short_loan_type=LoanType.find_by_name("Bridge Loans")
+    @short_loan_type=LoanType.find_by_name("Short Term Loan")
     @player_round_loans=PlayerRoundLoan.find_all_by_player_id_and_round_id(player_id, round_id)
     @total_short_loan=0
 
@@ -184,7 +207,8 @@ class PlayerFinancial < ActiveRecord::Base
   def self.calculate_total_cogs(player_id)
     @simulation=Simulation.find(Player.find(player_id).simulation_id)
     @product=Product.find(@simulation.product_id)
-    return @product.mfg_cost
+    total_units=PlayerFinancial.number_of_units_sold(player_id)
+    return total_units*@product.mfg_cost
   end
 
 
@@ -196,7 +220,7 @@ class PlayerFinancial < ActiveRecord::Base
     @player_round_loans.each do |player_round_loans|
       @total=@total+player_round_loans.amount*Round.find(round_id).rate_of_interest
     end
-    @total=@total/100
+    @total=@total/100.to_f
     return @total
   end
 
@@ -221,7 +245,7 @@ class PlayerFinancial < ActiveRecord::Base
     @player_round_investments.each do |investment|
       @total=@total+investment.amount*(RoundInvestment.find_by_round_id_and_investment_id(round_id, investment.investment_id).roi)
     end
-    @total=@total/100
+
     return @total
 
   end
@@ -301,6 +325,12 @@ class PlayerFinancial < ActiveRecord::Base
     @player_financial.tax=tax
     @player_financial.net_worth=net_worth
     @player_financial.pat=pat
+
+
+    @player_financial.total_assets=@prev_player_financial.total_assets
+    @player_financial.inventory=@prev_player_financial.inventory
+    @player_financial.investments=@prev_player_financial.investments
+
     @player_financial.save!
 
 

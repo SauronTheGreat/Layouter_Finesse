@@ -1,37 +1,35 @@
-<%= form_for(@mathematical_model) do |f| %>
-  <% if @mathematical_model.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@mathematical_model.errors.count, "error") %> prohibited this mathematical_model from being saved:</h2>
+<div class="row">
+  <div class="span7 offset3">
 
-      <ul>
-      <% @mathematical_model.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= form_for(@mathematical_model) do |f| %>
+        <% if @mathematical_model.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@mathematical_model.errors.count, "error") %> prohibited this mathematical_model
+                from being saved:</h2>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+              <ul>
+                <% @mathematical_model.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+        <div class="clearfix">
+          <%= f.label :name %>
+          <div class="input">
+            <%= f.text_field :name, :class=>"xlarge" %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="span1 offset3">
+            <% if params[:action]== "new" %>
+                <%= f.submit "Submit", :class=>"primary btn" %>
+            <% else %>
+                <%= f.submit "Update", :class=>"primary btn" %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :formula %><br />
-    <%= f.text_field :formula %>
-  </div>
-
-  <div class="field">
-    <%= f.label :number_of_constants %><br />
-    <%= f.number_field :number_of_constants %>
-  </div>
-  <div class="field">
-    <%= f.label :number_of_variables %><br />
-    <%= f.number_field :number_of_variables %>
-  </div>
-
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

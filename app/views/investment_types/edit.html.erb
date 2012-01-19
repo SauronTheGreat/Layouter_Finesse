@@ -1,9 +1,36 @@
-<%= content_for :main_content do %>
-<h1>Editing investment_type</h1>
 
-<%= render 'form' %>
+<%= @investment_type.name %>
 
-<%= link_to 'Show', @investment_type %> |
-<%= link_to 'Back', investment_types_path %>
 
-<% end %>
+<div class="row">
+  <div class="span5" style="margin-left: -75px;margin-top: 0">
+    <%= form_for(@investment_type) do |f| %>
+        <% if @investment_type.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@investment_type.errors.count, "error") %> prohibited this investment_type from being
+                saved:</h2>
+
+              <ul>
+                <% @investment_type.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="clearfix">
+
+          <div class="input">
+            <%= f.text_field :name, :class=>"xlarge" %>
+          </div>
+        </div>
+
+        <div class="input">
+
+          <%= f.submit "Confirm Decision", :class=>"primary btn" %>
+
+
+        </div>
+    <% end %>
+  </div>
+</div>

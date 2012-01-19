@@ -1,4 +1,8 @@
-<%= content_for :main_content do %>
+<%= content_for :page_header do %>
+ Showing <%= @dealer.name %>
+<% end %>
+<div class="row">
+<div class="span7 offset3" >
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -6,10 +10,7 @@
   <%= @dealer.name %>
 </p>
 
-<p>
-  <b>Market:</b>
-  <%= @dealer.market_id %>
-</p>
+
 
 <p>
   <b>Catchment of consumers:</b>
@@ -32,7 +33,8 @@
 </p>
 
 
+</div>
+    </div>
+
 <%= link_to 'Edit', edit_dealer_path(@dealer) %> |
 <%= link_to 'Back', dealers_path %>
-
-<% end %>

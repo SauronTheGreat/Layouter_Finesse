@@ -1,73 +1,51 @@
-<%= form_for(@simulation) do |f| %>
-  <% if @simulation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@simulation.errors.count, "error") %> prohibited this simulation from being saved:</h2>
+<div class="row">
+  <div class="span7 ">
+    <%= form_for(@simulation) do |f| %>
+        <% if @simulation.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@simulation.errors.count, "error") %> prohibited this simulation from being saved:</h2>
 
-      <ul>
-      <% @simulation.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+              <ul>
+                <% @simulation.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+        <div class="clearfix">
+          <%= f.label :name %>
+          <div class="input">
+            <%= f.text_field :name, :class=>"xsmall" %>
+          </div>
+        </div>
+
+        <%= f.hidden_field :facilitator_id, :value=>@facilitator.id %>
+        <%= f.hidden_field :initiated, :value=>false %>
+
+        <div class="clearfix">
+          <%= f.label :product_id %>
+          <div class="input">
+            <%= f.select :product_id, Product.all.collect { |p| [p.name, p.id] }, :class=>"xsmall" %>
+          </div>
+        </div>
+
+
+
+        <div class="clearfix">
+          <%= f.label :max_rounds %>
+          <div class="input">
+            <%= f.number_field :max_rounds, :class=>"xsmall" %>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="span1 offset3">
+                <%= f.submit "Confirm", :class=>"primary btn" %>
+
+          </div>
+        </div>
+    <% end %>
   </div>
-
-    <%= f.hidden_field :facilitator_id ,:value=>@facilitator.id%>
-    <%= f.hidden_field :initiated ,:value=>false %>
-
-
-
-
-    <div class="field">
-      <%= f.label :product_id %><br />
-      <%= f.select :product_id,Product.all.collect{|p|[p.name,p.id]} %>
-    </div>
-
-
-
-    <div class="field">
-      <%= f.label :freight_cost %><br />
-      <%= f.number_field :freight_cost %>
-    </div>
-
-
-
-    <div class="field">
-      <%= f.label :weight_per_unit %><br />
-      <%= f.number_field :weight_per_unit %>
-    </div>
-
-
-
-  <div class="field">
-    <%= f.label :max_players %><br />
-    <%= f.number_field :max_players %>
-  </div>
-  <div class="field">
-    <%= f.label :max_rounds %><br />
-    <%= f.number_field :max_rounds %>
-  </div>
-
-
-  <div class="field">
-    <%= f.label :case_study_id %><br />
-    <%= f.select :case_study_id,CaseStudy.all.collect{|cs|[cs.name,cs.id]} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :tax_rate %><br />
-    <%= f.text_field :tax_rate %>
-  </div>
-
-
-
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

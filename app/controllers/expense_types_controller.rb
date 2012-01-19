@@ -35,6 +35,7 @@ class ExpenseTypesController < ApplicationController
   # GET /expense_types/1/edit
   def edit
     @expense_type = ExpenseType.find(params[:id])
+    render :layout => false
   end
 
   # POST /expense_types
@@ -44,7 +45,7 @@ class ExpenseTypesController < ApplicationController
 
     respond_to do |format|
       if @expense_type.save
-        format.html { redirect_to @expense_type, notice: 'Expense type was successfully created.' }
+        format.html { redirect_to expense_types_path, notice: 'Expense type was successfully created.' }
         format.json { render json: @expense_type, status: :created, location: @expense_type }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class ExpenseTypesController < ApplicationController
 
     respond_to do |format|
       if @expense_type.update_attributes(params[:expense_type])
-        format.html { redirect_to @expense_type, notice: 'Expense type was successfully updated.' }
+        format.html { redirect_to expense_types_path, notice: 'Expense type was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -73,11 +74,15 @@ class ExpenseTypesController < ApplicationController
   # DELETE /expense_types/1.json
   def destroy
     @expense_type = ExpenseType.find(params[:id])
-    @expense_type.destroy
+
 
     respond_to do |format|
-      format.html { redirect_to expense_types_url }
-      format.json { head :ok }
+      if   @expense_type.destroy
+        format.html { redirect_to expense_types_url }
+        format.json { head :ok }
+      else
+        format.html { redirect_to expense_types_path, :alert=>"There are expenses of this expense type.Cannot delete this expense type" }
+      end
     end
   end
 end

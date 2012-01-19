@@ -1,12 +1,10 @@
-<%= content_for :main_content do %>
+
 <%= form_tag :action => 'set_rate_of_interest' do %>
 
     <%= hidden_field_tag :round_id,@round.id %>
         <%= label_tag "Rate Of Interest" %>
     <%= text_field_tag :rate_of_interest %>
 
-<%= submit_tag %>
+<%= submit_tag "Submit" ,:class=>"primary btn"%>
 <% end %>
 
-
-<% end %>

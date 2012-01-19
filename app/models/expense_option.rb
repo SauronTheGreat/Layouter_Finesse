@@ -15,6 +15,11 @@ class ExpenseOption < ActiveRecord::Base
 
 
   end
+
+  #validations
+
+  validates_numericality_of :amount,:message => 'please enter a valid amount'
+
 end
 
 

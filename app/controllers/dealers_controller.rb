@@ -1,6 +1,8 @@
 class DealersController < ApplicationController
   # GET /dealers
   # GET /dealers.json
+
+  before_filter :allow_only_superadmin
   def index
     @dealers = Dealer.all
 

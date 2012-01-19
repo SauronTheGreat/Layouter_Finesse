@@ -15,6 +15,7 @@ class Round < ActiveRecord::Base
       @round=Round.new
       @round.simulation_id=@simulation.id
       @round.number=round
+      @round.calculated=false
       @round.save!
     end
 

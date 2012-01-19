@@ -11,19 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :round_id %><br />
+  <div class="clearfix">
+    <%= f.label :round_id %>
+    <div class="input">
+
     <%= f.number_field :round_id %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :expense_id %><br />
+
+
+  <div class="clearfix">
+    <%= f.label :expense_id %>
+    <div class="input">
     <%= f.number_field :expense_id %>
   </div>
-  <div class="field">
-    <%= f.label :summary %><br />
+  </div>
+
+  <div class="clearfix">
+    <%= f.label :summary %>
+    <div class="input">
     <%= f.text_area :summary %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  </div>
+
+  <div class="row">
+    <div class="span1 offset3">
+    <%= f.submit "Submit",:class=>"primary btn" %>
+      </div>
   </div>
 <% end %>

@@ -36,6 +36,7 @@ class ConsumerCategoriesController < ApplicationController
   # GET /consumer_categories/1/edit
   def edit
     @consumer_category = ConsumerCategory.find(params[:id])
+    render :layout => false
   end
 
   # POST /consumer_categories

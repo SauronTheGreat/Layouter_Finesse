@@ -26,6 +26,7 @@ class LoanTypesController < ApplicationController
   def new
     @loan_type = LoanType.new
 
+    render :layout => false
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @loan_type }
@@ -35,6 +36,7 @@ class LoanTypesController < ApplicationController
   # GET /loan_types/1/edit
   def edit
     @loan_type = LoanType.find(params[:id])
+    render :layout => false
   end
 
   # POST /loan_types
@@ -44,7 +46,7 @@ class LoanTypesController < ApplicationController
 
     respond_to do |format|
       if @loan_type.save
-        format.html { redirect_to @loan_type, notice: 'Loan type was successfully created.' }
+        format.html { redirect_to loan_types_path, notice: 'Loan type was successfully created.' }
         format.json { render json: @loan_type, status: :created, location: @loan_type }
       else
         format.html { render action: "new" }
@@ -60,7 +62,7 @@ class LoanTypesController < ApplicationController
 
     respond_to do |format|
       if @loan_type.update_attributes(params[:loan_type])
-        format.html { redirect_to @loan_type, notice: 'Loan type was successfully updated.' }
+        format.html { redirect_to loan_types_path, notice: 'Loan type was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

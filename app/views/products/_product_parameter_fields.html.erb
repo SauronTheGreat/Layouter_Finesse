@@ -1,0 +1,18 @@
+<div class="form1">
+<div class='clearfix'>
+  <%= f.label :raw_material_id %>
+  <div class='input'>
+    <%= f.select :raw_material_id, RawMaterial.all.collect { |raw_material| [raw_material.name, raw_material.id] }, :class=>"xlarge" %>
+  </div>
+</div>
+
+<div class='clearfix'>
+  <%= f.label :value %>
+  <div class='input'>
+    <%= f.number_field :value, :class=>"xlarge" %>
+  </div>
+</div>
+<%= f.hidden_field :_destroy %>
+  <%= link_to_function "remove parameter", "remove_fields(this)" %>
+
+</div>

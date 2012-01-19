@@ -1,55 +1,64 @@
-<%= content_for :main_content do %>
-<div style="width: 50%">
+<script type="text/javascript">
 
-  <h1>New round_expense</h1>
+    $(function() {
+        $("#tabs_<%=@round.id %> li:first").addClass("active");
+        $("#tab-content_<%=@round.id %> div:first").addClass("active");
+    });
+</script>
 
-  <!--The code to add new expense for that round-->
+<!--The code to add new expense for that round-->
 
-
-  <%= form_for(@round_expense) do |f| %>
-      <% if @round_expense.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@round_expense.errors.count, "error") %> prohibited this round_expense from being
-              saved:</h2>
-
-            <ul>
-              <% @round_expense.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
+<h2>Expenses</h2>
 
 
-      <%= f.hidden_field :round_id, :value=>@round.id %>
-
-      <div class="field">
-        <%= f.label :expense_id %>
-        <br/>
-        <%= f.select :expense_id, @expense_list %>
-      </div>
-      <div class="field">
-        <%= f.label :summary %>
-        <br/>
-        <%= f.text_area :summary %>
-      </div>
-      <div class="actions">
-        <%= f.submit %>
-      </div>
-  <% end %>
+<% @set_of_round_expenses[@round.id].each_with_index do |round_expense, index| %>
+    <%= fields_for "set_of_round_expenses[#{@round.id}][#{index}]", round_expense do |f| %>
 
 
-</div>
-<div style="width: 50%;margin-left: 50%;margin-top: -25%">
 
-  <!--The code to show all selected expenses    -->
-  <ul>
-  <% @included_expenses.each do |included_expense| %>
-           <li><%= Expense.find(included_expense.expense_id).name %></li>
-  <% end %>
-      </ul>
+        <%= f.hidden_field :round_id, :value=>@round.id %>
+        <%= f.hidden_field :expense_id, :value=>@expenses[index].id %>
+        <script type="text/javascript">
+            $(function() {
 
-<%= link_to "done",rounds_path(:simulation_id=>@round.simulation_id) %>
-</div>
+                <%  if !@expenses[index].summary.blank? %>
+
+                var s ='"'+ "<%=@expenses[index].summary%>"+'"';
+                <% end %>
+
+                $("#" + "<%=ExpenseType.find(@expenses[index].expense_type_id).name+"_"+@round.id.to_s %>").append('<div class="tab-pane clearfix" id="<%=@round.id %>"><div><b> <%=@expenses[index].name %></b> </div>' + s + ' <br> <%= f.check_box :expense_id,{},@expenses[index].id,0%> </div><br>');
+
+            });
+
+        </script>
+
+    <% end %>
 
 <% end %>
+
+
+<ul class="tabs" id="tabs_<%= @round.id %>">
+  <% @expense_types.each_with_index do |expense_type, index| %>
+      <li><a href="#<%= expense_type.name+"_"+@round.id.to_s %>"><%= expense_type.name %></a></li>
+  <% end %>
+</ul>
+<div class="tab-content" id="tab-content_<%= @round.id %>">
+
+  <% @expense_types.each_with_index do |expense_type, index| %>
+
+      <div class="tab-pane" id="<%= expense_type.name+"_"+@round.id.to_s %>">
+
+
+      </div>
+  <% end %>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(function() {
+        $(".tabs").tabs();
+    });
+
+</script>

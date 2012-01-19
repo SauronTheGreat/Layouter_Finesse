@@ -1,29 +1,44 @@
-<%= content_for :main_content do %>
-<h1>Listing investments</h1>
+
+
+
+
+<%= content_for :page_header do %>
+    <h1>Listing <span style="color: white">Investments</span></h1>
+<% end %>
+
+<% @investment||=Investment.new %>
+<%= content_for :secondary_content do %>
+    <h3>Add New Investment</h3>
+    <div style="margin-left: -25%;margin-top: 10%">
+      <%= render 'form' %>
+
+    </div>
+
+<% end %>
+
 
 <table>
   <tr>
     <th>Name</th>
     <th>Type</th>
 
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
-<% @investments.each do |investment| %>
-  <tr>
-    <td><%= investment.name %></td>
-    <td><%= investment.investment_type_id %></td>
+  <% @investments.each do |investment| %>
+      <tr>
+        <td><%= investment.name %></td>
+        <td><%= InvestmentType.find(investment.investment_type_id).name %></td>
 
-    <td><%= link_to 'Show', investment %></td>
-    <td><%= link_to 'Edit', edit_investment_path(investment) %></td>
-    <td><%= link_to 'Destroy', investment, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+
+        <td><%= link_to 'Edit', edit_investment_path(investment) ,:class=>"edit",:id=>investment.id %></td>
+        <td><%= button_to 'Destroy', investment, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Investment', new_investment_path %>
-<% end %>
+

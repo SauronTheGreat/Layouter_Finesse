@@ -1,19 +1,23 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing Facilitator
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 
+    <p>
+      <b>User:</b>
+      <%= User.find(@facilitator.user_id).username %>
+    </p>
 
-<p>
-  <b>User:</b>
-  <%= @facilitator.user_id %>
-</p>
+    <p>
+      <b>Client:</b>
+      <%= Client.find(@facilitator.client_id).name %>
+    </p>
 
-<p>
-  <b>Client:</b>
-  <%= @facilitator.client_id %>
-</p>
+  </div>
+</div>
 
 
 <%= link_to 'Edit', edit_facilitator_path(@facilitator) %> |
 <%= link_to 'Back', facilitators_path %>
-<% end %>

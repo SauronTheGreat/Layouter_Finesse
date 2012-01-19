@@ -1,27 +1,12 @@
-<%= content_for :main_content do %>
-<h1>Listing student_group_users</h1>
+<% @student_group_users.each do |user| %>
+    <div class="student_name">
 
-<table>
-  <tr>
-    <th>Student group</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+      <%= User.find(user.user_id).fullname %>
+      <div class="remove_icon">
+        <a href="#" id="<%= user.id %>" class=remove_icon> X</a>
+      </div>
 
-<% @student_group_users.each do |student_group_user| %>
-  <tr>
-    <td><%= student_group_user.student_group_id %></td>
-    <td><%= student_group_user.user_id %></td>
-    <td><%= link_to 'Show', student_group_user %></td>
-    <td><%= link_to 'Edit', edit_student_group_user_path(student_group_user) %></td>
-    <td><%= link_to 'Destroy', student_group_user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+
+    </div>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New Student group user', new_student_group_user_path %>
-<% end %>

@@ -35,6 +35,7 @@ class InvestmentTypesController < ApplicationController
   # GET /investment_types/1/edit
   def edit
     @investment_type = InvestmentType.find(params[:id])
+    render :layout => false
   end
 
   # POST /investment_types
@@ -44,7 +45,7 @@ class InvestmentTypesController < ApplicationController
 
     respond_to do |format|
       if @investment_type.save
-        format.html { redirect_to @investment_type, notice: 'Investment type was successfully created.' }
+        format.html { redirect_to investment_types_path, notice: 'Investment type was successfully created.' }
         format.json { render json: @investment_type, status: :created, location: @investment_type }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class InvestmentTypesController < ApplicationController
 
     respond_to do |format|
       if @investment_type.update_attributes(params[:investment_type])
-        format.html { redirect_to @investment_type, notice: 'Investment type was successfully updated.' }
+        format.html { redirect_to investment_types_path, notice: 'Investment type was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

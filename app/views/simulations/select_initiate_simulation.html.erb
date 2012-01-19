@@ -1,11 +1,15 @@
-<%= content_for :main_content do %>
+<%= content_for :page_header do %>
 
     <p>Please Click the round which you want to initiate</p>
-    <table>
-      <% @rounds.each_with_index do |round, index| %>
-          <% if round.number > 0 %>
+<% end %>
 
 
+<table>
+  
+  <% @rounds.each_with_index do |round, index| %>
+      <% if round.number > 0 %>
+
+          <% if !round.calculated %>
           <tr>
             <th>
               <%= index %>
@@ -15,21 +19,22 @@
               <%= link_to "Initiate Round", initiate_simulation_path(:simulation_id=>@simulation.id, :round_id=>round.id) %>
             </td>
             <td>
-              <% if round.played %>
-              <%= link_to "Close Round ",initiate_round_calculation_path(:simulation_id=>@simulation.id,:round_id=>round.id) %>
-                  <% end %>
+
+              <%= link_to "Close Round ", initiate_round_calculation_path(:simulation_id=>@simulation.id, :round_id=>round.id) %>
+
 
             </td>
           </tr>
+              <% break %>
+              <% end %>
+
 
       <% end %>
 
 
-
-      <% end %>
-
-
-    </table>
+  <% end %>
 
 
-<% end %>
+</table>
+
+

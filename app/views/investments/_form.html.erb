@@ -1,26 +1,50 @@
 <%= form_for(@investment) do |f| %>
-  <% if @investment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@investment.errors.count, "error") %> prohibited this investment from being saved:</h2>
+    <% if @investment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@investment.errors.count, "error") %> prohibited this investment from being saved:</h2>
 
-      <ul>
-      <% @investment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @investment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="clearfix">
+      <%= f.label :name %>
+      <div class="input">
+        <%= f.text_field :name %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :investment_type_id %><br />
-    <%= f.select :investment_type_id,InvestmentType.all.collect{|type|[type.name,type.id]} %>
-  </div>
+    <div class="clearfix">
+      <%= f.label :sigma %>
+      <div class="input">
+        <%= f.number_field :sigma %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="clearfix">
+      <%= f.label :mu %>
+      <div class="input">
+        <%= f.number_field :mu %>
+      </div>
+    </div>
+
+
+
+    <div class="clearfix">
+      <%= f.label :investment_type_id %>
+      <div class="input">
+        <%= f.select :investment_type_id, InvestmentType.all.collect { |type| [type.name, type.id] } %>
+      </div>
+    </div>
+
+    <div class="input">
+
+      <%= f.submit "Confirm Decision", :class=>"primary btn" %>
+
+    </div>
+
 <% end %>

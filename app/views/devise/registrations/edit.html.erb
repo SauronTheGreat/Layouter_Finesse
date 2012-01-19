@@ -1,29 +1,67 @@
-
-<%= content_for :main_content do %>
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
-
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
-
-  <p><%= f.submit "Update" %></p>
+<%= content_for :page_header do %>
+    Edit <%= resource_name.to_s.humanize %>
 <% end %>
 
-<h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+<div class="row">
+  <div class="span7 offset3">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}) do |f| %>
+        <%= devise_error_messages! %>
 
+        <div class="clearfix">
+          <%= f.label :username %>
+          <div class="input">
+            <%= f.text_field :username %>
+          </div>
+        </div>
+
+
+        <div class="clearfix">
+          <%= f.label :email %>
+          <div class="input">
+            <%= f.email_field :email %>
+          </div>
+        </div>
+        <br/>
+
+        <div class="clearfix">
+          <%= f.label :password %> &nbsp;&nbsp; <i>(leave blank if you don't want to change it)</i>
+
+          <div class="input">
+            <%= f.password_field :password %>
+          </div>
+        </div>
+        <br/>
+
+        <div class="clearfix">
+          <%= f.label :password_confirmation %>
+          <div class="input">
+            <%= f.password_field :password_confirmation %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :current_password %>
+          <div class="input">
+            <%= f.password_field :current_password %>
+          </div>
+        </div>
+        <br/>
+
+        <div class="row">
+          <div class="span1 offset3">
+            <%= f.submit "Update", :class=>"primary btn" %>
+          </div>
+        </div>
+    <% end %>
+    <div class="row">
+      <div class="span6 offset8">
+        <h3>Cancel my account</h3>
+
+        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>
+          .</p>
+      </div>
+    </div>
+  </div>
+</div>
 <%= link_to "Back", :back %>
 
-<% end %>

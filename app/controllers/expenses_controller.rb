@@ -1,8 +1,10 @@
 class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
+
   def index
     @expenses = Expense.all
+    @expense_types=ExpenseType.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,26 +17,25 @@ class ExpensesController < ApplicationController
   def show
     @expense = Expense.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @expense }
-    end
+    render :layout => false
+    #respond_to do |format|
+    #  format.html # show.html.erb
+    #  format.json { render json: @expense }
+    #end
   end
 
   # GET /expenses/new
   # GET /expenses/new.json
   def new
     @expense = Expense.new
+    render :layout => false
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @expense }
-    end
   end
 
   # GET /expenses/1/edit
   def edit
     @expense = Expense.find(params[:id])
+    render :layout => false
   end
 
   # POST /expenses
@@ -45,8 +46,8 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       if @expense.save
         #now we redirect to enter the value of all the expense options
-        format.html {redirect_to new_expense_option_path(:expense_id=>@expense.id)}
-      #  format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
+        format.html { redirect_to expenses_path }
+        #  format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
         format.json { render json: @expense, status: :created, location: @expense }
       else
         format.html { render action: "new" }
@@ -62,7 +63,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       if @expense.update_attributes(params[:expense])
-          format.html {redirect_to new_expense_option_path(:expense_id=>@expense.id)}
+        format.html { redirect_to expenses_path }
         #format.html { redirect_to @expense, notice: 'Expense was successfully updated.' }
         format.json { head :ok }
       else

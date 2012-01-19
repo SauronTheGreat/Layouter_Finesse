@@ -72,4 +72,40 @@ module ApplicationHelper
       home_page_layout
     end
   end
+
+
+def link_to_add_fields(name, f, association)
+  new_object = f.object.class.reflect_on_association(association).klass.new
+  fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
+    render(association.to_s.singularize + "_fields", :f => builder)
+  end
+
+  tar=%Q(#{fields})
+  tar1=%Q(#{association})
+ # link_to(name,%Q(#{fields}))
+ link_to_function(name, "add_fields(this, \"#{tar1}\", #{tar})")
+ #link_to_function(name,"say_alert(#{tar})")
+end
+
+
+   def link_to_remove_fields(name, f)
+    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
+  end
+
+
+
+#def resource_name
+#    :user
+#  end
+#
+#  def resource
+#    @resource ||= User.new
+#  end
+#
+#  def devise_mapping
+#    @devise_mapping ||= Devise.mappings[:user]
+#  end
+#
+
+
 end

@@ -46,6 +46,7 @@ class MediaPlansController < ApplicationController
   # GET /media_plans/1/edit
   def edit
     @media_plan = MediaPlan.find(params[:id])
+    render :layout => false
   end
 
   # POST /media_plans
@@ -55,7 +56,7 @@ class MediaPlansController < ApplicationController
 
     respond_to do |format|
       if @media_plan.save
-        format.html { redirect_to @media_plan, notice: 'Media plan was successfully created.' }
+        format.html { redirect_to media_plans_path, notice: 'Media plan was successfully created.' }
         format.json { render json: @media_plan, status: :created, location: @media_plan }
       else
         format.html { render action: "new" }
@@ -87,17 +88,41 @@ class MediaPlansController < ApplicationController
     @media_plan.destroy
 
     respond_to do |format|
-      format.html { redirect_to media_plans_url }
+      format.html { redirect_to media_plans_path }
       format.json { head :ok }
     end
   end
 
   def finalize_media_plan
+
     @media_plan=MediaPlan.find(params[:media_plan_id])
+    redirect_to media_plans_path
+
+  end
+
+  def remove_media_plan_detail
+    @media_detail=MediaPlanDetail.find(params[:detail_id])
+    @media_plan=MediaPlan.find(@media_detail.media_plan_id)
+    if @media_detail.destroy
+      redirect_to @media_plan, :notice => "Action successfully performed "
+    else
+      redirect_to @media_plan, :notice => "Action not performed "
+    end
+  end
+
+  def register_as_expense
+
+    @media_plan=MediaPlan.find(params["media_plan_id"])
+    @media_plan.registered_as_expense=true
+    @media_plan.save!
     @expense_type=ExpenseType.find_by_name("Media")
     @details=@media_plan.media_plan_details
-    Expense.create_expense(@expense_type.id, @media_plan.name, 0, @details.sum("amount"))
+    @expense=Expense.create_expense(@expense_type.id, @media_plan.name, 0, @details.sum("amount"), @media_plan.id)
+
+    @expense.summary=params["summary"]
+    @expense.save!
     redirect_to root_path
+
   end
 
 end

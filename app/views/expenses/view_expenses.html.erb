@@ -1,13 +1,12 @@
-
-<%= content_for :main_content do %>
-<h1>Listing <%= @expense_type.name %> expenses</h1>
+<%= content_for :page_header do %>
+    Listing <%= @expense_type.name %> expense
+<% end %>
 
 <ul>
   <% @expenses.each do |expense| %>
-  <li>
-    <%= expense.name %>
-
-  </li>
-         <% end %>
+      <li>
+        <%= expense.name %>
+      </li>
+  <% end %>
 </ul>
-<% end %>
+<%= link_to 'Back', expense_types_path %>

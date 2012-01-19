@@ -1,48 +1,40 @@
-<%= form_for(@decision_parameter) do |f| %>
-    <% if @decision_parameter.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@decision_parameter.errors.count, "error") %> prohibited this decision_parameter from being
-            saved:</h2>
-
-          <ul>
-            <% @decision_parameter.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-    <% if current_user.superadmin %>
-        <div class="field">
-          <%= f.label :name %>
-          <br/>
-          <%= f.text_field :name %>
-        </div>
-
-
-
-    <% else %>
-
-        <!--<div class="field">-->
-        <!--<%= f.label :value %>-->
-        <!--<br/>-->
-        <!--<%= f.number_field :value %>-->
-        <!--</div>-->
-
-
-        <div class="field">
-          <%= f.label :mathematical_model_id %>
-          <br/>
-          <%= f.select :mathematical_model_id, MathematicalModel.all.collect { |mm| [mm.name, mm.id] } %>
-        </div>
-
-
-
-
-
-
-    <% end %>
-        <div class="actions">
-          <%= f.submit %>
-        </div>
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
 <% end %>
 
+<%= content_for :main_content do %>
+
+<%= form_for(@decision_parameter) do |f| %>
+<% if @decision_parameter.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@decision_parameter.errors.count, "error") %> prohibited this decision_parameter
+    from being saved:</h2>
+
+  <ul>
+    <% @decision_parameter.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+
+    <%= f.label :name %><br/>
+    <%= f.text_field :name %>
+    <br/><br/>
+
+    <%= f.label :amount %><br/>
+    <%= f.number_field :amount %>
+    <br/><br/>
+
+<p><%= f.submit %></p>
+<% end %>
+<% end %>
+
+<%= content_for :navigation do %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>

@@ -1,104 +1,187 @@
-<%= content_for :main_content do %>
-    <h1>Welcome To The Finesse Portal</h1>
-    <!--The user has signed in-->
-    <% if current_user %>
-        <h3>You have Signed In as <%= current_user.username %></h3>
+<%= content_for :head do %>
+    <script type="text/javascript">
+        $(function() {
+            //document.getElementByClass("content").style.height='450px';
 
-        <!--Displaying roles-->
-        <% if current_user.superadmin %>
-            You are a  Super Admin
-        <% elsif current_user.admin %>
-            You are a   Admin
-        <% elsif current_user.facilitator %>
-            You are a  Professor
-        <% else %>
-            You are a Student
-        <% end %>
+            $("#carousel").CloudCarousel({
+                reflHeight: 56,
+                reflGap:2,
+                titleBox: $('#title-text'),
+                altBox: $('#alt-text'),
+                buttonLeft: $('#left-but'),
+                buttonRight: $('#right-but'),
+                yRadius:60,
+                xPos: 385,
+                yPos: 120,
+                speed:0.15,
+                mouseWheel:true
+            });
+            $('.nature').mobilyblocks({
+                trigger: 'hover',
+                direction: 'counter',
+                duration: 500,
+                widthMultiplier: 1.05,
 
-        <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
-    <% else %>
-        <%= link_to "Sign In", new_user_session_path %>
-    <% end %>
-    <br>
-    <br>
-    <hr>
+            });
+        });
+    </script>
 
-    <% if current_user %>
-        <!--Superadmin View-->
-        <% if current_user.superadmin %>
-            <%= link_to "Manage Mathematical Models", mathematical_models_path %> <br>
-            <%= link_to "Manage Markets", markets_path %><br>
-            <%= link_to "Manage Decision Parameters", decision_parameters_path %><br>
-            <%= link_to "Manage National Dealers", dealers_path %><br>
-            <%= link_to "Manage Products", products_path %><br>
-            <%= link_to "Manage Raw Materials", raw_materials_path %><br>
-            <%= link_to "Manage Market Distances", view_tabular_market_distance_path %>  <br>
-            <%= link_to "Manage Factories", factories_path %><br>
-            <%= link_to "Manage Expense Types", expense_types_path %><br>
-            <%= link_to "Manage Media", media_path %> <br>
-            <%= link_to "Manage Media Units", units_path %><br>
-            <%= link_to "Manage Media Impacts", impacts_path %><br>
-            <%= link_to "Manage Constants", constants_path %><br>
-            <%= link_to "Manage Investment Types", investment_types_path %><br>
-            <%= link_to "Manage Loan Types", loan_types_path %><br>
+    <style>
+        .carouselLeft {
+            display: none;
+            background: url('/assets/arrow-prev.png');
+            width: 40px;
+            height: 50px;
+            background-position: 0px 0px;
+            background-repeat: no-repeat;
+        }
 
+        .carouselLeft:hover {
+            width: 40px;
+            height: 40px;
+            background-position: 0px -2px;
+            cursor: pointer;
+        }
 
+        .carouselRight {
+            display: none;
+            background: url('/assets/arrow-next.png');
+            width: 40px;
+            height: 50px;
+            background-position: 0px 0px;
+            background-repeat: no-repeat;
 
+        }
 
+        .carouselRight:hover {
+            width: 40px;
+            height: 40px;
+            background-position: 0px -2px;
+            cursor: pointer;
+        }
 
+        #title-text {
+            display: none;
+            color: #f90;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-size: 17px;
+            font-weight: bold;
+            margin: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            width: 80%;
+        }
 
-            <!--admin view-->
-        <% elsif current_user.admin %>
-            <%= link_to "Manage Clients", clients_path %><br>
-            <%= link_to "Manage Facilitators", facilitators_path %><br>
-            <%= link_to "Manage Environmental Parameters", environmental_parameters_path %><br>
-            <%= link_to "Manage Decision Parameters", decision_parameters_path %><br>
-            <%= link_to "Manage Media Plans", media_plans_path %><br>
-            <%= link_to "Manage Consumer Categories", consumer_categories_path %><br>
-            <%= link_to "Manage Employee Category", employee_categories_path %><br>
-            <%= link_to "Manage Expenses", expenses_path %><br>
-            <%= link_to "Manage Investments", investments_path %><br>
-            <%= link_to "Manage Loans", loans_path %><br>
-            <%= link_to "Mass Upload Users", imports_path %><br>
-            <%= link_to "Default Player Data", new_default_player_datum_path %>
+        #alt-text {
+            display: none;
+            color: #ddd;
+            margin: 20px;
+            margin-top: 0px;
+            font-size: 14px;
+            font-weight: bold;
 
+        }
 
+            /* */
 
-
-
-
-            <!--facilitator view-->
-        <% elsif current_user.facilitator %>
-            <%= link_to "Manage My Facilitator Groups", facilitator_groups_path %><br>
-            <%= link_to "Manage My Case Studies", case_studies_path %><br>
-            <%= link_to "Manage My Simulations", simulations_path %><br>
-            <%= link_to "View Expenses", expense_types_path %> <br>
-            <%= link_to "Manage Games", games_path %>
-
-
-            <!--player view-->
-
-        <% elsif current_user.student %>
-            <p>There are simulations assigned to you...</p>
-
-            <ul>
-              <% @simulations.each_with_index do |simulation, index| %>
-                  <% if simulation.initiated? %>
-                      <% @active_round=ActiveRound.find_by_simulation_id(simulation.id).round_id %>
-                      <li><%= simulation.name %> <%= link_to "View Brands", brands_path(:player_id=> @players[index].id,:round_id=>@active_round) %>
-                  <% end %>
-
-              <% end %>
-            </ul>
-
-
-
-
-        <% end %>
-    <% end %>
-
+    </style>
+    <%= stylesheet_link_tag '/assets/exclusions/mobily' %>
 
 <% end %>
+
+<%= content_for :page_header do %>
+    <div style="border: none;margin-top: 15px;"><%= image_tag('logo_white.png') %></div>
+<% end %>
+
+<% if current_user %>
+    <!--Superadmin View-->
+    <% if current_user.superadmin %>
+        <div id="carousel" style="border-radius: 10px;width:750px; height:420px;background: url('/assets/carousel.gif');overflow:scroll;">
+          <%#= link_to image_tag("mathematical_2.png", :title =>'Mathematical Models', :alt =>'Manage Mathematical Models', :class=>"cloudcarousel"), new_mathematical_model_path %>
+          <%= link_to image_tag("market_2.png", :title=>'Markets', :alt=>'Manage Markets', :class=>"cloudcarousel"), view_map_path %>
+          <%#= link_to image_tag('decision_manage2.png', :title =>'Decision Parameters', :alt => 'Manage Decision Parameters', :class=>"cloudcarousel"), decision_parameters_path %>
+          <%= link_to image_tag('national_2.png', :title =>'National Dealers', :alt =>'Manage National Dealers', :class=>"cloudcarousel"), dealers_path %>
+          <%= link_to image_tag('product_2.png', :title =>"Products", :alt =>"Manage Products", :class=>"cloudcarousel"), products_path %>
+          <%= link_to image_tag("raw_material_2.png", :title => 'Raw Materials', :alt => 'Manage Raw Materials', :class=>"cloudcarousel"), raw_materials_path %>
+          <%#= link_to image_tag("market_distance_2.png", :title => "Market Distances", :alt => "Manage Market Distances", :class=>"cloudcarousel"), view_tabular_market_distance_path %>
+          <%= link_to image_tag("factory_2.png", :title =>"Factories", :alt =>"Manage Factories", :class=>"cloudcarousel"), factories_path %>
+          <%= link_to image_tag("expense_types_2.png", :title =>"Expense Types", :alt =>"Manage Expense Types", :class=>"cloudcarousel"), expense_types_path %>
+          <%= link_to image_tag("media_sup_2.png", :title =>"Media", :alt =>"Manage Media", :class=>"cloudcarousel"), media_path %>
+          <%= link_to image_tag("media_unit_2.png", :title =>"Media Units", :alt =>"Manage Media Units", :class=>"cloudcarousel"), units_path %>
+          <%= link_to image_tag("media_impact_2.png", :title =>"Media Impacts", :alt =>"Manage Media Impacts", :class=>"cloudcarousel"), impacts_path %>
+          <%= link_to image_tag("constant_2.png", :title =>"Constants", :alt =>"Manage Constants", :class=>"cloudcarousel"), constants_path %>
+          <%= link_to image_tag("investmwent_types_2.png", :title =>"Investment Types", :alt =>"Manage Investment Types", :class=>"cloudcarousel"), investment_types_path %>
+          <%= link_to image_tag("loan_types_2.png", :title =>"Loan Types", :alt =>"Manage Loan Types", :class=>"cloudcarousel"), loan_types_path %>
+          <div id="title-text"></div>
+          <div id="alt-text"></div>
+          <div id="left-but" class="carouselLeft" style="position:absolute;top:20px;right:64px;"></div>
+          <div id="right-but" class="carouselRight" style="position:absolute;top:20px;right:20px;"></div>
+        </div>
+        <!--admin view-->
+    <% elsif current_user.admin %>
+        <div id="carousel" style="border-radius: 10px;width:750px; height:400px;background: url('/assets/carousel.gif');overflow:scroll;">
+          <%= link_to image_tag("client2.png", :title =>'Manage Clients', :alt =>'Manage Clients', :class=>"cloudcarousel"), clients_path %>
+          <%= link_to image_tag("fac2.png", :title =>'Manage Facilitators', :alt =>'Manage Facilitators', :class=>"cloudcarousel"), facilitators_path %>
+          <%#= link_to image_tag("envparameter2.png", :title =>'Manage Environmental Parameters', :alt =>'Manage Environmental Parameters', :class=>"cloudcarousel"), environmental_parameters_path %>
+          <%#= link_to image_tag("decision_manage2.png", :title =>'Manage Decision Parameters', :alt =>'Manage Decision Parameters', :class=>"cloudcarousel"), decision_parameters_path %>
+          <%= link_to image_tag("media_2.png", :title => 'Manage Media Plans', :alt => 'Manage Media Plans', :class=>"cloudcarousel"), media_plans_path %>
+          <%= link_to image_tag("consumer_icon2.png", :title => 'Manage Consumer Categories', :alt => 'Manage Consumer Categories', :class=>"cloudcarousel"), consumer_categories_path %>
+          <%= link_to image_tag("employee_2.png", :title =>"Manage Employee Category", :alt =>"Manage Employee Category", :class=>"cloudcarousel"), employee_categories_path %>
+          <%= link_to image_tag("expenses_2.png", :title =>"Manage Expenses", :class=>"cloudcarousel"), expenses_path %>
+          <%= link_to image_tag("investmwent_2.png", :title =>"Manage Investments", :alt =>"Manage Investments", :class=>"cloudcarousel"), investments_path %>
+          <%= link_to image_tag("loan_2.png", :title =>"Manage Loans", :alt =>"Manage Loans", :class=>"cloudcarousel"), loans_path %>
+          <%#= link_to image_tag("mass_upload_2.png", :title =>"Mass Upload Users", :alt =>"Mass Upload Users", :class=>"cloudcarousel"), imports_path %>
+          <%= link_to image_tag("default_player_2.png", :title =>"Default Player Data", :alt =>"Default Player Data", :class=>"cloudcarousel"), new_default_player_datum_path %>
+          <div id="title-text"></div>
+          <div id="alt-text"></div>
+          <div id="left-but" class="carouselLeft" style="position:absolute;top:20px;right:64px;"></div>
+          <div id="right-but" class="carouselRight" style="position:absolute;top:20px;right:20px;"></div>
+        </div>
+
+        <!--facilitator view-->
+    <% elsif current_user.facilitator %>
+
+        <div align="center">
+          <%= link_to image_tag("factory_2.png", :size=>"200x250", :title => 'Manage Facilitator Group', :alt => 'Manage Facilitator Group', :class=>"cloudcarousel"), participation_management_path %>
+          <%#= link_to image_tag("case_study_2.png", :title => 'Manage My CaseStudies', :alt => 'Manage My CaseStudies', :class=>"cloudcarousel"), case_studies_path %>
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          <%= link_to image_tag("cfo.png", :size=>"200x250", :title => 'My CaseStudies', :alt => 'Manage My CaseStudies', :class=>"cloudcarousel"), simulations_path %>
+        </div>
+
+
+        <!--player view-->
+    <% elsif current_user.student %>
+        <script type='text/javascript'>
+            $(function() {
+                $('.content').css('height', '450px');
+            });
+        </script>
+        <p style="font-size:24px;">There are simulations assigned to you...</p>
+        <div class="mobily" style="margin-left:620px; ">
+          <div class="nature">
+            <ul class="reset">
+              <li>
+                <a href=<%= edit_brand_path(:id=>@brand.id,:player_id=>@player.id) %>><img id="decision_forms" src="/assets/decision_icon.png" alt=""/></a>
+              </li>
+              <li><a href="#"><img id="market_data" src="/assets/market_data_icon.png" alt=""/></a></li>
+              <li><a href="#"><img id="round_results" src="/assets/round_result_icon.png" alt=""/></a></li>
+              <li><a href="#"><img id="leaderboard" src="/assets/leaderboard.png" alt=""/></a></li>
+            </ul>
+          </div>
+        </div>
+        <ul style="font-size:24px;">
+
+
+        </ul>
+
+    <% end %>
+<% end %>
+
 
 
 

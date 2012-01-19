@@ -5,10 +5,15 @@ class Player < ActiveRecord::Base
   has_many :brands, :dependent => :destroy
 
   #this method create all players in the student group
-  def self.create_players_from_student_group(simulation_id)
+  def self.create_players_from_student_group(student_group_id)
 
-    @simulation=Simulation.find(simulation_id)
-    @student_group=StudentGroup.find(@simulation.student_group_id)
+    @student_group=StudentGroup.find(student_group_id)
+    @simulation=Simulation.find(@student_group.simulation_id)
+
+    @players=Player.find_all_by_simulation_id(@simulation.id)
+    @players.each do |player|
+      player.destroy
+    end
 
     @student_group_users=@student_group.student_group_users
     @round=Round.find_by_simulation_id_and_number(@simulation.id, 0)
@@ -16,9 +21,16 @@ class Player < ActiveRecord::Base
       @player=Player.new
       @player.student_group_id=@student_group.id
       @player.student_group_user_id=sguser.id
-      @player.simulation_id=simulation_id
+      @player.simulation_id=@simulation.id
+      @player.last_played=0
       @player.save!
       PlayerFinancial.create_financials_for_player(@round.id, @player.id)
+
+      #we now create brands for each player
+      @brand=Brand.new
+      @brand.player_id=@player.id
+      @brand.name=User.find((StudentGroupUser.find(@player.student_group_user_id)).user_id).first_name+"'s brand'"
+      @brand.save!
 
 
     end
@@ -28,7 +40,8 @@ class Player < ActiveRecord::Base
       @player=Player.new
       @player.student_group_id=1000
       @player.student_group_user_id=1000
-      @player.simulation_id=simulation_id
+      @player.simulation_id=@simulation.id
+      @player.last_played=0
       @player.save!
       PlayerFinancial.create_financials_for_player(@round.id, @player.id)
 
@@ -51,7 +64,7 @@ class Player < ActiveRecord::Base
       @brand=Brand.new
       @brand.player_id=ai_player.id
       @brand.name="Brand_#{ai_player.id}"
-      @brand.price_per_unit=1000
+      @brand.price_per_unit=800+rand(1000)
       @brand.save!
 
     end
@@ -82,6 +95,35 @@ class Player < ActiveRecord::Base
         end
       end
 
+      #investment decisions
+      @investments=RoundInvestment.find_all_by_round_id(round_id)
+      @investments.each do |investment|
+        @player_round_investment=PlayerRoundInvestment.new
+        @player_round_investment.player_id=ai_player.id
+        @player_round_investment.round_id=round_id
+        @player_round_investment.investment_id=investment.id
+        @player_round_investment.amount=rand(100)
+        @player_round_expense.brand_id=@my_brands[rand(@my_brands.size)].id
+        @player_round_investment.save!
+
+      end
+
+#investment decisions
+      @loans=RoundLoan.find_all_by_round_id(round_id)
+      @loans.each do |loan|
+        @player_round_loan=PlayerRoundLoan.new
+        @player_round_loan.player_id=ai_player.id
+        @player_round_loan.round_id=round_id
+        @player_round_loan.loan_id=loan.id
+        @player_round_loan.amount=rand(100)
+        @player_round_expense.brand_id=@my_brands[rand(@my_brands.size)].id
+        @player_round_loan.save!
+
+      end
+
+
+      ai_player.last_played=ActiveRound.first.round_id
+      ai_player.save!
     end
 
   end

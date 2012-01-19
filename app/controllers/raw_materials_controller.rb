@@ -1,6 +1,9 @@
 class RawMaterialsController < ApplicationController
   # GET /raw_materials
   # GET /raw_materials.json
+  before_filter :allow_only_superadmin
+
+
   def index
     @raw_materials = RawMaterial.all
 
@@ -35,19 +38,21 @@ class RawMaterialsController < ApplicationController
   # GET /raw_materials/1/edit
   def edit
     @raw_material = RawMaterial.find(params[:id])
+    render :layout => false
   end
 
   # POST /raw_materials
   # POST /raw_materials.json
   def create
     @raw_material = RawMaterial.new(params[:raw_material])
+    @raw_materials=RawMaterial.all
 
     respond_to do |format|
       if @raw_material.save
-        format.html { redirect_to @raw_material, notice: 'Raw material was successfully created.' }
+        format.html { redirect_to raw_materials_path, notice: 'Raw material was successfully created.' }
         format.json { render json: @raw_material, status: :created, location: @raw_material }
       else
-        format.html { render action: "new" }
+        format.html { render action: "index" }
         format.json { render json: @raw_material.errors, status: :unprocessable_entity }
       end
     end
@@ -60,7 +65,7 @@ class RawMaterialsController < ApplicationController
 
     respond_to do |format|
       if @raw_material.update_attributes(params[:raw_material])
-        format.html { redirect_to @raw_material, notice: 'Raw material was successfully updated.' }
+        format.html { redirect_to raw_materials_path, notice: 'Raw material was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

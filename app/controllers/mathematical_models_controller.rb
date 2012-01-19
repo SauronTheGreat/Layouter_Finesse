@@ -44,10 +44,7 @@ class MathematicalModelsController < ApplicationController
 
     respond_to do |format|
       if @mathematical_model.save
-
-        #once a mew model is created , it should go to ask  name for its constants
-        format.html{redirect_to new_mathematical_model_constant_path(:mathematical_model_id=>@mathematical_model.id)}
-       # format.html { redirect_to @mathematical_model, notice: 'Mathematical model was successfully created.' }
+        format.html { redirect_to @mathematical_model, notice: 'Mathematical model was successfully created.' }
         format.json { render json: @mathematical_model, status: :created, location: @mathematical_model }
       else
         format.html { render action: "new" }

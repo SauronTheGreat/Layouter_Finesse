@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @impact.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 <p>
   <b>Name:</b>
@@ -8,3 +12,5 @@
 
 <%= link_to 'Edit', edit_impact_path(@impact) %> |
 <%= link_to 'Back', impacts_path %>
+</div>
+</div>

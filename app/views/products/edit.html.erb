@@ -1,8 +1,2 @@
-<%= content_for :main_content do %>
-<h1>Editing product</h1>
-
+<%= @product.name %>
 <%= render 'form' %>
-
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
-<% end%>

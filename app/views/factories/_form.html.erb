@@ -1,56 +1,83 @@
-<%= form_for(@factory) do |f| %>
-  <% if @factory.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@factory.errors.count, "error") %> prohibited this factory from being saved:</h2>
+<div class="row">
+  <div class="span7 ">
 
-      <ul>
-      <% @factory.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= form_for(@factory) do |f| %>
+        <% if @factory.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@factory.errors.count, "error") %> prohibited this factory from being saved:</h2>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :number_of_employees %><br />
-    <%= f.number_field :number_of_employees %>
-  </div>
-  <div class="field">
-    <%= f.label :market_id %><br />
-    <%= f.select :market_id ,Market.all.collect{|m|[m.name,m.id]}%>
-  </div>
-  <div class="field">
-    <%= f.label :number_of_shifts %><br />
-    <%= f.number_field :number_of_shifts %>
-  </div>
-  <div class="field">
-    <%= f.label :cost_to_build %><br />
-    <%= f.number_field :cost_to_build %>
-  </div>
-  <div class="field">
-    <%= f.label :cost_to_run %><br />
-    <%= f.number_field :cost_to_run %>
-  </div>
-  <div class="field">
-    <%= f.label :capacity %><br />
-    <%= f.number_field :capacity %>
-  </div>
-  <div class="field">
-    <%= f.label :production_time_per_unit %><br />
-    <%= f.number_field :production_time_per_unit %>
-  </div>
+              <ul>
+                <% @factory.errors.full_messages.each do |msg| %>
+                    <li style="color: red"><%= msg %></li>
+                    <br>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :price %><br />
-    <%= f.number_field :price %>
+        <div class="clearfix">
+          <%= f.label :name %>
+          <div class="input">
+            <%= f.text_field :name, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :number_of_employees %>
+          <div class="input">
+            <%= f.number_field :number_of_employees, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :market_id %>
+          <div class="input">
+            <%= f.select :market_id, Market.all.collect { |m| [m.name, m.id] }, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :number_of_shifts %>
+          <div class="input">
+            <%= f.number_field :number_of_shifts, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :cost_to_build %>
+          <div class="input">
+            <%= f.number_field :cost_to_build, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :cost_to_run %>
+          <div class="input">
+            <%= f.number_field :cost_to_run, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :capacity %>
+          <div class="input">
+            <%= f.number_field :capacity, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :production_time_per_unit %>
+          <div class="input">
+            <%= f.number_field :production_time_per_unit, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :price %>
+          <div class="input">
+            <%= f.number_field :price, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span1 offset3">
+            <% if params[:action]== "new" %>
+                <%= f.submit "Submit", :class=>"primary btn" %>
+            <% else %>
+                <%= f.submit "Update", :class=>"primary btn" %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
   </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

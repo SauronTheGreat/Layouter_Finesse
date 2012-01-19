@@ -1,9 +1,7 @@
-<%= content_for :main_content do %>
-<h1>Editing dealer</h1>
-
+<%= content_for :page_header do %>
+    Editing <%= @dealer.name %>
+<% end %>
 <%= render 'form' %>
-
 <%= link_to 'Show', @dealer %> |
 <%= link_to 'Back', dealers_path %>
 
-<% end %>

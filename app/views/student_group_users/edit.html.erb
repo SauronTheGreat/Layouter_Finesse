@@ -1,8 +1,6 @@
-<%= content_for :main_content do %>
-<h1>Editing student_group_user</h1>
-
+<%= content_for :page_header do %>
+    Editing <%= @student_group_user.name %>
+<% end %>
 <%= render 'form' %>
-
 <%= link_to 'Show', @student_group_user %> |
 <%= link_to 'Back', student_group_users_path %>
-<% end %>

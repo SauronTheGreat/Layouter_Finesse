@@ -1,4 +1,6 @@
-<h1>Editing game</h1>
+<%= content_for :page_header do %>
+    Editing <%= @game.name %>
+<% end %>
 
 <%= render 'form' %>
 

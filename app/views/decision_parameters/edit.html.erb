@@ -1,8 +1,12 @@
-<%= content_for :main_content do %>
+
+<%= content_for :header do %>
 <h1>Editing decision_parameter</h1>
+<% end %>
+
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @decision_parameter %> |
-<%= link_to 'Back', decision_parameters_path %>
-                                   <% end %>
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("show"),:size=>"100x100"), @decision_parameter, :title=>'Show' %>
+<%= link_to image_tag(icon("back"),:size=>"100x100"), decision_parameters_path, :title=>'Back' %>
+<% end %>

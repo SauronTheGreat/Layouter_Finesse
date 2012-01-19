@@ -1,17 +1,25 @@
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @impact.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
+    <p>
+      <b>Simulation:</b>
+      <%= @game.simulation_id %>
+    </p>
 
-<p>
-  <b>Simulation:</b>
-  <%= @game.simulation_id %>
-</p>
+    <p>
+      <b>Student group:</b>
+      <%= @game.student_group_id %>
+    </p>
 
-<p>
-  <b>Student group:</b>
-  <%= @game.student_group_id %>
-</p>
-
+    <div class="row">
+      <div class="span4 offset8">
+        <%= link_to "Initiate Games", initiate_game_path(:game_id=>@game.id), :class =>"primary btn" %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>|
-<%= link_to "Initiate Games",initiate_game_path(:game_id=>@game.id) %>
-
+<%= link_to 'Back', games_path %>

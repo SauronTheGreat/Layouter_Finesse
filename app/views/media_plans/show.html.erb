@@ -1,73 +1,99 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+    //    $(function() {
+    //        $(".remove").click(function(event) {
+    //            event.preventDefault();
+    //            alert($(this).attr("href") + "/?detail_id=" + $(this).attr("id"));
+    //
+    //            $.get($(this).attr("href") + "/?detail_id=" + $(this).attr("id"), function(data) {
+    //                alert("data");
+    //            });
+    //
+    //        });
 
-<p>
-  <b>Name:</b>
-  <%= @media_plan.name %>
-</p>
-<% @details=@media_plan.media_plan_details %>
 
-<b>Details of Spendings</b>
+    //    });
 
-<table>
-  <tr>
-    <th>Media</th>
-    <th>Amount</th>
-  </tr>
-  <% @details.each do |detail| %>
+</script>
+
+<%= content_for :page_header do %>
+    Showing <span style="color: white"> <%= @media_plan.name %></span>
+<% end %>
+<div class="row">
+  <div class="span7 ">
+
+
+    <% @details=@media_plan.media_plan_details %>
+
+    <h3>Plan Till Now</h3>
+    <small>(total:<%= @details.sum(:amount) %>Rs)</small>
+
+    <table>
       <tr>
-        <td>
-          <%= Medium.find(detail.media_id).name %>
-        </td>
-        <td><%= detail.amount %></td>
+        <th>Media</th>
+        <th>Amount</th>
       </tr>
-  <% end %>
+      <% @details.each do |detail| %>
+          <tr>
+            <td>
+              <%= Medium.find(detail.media_id).name %>
+            </td>
+            <td><%= detail.amount %>Rs</td>
+            <td><%= link_to "x", remove_media_plan_detail_path(:detail_id=>detail.id), :class=>'remove', :id => detail.id %></td>
 
-</table>
+          </tr>
+      <% end %>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+    </table>
+    <%= link_to "Done", finalize_media_plan_path(:media_plan_id=>@media_plan.id), :class=>"primary btn" %>
+    <%= link_to 'Edit Name', edit_media_plan_path(@media_plan), :class => "edit primary btn" %>
+  </div>
 
 
-<!--below is the form to add new detail to the media plan-->
+  <%= content_for :secondary_content do %>
 
-<%= form_for(@media_plan_detail) do |f| %>
-    <% if @media_plan_detail.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@media_plan_detail.errors.count, "error") %> prohibited this media_plan_detail from being
-            saved:</h2>
+      <h3>Add A Medium</h3>
+      <!--below is the form to add new detail to the media plan-->
+      <div style="margin-left: -20%;margin-top: 20%">
+        <%= form_for(@media_plan_detail) do |f| %>
+            <% if @media_plan_detail.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@media_plan_detail.errors.count, "error") %> prohibited this media_plan_detail from
+                    being
+                    saved:</h2>
 
-          <ul>
-            <% @media_plan_detail.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
+                  <ul>
+                    <% @media_plan_detail.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
             <% end %>
-          </ul>
-        </div>
-    <% end %>
 
 
-    <%= f.hidden_field :media_plan_id, :value=>@media_plan.id %>
+            <%= f.hidden_field :media_plan_id, :value=>@media_plan.id %>
 
-    <div class="field">
-      <%= f.label :media_id %>
-      <br/>
-      <%= f.select :media_id,@media_list %>
+            <div class="clearfix">
+              <%= f.label :media_id %>
+              <div class="input">
+                <%= f.select :media_id, @media_list, :class=>"xsmall" %>
+              </div>
+            </div>
+            <div class="clearfix">
+              <%= f.label :no_of_units %>
+              <div class="input">
+                <%= f.number_field :no_of_unit, :class=>"xsmall" %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="span1 offset3">
+
+                <%= f.submit "Add", :class=>"primary btn" %>
+
+              </div>
+            </div>
+
+        <% end %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :no_of_unit %>
-      <br/>
-      <%= f.number_field :no_of_unit %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-<% end %>
 
-
-
-<%= link_to "Done",finalize_media_plan_path(:media_plan_id=>@media_plan.id) %>
-<% end %>
+  <% end %>

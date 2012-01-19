@@ -2,6 +2,7 @@ class DealerPreference < ActiveRecord::Base
   belongs_to :dealer
 
 
+
   #here we create a method to populate preferences of each dealer
 
   def self.populate_dealer_preferences(dealer_id)

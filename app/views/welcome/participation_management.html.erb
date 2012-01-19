@@ -1,0 +1,298 @@
+<style type="text/css">
+    .btn {
+        height: 10px;
+        font-size: 16px
+
+    }
+
+    .add_remove_button {
+        width: 20px;
+        height: 20px
+    }
+
+    .list_of_students {
+
+        /*border: 1px solid black;*/
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .student_name {
+        /*background: white;*/
+        border: 1px solid #000000;
+        /*border-radius: 12px;*/
+        padding: 10px;
+
+    }
+
+    .remove_icon {
+        float: right;
+
+    }
+
+    .students {
+        height: 310px;
+        overflow: auto;
+    }
+
+    .student_group_info {
+
+        /*border: 1px solid black;*/
+        /*padding: 10px;*/
+        height: 250px;
+        overflow: auto;
+        border: none;
+
+    }
+
+    .include {
+
+        margin-top: 200px;
+    }
+
+    .exclude {
+        margin-top: 300px;
+    }
+
+
+</style>
+
+
+<script type="text/javascript">
+
+
+    function get_available_students(student_group_id) {
+        //get list of all students who can still  be added
+        $.get("student_group_users/new?student_group_id=" + student_group_id, function(data) {
+            $(".students ").html(data);
+
+        });
+
+
+    }
+
+    function get_included_students(student_group_id) {
+        $.get("/student_group_users?student_group_id=" + student_group_id, function(data) {
+            $(".student_group_info").html(data);
+
+        });
+
+
+    }
+
+
+    $(function() {
+
+
+        $("a").css("text-align", "center");
+
+        $(".page-header").css("height", "50px");
+
+        $(".modal").modal({
+            backdrop: true,
+            keyboard: true
+        });
+
+
+        $(".new_group").click(function(event) {
+
+            $("#new_student_group").modal('toggle');
+            event.preventDefault();
+
+
+        });
+
+        $(".new_simulation").click(function(event) {
+
+            $("#simulation_assignment").modal('toggle');
+            event.preventDefault();
+
+
+        });
+
+
+        $(".simulation_form").click(function() {
+
+
+            $(".student_group_simulation").attr("value", ($(".list option:selected").attr("value")));
+        });
+
+
+        get_available_students("<%=@selected_student_group.id %>");
+
+        get_included_students("<%=@selected_student_group.id %>");
+
+
+        //get list of all students who are in the particular group
+
+
+        $(".list").change(function() {
+            //    $(".hidden_student_group").attr("value", $("select option:selected").attr("value"));
+            get_available_students($(".list option:selected").attr("value"));
+
+            get_included_students($(".list option:selected").attr("value"));
+
+
+        });
+
+
+        $(".remove_icon").live("click", function() {
+
+            $.get("remove_student/" + $(this).attr("id"), function() {
+
+                get_available_students($(".list option:selected").attr("value"));
+                get_included_students($(".list option:selected").attr("value"));
+
+
+            });
+
+
+        });
+
+
+        $(".remove_icon_main").live("click", function() {
+
+            $.get("remove_student_from_list/" + $(this).attr("id"), function() {
+
+                get_available_students($(".list option:selected").attr("value"));
+
+
+            });
+        });
+
+
+    });
+
+</script>
+
+
+<!--modal for creating a new student group-->
+<div class="modal hide fade" id="new_student_group">
+
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+
+    <h3>Create A New Student Group</h3>
+  </div>
+  <div class="modal-body">
+    <%= render 'student_groups/form' %>
+  </div>
+
+
+</div>
+
+<!--modal for assigning simulation-->
+<div class="modal hide fade" id="simulation_assignment">
+
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+
+    <h3>Assign Simulation</h3>
+  </div>
+
+  <div class="modal-body">
+    <%= form_tag :action => 'set_simulation' do %>
+
+        <%= select_tag "simulation_id", options_from_collection_for_select(Simulation.all, "id", "name") %>
+
+        <%= hidden_field_tag :student_group_id, @selected_student_group.id, :class=>"student_group_simulation" %>
+        <br><br>
+        <%= submit_tag "OK", :class=>"simulation_form primary btn" %>
+    <% end %>
+
+
+  </div>
+
+
+</div>
+
+<!--modal for upload -->
+
+
+
+
+<!--main page-->
+<div class="row" style="margin-left: 15px;">
+
+  <!--This is where list of all students should come-->
+
+
+  <div class="span5 list_of_students ">
+    <%= form_tag :action => 'set_participation' %>
+    <div class="label " style="background: #0000CD;font-size: 16px;height: 45px;text-align: center;"><br/>List Of
+      All
+      Students
+    </div>
+
+
+    <div class="students">
+
+    </div>
+    </div>
+    <div class="span1">
+      <div class="add_remove_button">
+        <%= submit_tag ">>", :class=>"include btn" %>
+      </div>
+    </div>
+
+
+
+
+  <div class="span8" style="margin-top: 10px;margin-left: 40px">
+
+    <div class="row">
+      <%#= link_to "UPLOAD STUDENTS", new_import_path(:facilitator_group_id=>@facilitator_group.id), :class=>"new_upload primary btn span8" %>
+      <%= link_to image_tag("upload.png", :size=>"350x50"), new_import_path(:facilitator_group_id=>@facilitator_group.id), :class=>"new_upload  span8", :style => "margin-left:-35px", :title => "Upload Students" %>
+    </div>
+
+
+    <br>
+
+
+    <div class="row">
+      <div class="span4" style="margin-left: 25px;">
+        <div class="row">
+          <%= @student_group.id %>
+          <div class="input" style="">
+            <%= select_tag "student_groups", options_from_collection_for_select(@student_groups, "id", "name", @selected_student_group.id), :class=>"list span4" %>
+          </div>
+        </div>
+
+        <br>
+
+
+        <div class="row">
+          <div class="student_group_info">
+
+
+          </div>
+        </div>
+      </div>
+      <div class="span3" style="margin-top: 50px;margin-left: 50px;">
+        <div class="row">
+          <%#= link_to "ADD GROUP", "", :class=>"new_group primary btn span3" %>
+          <%= link_to image_tag("add_group.png", :size=>"100x100"), "", :class=>"new_group span3 offset1", :title => "Add A new student group" %>
+        </div>
+
+
+        <br>
+
+        <div class="row">
+          <%#= link_to "ASSIGN SIMULATION", "", :class=>"new_simulation primary btn span3", :style => 'height:auto;' %>
+          <%= link_to image_tag("assign_simulation.png"), "", :class=>"new_simulation  span3 offset1", :style => 'height:auto;', :title => "Assign Simulation" %>
+        </div>
+      </div>
+
+      <br>
+      <br>
+
+
+    </div>
+  </div>
+
+
+</div>
+
+
+
+

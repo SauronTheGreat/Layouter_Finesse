@@ -1,9 +1,7 @@
-<%= content_for :main_content do %>
-<h1>Editing brand</h1>
-
+<%= content_for :page_header do %>
+    <h1>Editing <%= @brand.name %></h1>
+<% end %>
 <%= render 'form' %>
-
 <%= link_to 'Show', @brand %> |
 <%= link_to 'Back', brands_path %>
 
-<% end %>

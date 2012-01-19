@@ -35,6 +35,8 @@ class EmployeeCategoriesController < ApplicationController
   # GET /employee_categories/1/edit
   def edit
     @employee_category = EmployeeCategory.find(params[:id])
+
+    render :layout => false
   end
 
   # POST /employee_categories
@@ -44,7 +46,7 @@ class EmployeeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @employee_category.save
-        format.html { redirect_to @employee_category, notice: 'Employee category was successfully created.' }
+        format.html { redirect_to employee_categories_path, notice: 'Employee category was successfully created.' }
         format.json { render json: @employee_category, status: :created, location: @employee_category }
       else
         format.html { render action: "new" }
@@ -60,7 +62,7 @@ class EmployeeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @employee_category.update_attributes(params[:employee_category])
-        format.html { redirect_to @employee_category, notice: 'Employee category was successfully updated.' }
+        format.html { redirect_to employee_categories_path, notice: 'Employee category was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

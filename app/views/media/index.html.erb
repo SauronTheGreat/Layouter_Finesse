@@ -1,5 +1,14 @@
-<%= content_for :main_content do %>
-<h1>Listing media</h1>
+<%= content_for :page_header do %>
+    Listing Media
+<% end %>
+
+<% @medium=Medium.new %>
+<%= content_for :secondary_content do %>
+    <h3>Add New Medium</h3>
+    <div style="margin-left:-40%;margin-top: 10%;">
+      <%= render 'form' %>
+    </div>
+<% end %>
 
 <table>
   <tr>
@@ -8,27 +17,29 @@
     <th>Impact</th>
     <th>Unit</th>
 
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
-<% @media.each do |medium| %>
-  <tr>
-    <td><%= medium.name %></td>
-    <td><%= medium.cost %></td>
-    <td><%= medium.impact_id %></td>
-    <td><%= medium.unit_id %></td>
+  <% @media.each do |medium| %>
+      <tr>
 
-    <td><%= link_to 'Show', medium %></td>
-    <td><%= link_to 'Edit', edit_medium_path(medium) %></td>
-    <td><%= link_to 'Destroy', medium, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+
+
+        <td><%= medium.name %></td>
+        <td><%= medium.cost %></td>
+        <td><%= Impact.find(medium.impact_id).name %></td>
+        <td><%= Unit.find(medium.unit_id).name %></td>
+
+
+        <td><%= link_to 'Edit', edit_medium_path(medium), :class=>"edit" %></td>
+        <td><%= button_to 'Destroy', medium, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Medium', new_medium_path %>
 
-<% end %>
+

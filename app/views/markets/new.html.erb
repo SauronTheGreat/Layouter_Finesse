@@ -1,7 +1,78 @@
-<%= content_for :main_content do %>
-<h1>New market</h1>
+<div class="row">
+  <div class="span1 offset1">
 
-<%= render 'form' %>
+    <%= form_for(@market) do |f| %>
+        <% if @market.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@market.errors.count, "error") %> prohibited this market from being saved:</h2>
 
-<%= link_to 'Back', markets_path %>
-<% end %>
+              <ul>
+                <% @market.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="clearfix">
+          <b>  <%= f.label :name %></b>
+
+          <div class="input">
+            <%= f.text_field :name, :class=>"xlarge" %>
+          </div>
+        </div>
+        <br/>
+        <br/>
+
+        <div class="clearfix">
+          <%= f.label :catchment_of_dealers %>
+          <div class="input">
+            <%= f.number_field :catchment_of_dealers, :class=>"xlarge" %>
+          </div>
+        </div>
+        <br/>
+        <br/>
+
+        <div class="clearfix">
+          <%= f.label :catchment_of_vendors %>
+          <div class="input">
+            <%= f.number_field :catchment_of_vendors, :class=>"xlarge" %>
+          </div>
+        </div>
+
+
+        <div class="clearfix">
+          <%= f.label :market_image %>
+          <div class="input">
+            <%= f.file_field :market_image, :class=>"xlarge" %>
+          </div>
+        </div>
+
+
+        <br/>
+        <br/>
+
+        <div class="clearfix">
+          <%= f.label :no_of_consumers %>
+          <div class="input">
+            <%= f.number_field :no_of_consumers, :class=>"xlarge" %>
+          </div>
+        </div>
+
+        <%= f.hidden_field :positionx, :value=>0, :class=>"posx" %>
+        <%= f.hidden_field :positiony, :value=>0, :class=>"posy" %>
+
+        <br/>
+        <br/>
+
+        <div class="row">
+          <div class="span1 offset3">
+
+            <%= f.submit "Add", :class=>"primary btn" %>
+
+          </div>
+        </div>
+    <% end %>
+
+  </div>
+</div>

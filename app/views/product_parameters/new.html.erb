@@ -1,8 +1,5 @@
-
-<%= content_for :main_content do %>
-<h1>New product_parameter</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', product_parameters_path %>
+<%= content_for :page_header do %>
+    New product_parameter
 <% end %>
+<%= render 'form' %>
+<%= link_to 'Back', products_path %>

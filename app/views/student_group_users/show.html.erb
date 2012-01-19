@@ -1,5 +1,8 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @student_group_user.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 <p>
   <b>Student group:</b>
@@ -14,4 +17,5 @@
 
 <%= link_to 'Edit', edit_student_group_user_path(@student_group_user) %> |
 <%= link_to 'Back', student_group_users_path %>
-<% end %>
+</div>
+    </div>

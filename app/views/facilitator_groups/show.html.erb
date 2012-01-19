@@ -1,13 +1,16 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Facilitator group Name:</b>
-  <%= @facilitator_group.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_facilitator_group_path(@facilitator_group) %> |
-<%= link_to 'Back', facilitator_groups_path %>
-
+<%= content_for :page_header do %>
+    Showing <%= @facilitator_group.name %>
 <% end %>
+<div class="row">
+  <div class="span7 offset3">
+
+    <p>
+      <b>Facilitator group Name:</b>
+      <%= @facilitator_group.name %>
+    </p>
+
+
+  </div>
+</div>
+<%= link_to 'Edit', edit_facilitator_group_path(@facilitator_group),:class => "primary btn" %>
+<%= link_to 'Back', facilitator_groups_path,:class => "primary btn"  %>

@@ -1,5 +1,23 @@
 class Product < ActiveRecord::Base
+  has_attached_file :product_image
+
+  validate :check_parameters
+
+  def check_parameters
+    @parameters=self.product_parameters
+    total=0
+    @parameters.each do |parameter|
+      total=total+parameter.value
+    end
+    if total!=100
+      errors.add :product_parameters,("Parameters sum is not equal to  100")
+
+    end
+  end
+
+
   has_many :product_parameters
+  accepts_nested_attributes_for :product_parameters, :allow_destroy => true
 
   def self.calculate_mfg_cost
     @products=Product.all
@@ -16,4 +34,21 @@ class Product < ActiveRecord::Base
       product.save!
     end
   end
+
+  #validations
+
+  validates_presence_of :name
+  validates_presence_of :mentality_parameter_id
+  validates_presence_of :mfg_cost
+  #validates_presence_of :number_of_parameters
+  validates_presence_of :weight
+
+  validates_numericality_of :mentality_parameter_id
+  validates_numericality_of :mfg_cost
+  #validates_numericality_of :number_of_parameters
+  validates_numericality_of :weight
+
+  validates_uniqueness_of :name
+
+
 end

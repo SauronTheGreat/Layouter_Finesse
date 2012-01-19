@@ -1,18 +1,29 @@
-<%= content_for :main_content do %>
+<%= content_for :page_header do %>
 <p id="notice"><%= notice %></p>
-
+<% end %>
 <p>
   <b>Name:</b>
   <%= @investment.name %>
 </p>
 
 <p>
+  <b>Sigma:</b>
+  <%= @investment.sigma %>
+</p>
+
+<p>
+  <b>Mu:</b>
+  <%= @investment.mu %>
+</p>
+
+
+
+<p>
   <b>Type:</b>
-  <%= @investment.investment_type_id %>
+  <%= InvestmentType.find(@investment.investment_type_id).name %>
 </p>
 
 
 
 <%= link_to 'Edit', edit_investment_path(@investment) %> |
 <%= link_to 'Back', investments_path %>
-<% end %>

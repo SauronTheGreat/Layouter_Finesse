@@ -1,32 +1,83 @@
-<%= form_for(@expense) do |f| %>
-  <% if @expense.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
+<style type="text/css">
+    textarea {
+        height: 100px
+    }
+</style>
 
-      <ul>
-      <% @expense.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<script type="text/javascript">
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    function remove_fields(link) {
+        $(link).prev("input[type=hidden]").val("1");
+        $(link).closest(".form1").hide();
+    }
+
+    function add_fields(link, association, content) {
+        var new_id = new Date().getTime();
+        var regexp = new RegExp("new_" + association, "g");
+        $(link).parent().before(content.toString().replace(regexp, new_id));
+
+        //  $(link).parent().append(content.toString());
+
+
+    }
+
+
+</script>
+
+<div class="row">
+  <div class="span7">
+
+    <%= form_for(@expense) do |f| %>
+        <% if @expense.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h2>
+
+              <ul>
+                <% @expense.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="clearfix">
+          <%= f.label :name %>
+          <div class="input">
+            <%= f.text_field :name, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :summary %>
+          <div class="input">
+            <%= f.text_area :summary, :class=>"xlarge" %>
+          </div>
+        </div>
+
+
+        <div>
+          <div class="clearfix">
+            <%= f.label :expense_type_id %>
+            <div class="input">
+              <%= f.select :expense_type_id, ExpenseType.all.collect { |expense_type| [expense_type.name, expense_type.id] }, :class=>"xlarge" %>
+            </div>
+          </div>
+        </div>
+
+        <%= f.fields_for :expense_options do |builder| %>
+
+            <%= render 'expense_option_fields', :f => builder %>
+        <% end %>
+
+        <p style="margin-left: 80%">   <%= link_to_add_fields "Add option", f, :expense_options %></p>
+
+
+        <div class="input">
+
+
+            <%= f.submit "Confirm Decision", :class=>"primary btn" %>
+
+
+        </div>
+    <% end %>
   </div>
-
-
-<div class="field">
-    <%= f.label :number_of_options %><br />
-    <%= f.text_field :number_of_options %>
-  </div>
-<div>
-  <%= f.label :expense_type_id %> <br>
-  <%= f.select :expense_type_id,ExpenseType.all.collect{|expense_type|[expense_type.name,expense_type.id]} %>
 </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

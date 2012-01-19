@@ -1,8 +1,68 @@
-<%= content_for :main_content do %>
-<h1>Editing simulation</h1>
+<style type="text/css">
+    textarea {
+        width: 260px;
+        resize: none;
+    }
+</style>
 
-<%= render 'form' %>
 
-<%= link_to 'Show', @simulation %> |
-<%= link_to 'Back', simulations_path %>
+<%= form_for(@simulation) do |f| %>
+
+    <div class="clearfix">
+      <%= f.label :freight_cost %>
+      <div class="input">
+        <%= f.number_field :freight_cost, :class=>"xlarge" %>
+      </div>
+    </div>
+
+
+    <div class="clearfix">
+      <%= f.label :summary %>
+      <div class="input">
+        <%= f.text_area :summary, :cols=>"35", :rows=>"5" %>
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :tax_rate %>
+      <div class="input">
+        <%= f.text_field :tax_rate, :class=>"xlarge" %>
+      </div>
+    </div>
+    <div align="center">
+      <%= f.submit 'UPDATE',:class=>'primary btn' %>
+    </div>
+
+
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

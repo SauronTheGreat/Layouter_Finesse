@@ -1,63 +1,102 @@
-@sample
-Feature: To manage DRY test
-  In Order to :complete tests fast
-  As a :tester
-  I want to :write DRY tests
+Feature:Clients
+  In Order to provide clients
+  As a Admin
+  I want to create clients
 
 
-  Scenario: To test index of clients
-    Given :I sign in as "superadmin"
-    Given :I have "2" "clients"
-    When :I am on "index" page of "clients"
-    Then :I should see "clients_name_1"
-    And :I should see "clients_name_2"
-#
-#  Scenario: To test index of constants
-#    Given :I sign in as "superadmin"
-#    #Given :I have "2" "constants"
-#    When :I am on "index" page of "constants"
-#    Then :I should see "a"                  I fill in
-#    And :I should see "k"
-#
+  Scenario: Admin wants to create a new client
+    Given I sign in as "admin"
+    When I follow "Proceed" link
+    Then I should see "Manage Clients"
+    When I follow "Manage Clients" link
+    And I follow "New Client" link
+    And I fill in "Name" with "ISB"
+    And I fill in "Client type" with "Management School"
+    And I press the "Submit" button
+    Then I should see "Client was successfully created"
 
 
-  Scenario: To Test create of clients
-    Given :I sign in as "superadmin"
-    And :I am on "new" page of "clients"
-    When :I fill in "client_name" with "client_name_1"
-    And :I fill in "client_client_type" with "sample1"
-    And :I press the "Create Client" button
-    Then :I should see "Edit"
+  Scenario: Admin wants to view details of a clients
+    Given I sign in as "admin"
+    When I follow "Proceed" link
+    Then I should see "Manage Clients"
+    When I follow "Manage Clients" link
+    And I follow "New Client" link
+    And I fill in "Name" with "ISB"
+    And I fill in "Client type" with "Management School"
+    And I press the "Submit" button
+    Then I should see "Client was successfully created"
+    When I go to "index" page of "clients"
+    Then I should see "ISB"
 
 
-#  Scenario: To Test create of Constants
-#    Given :I sign in as "superadmin"
-#    And :I am on "new" page of "constants"
-#    When :I fill in "constant_name" with "constant_1"
-#    And :I fill in "constant_value" with "123"
-#    And :I press the "Create Constant" button
-#    Then :I should see "Edit"
-#
-#
-#
-
-  Scenario: To Test edit of a client
-    Given :I sign in as "superadmin"
-    And  :I have "1" "clients"
-    When :I am on "index" page of "clients"
-    And :I follow "edit" link of "clients"
-    And :I fill in "client_name" with "client_name_1_edit"
-    And :I fill in "client_client_type" with "sample1_edit"
-    And :I press the "Update Client" button
-    Then :I should see "Client was successfully updated."
+  Scenario: Admin wants to edit an existing client
+    Given I sign in as "admin"
+    When I follow "Proceed" link
+    Then I should see "Manage Clients"
+    When I follow "Manage Clients" link
+    And I follow "New Client" link
+    And I fill in "Name" with "ISB"
+    And I fill in "Client type" with "Management School"
+    And I press the "Submit" button
+    Then I should see "Client was successfully created"
+    When I go to "index" page of "clients"
+    And I follow "Edit" link
+    And I fill in "Name" with "IIM"
+    And I fill in "Client type" with "Business school"
+    And I press "Update" button
+    Then I should see "Client was successfully updated"
 
 
-  #  @javascript
-  Scenario: To Test delete of a client
-    Given :I sign in as "superadmin"
-    And  :I have "1" "clients"
-    When :I am on "index" page of "clients"
-    And :I click "Delete" link of "clients"
-     Then :I should be on "index" page of "clients"
+#  @javascript
+
+  Scenario: Admin wants to delete an existing client
+    Given I sign in as "admin"
+    When I follow "Proceed" link
+    Then I should see "Manage Clients"
+    When I follow "Manage Clients" link
+    And I follow "New Client" link
+    And I fill in "Name" with "ISB"
+    And I fill in "Client type" with "Management School"
+    And I press the "Submit" button
+    Then I should see "Client was successfully created"
+    When I go to "index" page of "clients"
+    And I follow "Destroy" link
+    Then I should be on "index" page of "clients"
+    And I should not see "ISB"
+
+
+  Scenario Outline: admin creates a client with invalid value
+    Given I sign in as "admin"
+    And I follow "Proceed" link
+    And I should see "Manage Clients"
+    When I follow "Manage Clients" link
+    And I follow "New Client" link
+    And I fill in "<field>" with "<arg>"
+    And I press "Submit" button
+    Then I should see "<message>"
+
+  Examples:
+    | field       | arg | message                          |
+    | Name        | 123 | Please enter a valid client name |
+    | Client type | 125 | Please enter valid client type   |
+
+
+  Scenario Outline: admin creates a client with blank fields
+    Given I sign in as "admin"
+    And I follow "Proceed" link
+    And I should see "Manage Clients"
+    When I follow "Manage Clients" link
+    And I follow "New Client" link
+    And I leave the "<field>" blank
+    And I press "Submit" button
+    Then I should see "<message>"
+
+  Examples:
+    | field       | message                  |
+    | Name        | Please enter client name |
+    | Client type | Please enter client type |
+
+
 
 

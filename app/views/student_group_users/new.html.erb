@@ -1,10 +1,18 @@
-<%= content_for :main_content do %>
-<h1>New student_group_user</h1>
+
+<% @student_group_users.each_with_index do |sguser, index| %>
+    <%= fields_for "student_group_users[#{index}]", sguser do |f| %>
+        <%= f.hidden_field :student_group_id, :value=>@student_group.id, :class=>"hidden_student_group" %>
+
+        <div class="student_name">
+
+          <%= f.check_box :user_id, {}, @users[index].id, 0 %>&nbsp;<%= @users[index].full_name %>
+          <div class="remove_icon">
+            <a href="#" id="<%= @users[index].id %>" class=remove_icon_main> X</a>
+          </div>
 
 
+        </div>
+    <% end %>
 
 
-<%= render 'form' %>
-
-<%= link_to 'Back', student_group_users_path %>
 <% end %>

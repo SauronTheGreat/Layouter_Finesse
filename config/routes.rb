@@ -1,4 +1,6 @@
 Layouter::Application.routes.draw do
+  resources :environmental_decision_parameters
+
   resources :market_demographics
 
   resources :mentality_values
@@ -173,10 +175,13 @@ Layouter::Application.routes.draw do
 
   resources :clients
 
-  devise_for :users
+  devise_for :users do
+    get '/users/sign_out'=>'devise/sessions#destroy'
+  end
 
   root :to=>'welcome#landing_page'
 
+  match 'home_page'=>'welcome#home_page'
 
   match "define_constant_value"=>'decision_parameters#define_constant_value'
   match "set_constant_value"=>'decision_parameters#set_constant_value'
@@ -200,6 +205,16 @@ Layouter::Application.routes.draw do
   match 'select_initiate_simulation'=>'simulations#select_initiate_simulation'
   match 'view_tabular_market_distance'=>'market_distances#view_tabular_distances'
   match 'initiate_round_calculation'=>'simulations#initiate_round_calculation'
+  match 'view_map'=>'markets#view_maps'
+  match 'set_location'=>'markets#set_location'
+  match 'update_market_distance'=>'market_distances#update_distances'
+  match 'participation_management'=>'welcome#participation_management'
+  match 'set_participation'=>'welcome#set_participation'
+  match 'remove_student/:student_group_user_id', :to=>'welcome#remove_student'
+  match 'set_simulation'=>'welcome#set_simulation'
+  match 'remove_student_from_list/:user_id'=>'welcome#remove_student_from_list'
+  match 'remove_media_plan_detail'=>'media_plans#remove_media_plan_detail'
+  match 'register_as_expense'=>'media_plans#register_as_expense'
 
 
 end

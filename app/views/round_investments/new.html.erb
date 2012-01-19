@@ -1,74 +1,31 @@
-<%= content_for :main_content do %>
+<h2>Investments</h2>
+<% @set_of_round_investments[@round.id].each_with_index do |round_investment, index| %>
+    <%= fields_for "set_of_round_investments[#{@round.id}][#{index}]", round_investment do |f| %>
+        <% if round_investment.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(round_investment.errors.count, "error") %> prohibited this round_investment from being saved:</h2>
 
-<div style="width:50%">
-<h1>New round_investment</h1>
+              <ul>
+              <% round_investment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+        <div style="margin-left: -150px">
+        <div class="clearfix">
+
+          <div class="input">
+            <%= f.check_box :investment_id, {}, @investments[index].id, 0 %>&nbsp;<%= @investments[index].name %>
+
+          </div>
+        </div>
+          </div>
+
+        <%= f.hidden_field :round_id, :value=>@round.id %>
 
 
-
-<%= form_for(@round_investment) do |f| %>
-  <% if @round_investment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@round_investment.errors.count, "error") %> prohibited this round_investment from being saved:</h2>
-
-      <ul>
-      <% @round_investment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :investment_id %><br />
-    <%= f.select :investment_id,@investment_list %>
-  </div>
-  <div class="field">
-    <%= f.label :mu %><br />
-    <%= f.number_field :mu %>
-  </div>
-  <div class="field">
-    <%= f.label :sigma %><br />
-    <%= f.number_field :sigma %>
-  </div>
-  <div class="field">
-    <%= f.label :roi %><br />
-    <%= f.number_field :roi %>
-  </div>
-
-    <%= f.hidden_field :round_id,:value=>@round.id %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <% end %>
 <% end %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-<div style="width: 50% ;margin-top: -20%;margin-left: 50%">
-  <ul>
-  <% @included_investments.each do |investment| %>
-
-           <li><%= Investment.find(investment.investment_id).name %></li>
-
-      <% end %>
-      </ul>
-
-<%= link_to 'Done', rounds_path(:simulation_id=>@round.simulation_id) %>
-</div><% end %>

@@ -1,7 +1,8 @@
-<%= content_for :main_content do %>
-<h1>New player_round_expense</h1>
+
+<%= content_for :page_header do %>
+<h1>Decision Page for <%= current_user.first_name %></h1>
+    <% end %>
 
 <%= render 'form' %>
 
 <%= link_to 'Back', player_round_expenses_path %>
-<% end %>

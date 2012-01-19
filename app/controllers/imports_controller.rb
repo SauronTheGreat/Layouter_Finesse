@@ -1,6 +1,7 @@
 class ImportsController < ApplicationController
   # GET /imports
   # GET /imports.json
+
   def index
     @imports = Import.all
 

@@ -1,5 +1,6 @@
-<%= content_for :main_content do %>
-<h1>New import</h1>
+<%= content_for :page_header do %>
+    New Import
+<% end %>
 <h2>Please Ensure that the excel file has the format as specified below</h2>
 <table border="solid 1px  black">
   <tr>
@@ -14,7 +15,6 @@
     <th>Student</th>
 
 
-
   </tr>
 
 </table>
@@ -25,7 +25,6 @@
 <br>
 
 
-<%= render 'form' %>
+<%= render 'imports/form' %>
 
 <%= link_to 'Back', imports_path %>
-<% end %>

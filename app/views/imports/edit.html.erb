@@ -1,9 +1,9 @@
-<%= content_for :main_content do %>
-<h1>Editing import</h1>
+<%= content_for :page_header do %>
+    Editing <%= @import.name %>
+<% end %>
 
 <%= render 'form' %>
 
 <%= link_to 'Show', @import %> |
 <%= link_to 'Back', imports_path %>
 
-<% end %>

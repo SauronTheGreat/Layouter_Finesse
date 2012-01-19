@@ -1,18 +1,97 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
 
-<p>
-  <b>Name:</b>
-  <%= @product.name %>
-</p>
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
 
-<p>
-  <b>Number Of Parameters:</b>
-  <%= @product.number_of_parameters %>
-</p>
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'parameter');
+        data.addColumn('number', 'value');
+        var x = ['Mushrooms', 3];
+
+        var data1 = [
+            <% @product.product_parameters.each do |parameter| %>
+            ['<%= RawMaterial.find(parameter.id).name %>', <%= parameter.value %>],
+
+
+            <% end %>
+        ];
+
+
+//        var data1 = x,
+//                ['Onions', 1],
+//                ['Olives', 1],
+//                ['Zucchini', 1],
+//                ['Pepperoni', 2];
+        data.addRows(data1);
+
+        // Set chart options
+        var options = {'title':'Details of Product Composition',
+            'width':350,
+            'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('parameter_pie_chart'));
+        chart.draw(data, options);
+    }
+</script>
 
 
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<%= content_for :page_header do %>
+    Showing Information  about  <span style="color: white">'<%= @product.name %>'</span>
 <% end %>
+
+<%= content_for :secondary_content do %>
+
+    <h5>Product Composition</h5>
+    <div id="parameter_pie_chart">
+
+    </div>
+
+
+    <br>
+
+
+
+<% end %>
+<div class="row">
+  <div class="span2" style="padding: 2%">
+    <%= image_tag @product.product_image.url,:size=>"115x115" %>
+  </div>
+
+  <div class="span4 offset3" style="padding: 2% ;margin-left: 5%">
+    <p>
+      <b>Name of the Product:</b> <br>
+      <u><%= @product.name %></u>
+    </p>
+    <br>
+
+    <p>
+      <b>Manufacturing cost of the product:</b>
+      <u><%= @product.mfg_cost %> Rs</u>
+    </p>
+    <br>
+
+    <p>
+      <b>Weight of the product:</b><br>
+      <u><%= @product.weight %> Kgs</u>
+    </p>
+
+    <hr>
+
+  </div>
+</div>
+ <span>
+
+     <%= button_to 'Destroy', @product, confirm: 'Are you sure?', method: :delete %><%= link_to 'Edit', edit_product_path(@product) %>
+        </span>

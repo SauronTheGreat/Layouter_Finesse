@@ -1,25 +1,35 @@
-<%= content_for :main_content do %>
-<h1>Listing loan_types</h1>
+
+
+
+
+<%= content_for :page_header do %>
+    Listing <span style="color: white"> Loan Types</span>
+<% end %>
+
+<% @loan_type=LoanType.new %>
+<%= content_for :secondary_content do %>
+    <h3>Add Loan Type</h3>
+    <%= render 'form' %>
+<% end %>
 
 <table>
   <tr>
     <th>Name</th>
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
 <% @loan_types.each do |loan_type| %>
   <tr>
-    <td><%= loan_type.name %></td>
-    <td><%= link_to 'Show', loan_type %></td>
-    <td><%= link_to 'Edit', edit_loan_type_path(loan_type) %></td>
-    <td><%= link_to 'Destroy', loan_type, confirm: 'Are you sure?', method: :delete %></td>
+    <td id="<%= loan_type.id %>"  class="<%= loan_type.id %>"><%= loan_type.name %></td>
+
+    <td><%= link_to 'Edit', edit_loan_type_path(loan_type),:class=>"edit",:id=>loan_type.id %></td>
+    <td><%= button_to 'Destroy', loan_type, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Loan type', new_loan_type_path %>
-<% end %>
+

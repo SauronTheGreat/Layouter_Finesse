@@ -1,23 +1,39 @@
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
+
+<%= content_for :header do %>
+<% end %>
+
 <%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @decision_parameter.name %>
-</p>
-
-<p>
-  <b>Value:</b>
-  <%= @decision_parameter.value %>
-</p>
-
-<p>
-  <b>Mathematical model:</b>
-  <%= @decision_parameter.mathematical_model_id %>
-</p>
 
 
-<%= link_to 'Edit', edit_decision_parameter_path(@decision_parameter) %> |
-<%= link_to 'Back', decision_parameters_path %>
+    <p>
+      <b>Name:</b>
+      <%= @decision_parameter.name %>
+    </p>
 
+
+    <p>
+      <b>Amount:</b>
+      <%= @decision_parameter.amount %>
+    </p>
+
+
+
+<% end %>
+<br/>
+<br/>
+<%= content_for :navigation do %>
+<% end %>
+
+<%= content_for :extra do %>
+<%= link_to image_tag(icon("edit"),:size=>"100x100"), edit_decision_parameter_path(@decision_parameter), :title=>'Edit' %>
+<%= link_to image_tag(icon("back"),:size=>"100x100"), decision_parameters_path, :title=>'Back' %>
+<% end %>
+
+<%= content_for :footer do %>
 <% end %>

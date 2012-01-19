@@ -1,34 +1,51 @@
-<%= form_for(@employee_category) do |f| %>
-  <% if @employee_category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee_category.errors.count, "error") %> prohibited this employee_category from being saved:</h2>
+<div class="row">
+  <div class="span7">
+    <%= form_for(@employee_category) do |f| %>
+        <% if @employee_category.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@employee_category.errors.count, "error") %> prohibited this employee_category from
+                being saved:</h2>
 
-      <ul>
-      <% @employee_category.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+              <ul>
+                <% @employee_category.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="clearfix">
+          <%= f.label :name %>
+          <div class="input">
+            <%= f.text_field :name, :class=>"xsmall" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label "sales_effect" %>
+          <div class="input">
+            <%= f.number_field :base_effect_on_sales, :class=>"xsmall" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :base_salary %>
+          <div class="input">
+            <%= f.number_field :base_salary, :class=>"xsmall" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label "quality_cost_effect" %>
+          <div class="input">
+            <%= f.number_field :base_effect_on_quality_cost, :class=>"xsmall" %>
+          </div>
+        </div>
+        <div class="input">
+
+          <%= f.submit "Confirm Decision", :class=>"primary btn" %>
+
+
+        </div>
+        </div>
+
+    <% end %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :base_effect_on_sales %><br />
-    <%= f.number_field :base_effect_on_sales %>
-  </div>
-  <div class="field">
-    <%= f.label :base_salary %><br />
-    <%= f.number_field :base_salary %>
-  </div>
-  <div class="field">
-    <%= f.label :base_effect_on_quality_cost %><br />
-    <%= f.number_field :base_effect_on_quality_cost %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

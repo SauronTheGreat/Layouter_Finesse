@@ -1,7 +1,5 @@
-<%= content_for :main_content do %>
-<h1>New student_group</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', student_groups_path %>
+<%= content_for :page_header do %>
+    New Student Group
 <% end %>
+<%= render 'form' %>
+<%= link_to 'Back', student_groups_path %>

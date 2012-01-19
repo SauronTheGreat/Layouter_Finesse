@@ -1,23 +1,37 @@
-<h1>Listing impacts</h1>
 
+
+<%= content_for :page_header do %>
+    Listing Impacts
+<% end %>
+
+<% @impact=Impact.new %>
+<%= content_for :secondary_content do %>
+    <h3>Add New Impact</h3>
+    <div style="margin-left:-120%;margin-top: 20%">
+
+    <%= render 'form' %>
+        </div>
+
+<% end %>
 <table>
   <tr>
     <th>Name</th>
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
-<% @impacts.each do |impact| %>
-  <tr>
-    <td><%= impact.name %></td>
-    <td><%= link_to 'Show', impact %></td>
-    <td><%= link_to 'Edit', edit_impact_path(impact) %></td>
-    <td><%= link_to 'Destroy', impact, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @impacts.each do |impact| %>
+      <tr>
+        <td class="<%= impact.id %>"><%= impact.name %></td>
+
+        <td><%= link_to 'Edit', edit_impact_path(impact), :class=>"edit", :id => impact.id %></td>
+
+        <td><%= button_to 'Destroy', impact, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Impact', new_impact_path %>
+

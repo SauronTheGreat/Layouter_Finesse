@@ -1,8 +1,6 @@
-<%= content_for :main_content do %>
-<h1>New expense_type</h1>
-
+<%= content_for :page_header do %>
+    New Expense Type
+<% end %>
 <%= render 'form' %>
-
 <%= link_to 'Back', expense_types_path %>
 
-<% end %>

@@ -1,5 +1,8 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @simulation_markett.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
 <p>
   <b>Simulation:</b>
@@ -14,4 +17,5 @@
 
 <%= link_to 'Edit', edit_simulation_market_path(@simulation_market) %> |
 <%= link_to 'Back', simulation_markets_path %>
-<% end %>
+</div>
+    </div>

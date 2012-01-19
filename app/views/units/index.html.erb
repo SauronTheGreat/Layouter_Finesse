@@ -1,25 +1,34 @@
-<%= content_for :main_content do %>
-<h1>Listing units</h1>
+<%= content_for :page_header do %>
+    Listing Units
+<% end %>
+
+<%= content_for :secondary_content do %>
+    <% @unit=Unit.new %>
+    <h3>Add New Unit</h3>
+    <div style="margin-top: 20%">
+
+      <%= render 'form' %>
+    </div>
+<% end %>
 
 <table>
   <tr>
     <th>Name</th>
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
-<% @units.each do |unit| %>
-  <tr>
-    <td><%= unit.name %></td>
-    <td><%= link_to 'Show', unit %></td>
-    <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
-    <td><%= link_to 'Destroy', unit, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @units.each do |unit| %>
+      <tr>
+        <td class="<%= unit.id %>"><%= unit.name %></td>
+
+        <td><%= link_to 'Edit', edit_unit_path(unit), :class=>"edit", :id=>unit.id %></td>
+        <td><%= button_to 'Destroy', unit, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Unit', new_unit_path %>
-<% end %>
+

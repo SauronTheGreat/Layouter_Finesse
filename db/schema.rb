@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111111111124) do
+ActiveRecord::Schema.define(:version => 20120116060027) do
 
   create_table "active_rounds", :force => true do |t|
     t.integer  "round_id"
@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "dealer_push_index"
     t.integer  "media_push_index"
     t.integer  "disposable_salary"
+    t.integer  "round_id"
+    t.integer  "no_of_units"
   end
 
   create_table "dealer_categories", :force => true do |t|
@@ -153,14 +155,14 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "dealer_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "round_id"
   end
 
   create_table "decision_parameters", :force => true do |t|
-    t.integer  "value"
-    t.integer  "mathematical_model_id"
+    t.string   "name"
+    t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   create_table "default_player_data", :force => true do |t|
@@ -184,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "cash"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "total_assets"
   end
 
   create_table "employee_categories", :force => true do |t|
@@ -207,9 +210,17 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "factory_id"
   end
 
+  create_table "environmental_decision_parameters", :force => true do |t|
+    t.integer  "environmental_parameter_id"
+    t.integer  "decision_parameter_id"
+    t.integer  "mathematical_model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "environmental_parameters", :force => true do |t|
     t.string   "name"
-    t.integer  "value"
+    t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -235,6 +246,14 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "number_of_options"
     t.integer  "expense_type_id"
     t.integer  "source_id"
+    t.text     "summary"
+  end
+
+  create_table "facilitator_group_users", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "facilitator_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "facilitator_groups", :force => true do |t|
@@ -315,6 +334,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.string   "excel_list_content_type"
     t.integer  "excel_list_file_size"
     t.datetime "excel_list_updated_at"
+    t.integer  "facilitator_group_id"
   end
 
   create_table "investment_types", :force => true do |t|
@@ -328,6 +348,8 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.string   "investment_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "sigma"
+    t.float    "mu"
   end
 
   create_table "jquery_themes", :force => true do |t|
@@ -388,6 +410,9 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "no_of_consumers"
+    t.integer  "positionx"
+    t.integer  "positiony"
+    t.string   "market_image_file_name"
   end
 
   create_table "mathematical_model_constant_values", :force => true do |t|
@@ -429,11 +454,8 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
 
   create_table "mathematical_models", :force => true do |t|
     t.string   "name"
-    t.string   "formula"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "number_of_constants"
-    t.integer  "number_of_variables"
   end
 
   create_table "media", :force => true do |t|
@@ -458,6 +480,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "registered_as_expense"
   end
 
   create_table "mentalities", :force => true do |t|
@@ -596,6 +619,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.datetime "updated_at"
     t.integer  "student_group_id"
     t.boolean  "played",                :default => false
+    t.integer  "last_played"
   end
 
   create_table "plugin_samples", :force => true do |t|
@@ -624,6 +648,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "weight"
     t.integer  "mfg_cost"
     t.integer  "mentality_parameter_id"
+    t.string   "product_image_file_name"
   end
 
   create_table "raw_materials", :force => true do |t|
@@ -682,7 +707,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "simulation_id"
     t.integer  "rate_of_interest"
     t.integer  "depreciation"
-    t.boolean  "played",           :default => false
+    t.boolean  "calculated",       :default => false
   end
 
   create_table "simulation_decision_parameters", :force => true do |t|
@@ -713,6 +738,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "student_group_id"
     t.integer  "tax_rate"
     t.boolean  "initiated"
+    t.text     "summary"
   end
 
   create_table "student_group_users", :force => true do |t|
@@ -728,6 +754,7 @@ ActiveRecord::Schema.define(:version => 20111111111124) do
     t.integer  "case_study_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "simulation_id"
   end
 
   create_table "units", :force => true do |t|

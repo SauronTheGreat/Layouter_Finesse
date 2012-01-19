@@ -1,8 +1,6 @@
-<%= content_for :main_content do %>
-<h1>Editing simulation_market</h1>
-
+<%= content_for :page_header do %>
+    Editing <%= @simulation_market.name %>
+<% end %>
 <%= render 'form' %>
-
 <%= link_to 'Show', @simulation_market %> |
 <%= link_to 'Back', simulation_markets_path %>
-<% end %>

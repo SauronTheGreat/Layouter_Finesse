@@ -1,10 +1,6 @@
-
-<%= content_for :main_content do %>
-<h1>Editing factory</h1>
-
+<%= content_for :page_header do %>
+Editing <%=@factory.name%>
+<% end %>
 <%= render 'form' %>
 
-<%= link_to 'Show', @factory %> |
-<%= link_to 'Back', factories_path %>
 
-<% end %>

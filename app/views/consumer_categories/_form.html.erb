@@ -1,3 +1,6 @@
+
+<div class="row">
+  <div class="span7 offset3">
 <%= form_for(@consumer_category) do |f| %>
     <% if @consumer_category.errors.any? %>
         <div id="error_explanation">
@@ -12,40 +15,46 @@
         </div>
     <% end %>
 
-    <div class="field">
+    <div class="clearfix">
       <%= f.label :name %>
-      <br/>
-      <%= f.text_field :name %>
+      <div class="input">
+      <%= f.text_field :name, :class=>"xsmall"  %>
     </div>
+</div>
 
-    <div class="field">
+  <div class="clearfix">
       <%= f.label :price_range %>
-      <br/>
-      <%= f.text_field :price_range %>
+      <div class="input">
+      <%= f.text_field :price_range, :class=>"xsmall"  %>
     </div>
+</div>
 
-    <div class="field">
+  <div class="clearfix">
       <%= f.label :personal_taste_range %>
-      <br/>
-      <%= f.text_field :personal_taste_range %>
+      <div class="input">
+      <%= f.text_field :personal_taste_range, :class=>"xsmall"%>
     </div>
+</div>
 
-    <div class="field">
+    <div class="clearfix">
       <%= f.label :dealer_push_range %>
-      <br/>
-      <%= f.text_field :dealer_push_range %>
+      <div class="input">
+      <%= f.text_field :dealer_push_range, :class=>"xsmall"  %>
     </div>
+</div>
 
-    <div class="field">
+    <div class="clearfix">
       <%= f.label :media_push_range %>
-      <br/>
-      <%= f.text_field :media_push_range %>
+      <div class="input">
+      <%= f.text_field :media_push_range, :class=>"xsmall"  %>
     </div>
+</div>
 
+   <div class="input">
 
+                <%= f.submit "Confirm Decision", :class=>"primary btn" %>
+        </div>
 
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
 <% end %>
+</div>
+</div>

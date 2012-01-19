@@ -1,28 +1,44 @@
-<%= content_for :main_content do %>
-<h1>Listing constants</h1>
+
+
+
+
+
+<%= content_for :page_header do %>
+    Listing Constants
+<% end %>
+
+<%= content_for :secondary_content do %>
+
+    <% @constant=Constant.new %>
+<div>
+  Add New Constant
+</div>
+    <%= render 'form' %>
+
+<% end %>
+
 
 <table>
   <tr>
     <th>Name</th>
     <th>Value</th>
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
-<% @constants.each do |constant| %>
-  <tr>
-    <td><%= constant.name %></td>
-    <td><%= constant.value %></td>
-    <td><%= link_to 'Show', constant %></td>
-    <td><%= link_to 'Edit', edit_constant_path(constant) %></td>
-    <td><%= link_to 'Destroy', constant, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @constants.each do |constant| %>
+      <tr>
+        <td class="<%= "#{constant.id}_name"%>"><%= constant.name %></td>
+        <td  class="<%= "#{constant.id}_value"%>"><%= constant.value %></td>
+
+        <td><%= link_to 'Edit', edit_constant_path(constant), :class=>"edit",:id => constant.id %></td>
+        <td><%= button_to 'Destroy', constant, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Constant', new_constant_path %>
 
-<% end %>
+

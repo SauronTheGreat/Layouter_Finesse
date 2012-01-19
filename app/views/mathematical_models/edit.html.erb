@@ -1,8 +1,7 @@
-<%= content_for :main_content do %>
-<h1>Editing mathematical_model</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @mathematical_model %> |
-<%= link_to 'Back', mathematical_models_path %>
+<%= content_for :page_header do %>
+    Editing <%= @mathematical_model.name %>
 <% end %>
+<%= render 'form' %>
+<%= link_to "Show", @mathematical_model %>
+<%= link_to "Back", mathematical_models_path %>
+

@@ -1,26 +1,41 @@
-<%= form_for(@facilitator) do |f| %>
-  <% if @facilitator.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@facilitator.errors.count, "error") %> prohibited this facilitator from being saved:</h2>
+<div class="row">
+  <div class="span7 offset3">
+    <%= form_for(@facilitator) do |f| %>
+        <% if @facilitator.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@facilitator.errors.count, "error") %> prohibited this facilitator from being
+                saved:</h2>
 
-      <ul>
-      <% @facilitator.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+              <ul>
+                <% @facilitator.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
 
 
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.select :user_id,User.all.collect{|user|[user.fullname,user.id]} %>
+        <div class="clearfix">
+          <%= f.label :user_id %>
+          <div class="input">
+            <%= f.select :user_id, User.all.collect { |user| [user.fullname, user.id] }, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="clearfix">
+          <%= f.label :client_id %>
+          <div class="input">
+            <%= f.select :client_id, Client.all.collect { |client| [client.name, client.id] }, :class=>"xlarge" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span1 offset3">
+            <% if params[:action]== "new" %>
+                <%= f.submit "Submit", :class=>"primary btn" %>
+            <% else %>
+                <%= f.submit "Update", :class=>"primary btn" %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :client_id %><br />
-    <%= f.select :client_id,Client.all.collect{|client|[client.name,client.id]} %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

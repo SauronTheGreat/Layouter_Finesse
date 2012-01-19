@@ -38,6 +38,7 @@ class CaseStudiesController < ApplicationController
 
   # GET /case_studies/1/edit
   def edit
+     @facilitator=Facilitator.find_by_user_id(current_user.id)
     @case_study = CaseStudy.find(params[:id])
   end
 

@@ -1,17 +1,22 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @loan.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
-<p>
-  <b>Name:</b>
-  <%= @loan.name %>
-</p>
+    <p>
+      <b>Name:</b>
+      <%= @loan.name %>
+    </p>
 
-<p>
-  <b>Loan type:</b>
-  <%= @loan.loan_type_id %>
-</p>
+    <p>
+      <b>Loan type:</b>
+      <%= LoanType.find(@loan.loan_type_id).name %>
+    </p>
 
+
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_loan_path(@loan) %> |
 <%= link_to 'Back', loans_path %>
-<% end %>

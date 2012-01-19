@@ -1,22 +1,47 @@
 class Factory < ActiveRecord::Base
 
+
+  #validation
+
+  validates_presence_of :name
+  validates_presence_of :market_id
+  validates_presence_of :number_of_employees
+  validates_presence_of :number_of_shifts
+  validates_presence_of :cost_to_build
+  validates_presence_of :cost_to_run
+  validates_presence_of :capacity
+  validates_presence_of :production_time_per_unit
+  validates_presence_of :price
+
+  validates_uniqueness_of :name
+
+
+  validates_numericality_of :number_of_employees
+  validates_numericality_of :number_of_shifts
+  validates_numericality_of :cost_to_build
+  validates_numericality_of :cost_to_run
+  validates_numericality_of :capacity
+  validates_numericality_of :price
+  validates_numericality_of :production_time_per_unit
+
+
   has_many :employees, :dependent => :destroy
   has_many :factory_vendors, :dependent => :destroy
 
-  after_save :create_factory_expense, :initiate_employees
+
+  after_create :initiate_employees, :create_factory_expense
 
 
   def create_factory_expense
     @expense_type=ExpenseType.find_by_name("Factory")
 
-    Expense.create_expense(@expense_type.id, name, 0, price)
+    Expense.create_expense(@expense_type.id, name, 0, price, self.id)
   end
 
 
   def initiate_employees
     Employee.create_employee_by_factory(self.id)
   end
-
 
 
 #this is a method we need to set the vendors that the factory will buy raw material from

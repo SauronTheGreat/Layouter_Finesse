@@ -1,34 +1,14 @@
-<%= content_for :main_content do %>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @mathematical_model.name %>
-</p>
-
-<p>
-  <b>Formula:</b>
-  <%= @mathematical_model.formula %>
-</p>
-
-
-<p>
-  <b>Number Of Constants:</b>
-  <%= @mathematical_model.number_of_constants %>
-</p>
-
-
-<p>
-  <b>Number Of Variables:</b>
-  <%= @mathematical_model.number_of_variables %>
-</p>
-
-
-
-
-<%= link_to 'Edit', edit_mathematical_model_path(@mathematical_model) %> |
-<%= link_to 'Back', mathematical_models_path %>
-
-
+<%= content_for :page_header do %>
+    Showing <%= @medium.name %>
 <% end %>
+<div class="row">
+  <div class="span7 offset3">
+    <p>
+      <b>Name:</b>
+      <%= @mathematical_model.name %>
+    </p>
+
+    <%= link_to "Edit", edit_mathematical_model_path(@mathematical_model) %>
+    <%= link_to "Back", mathematical_models_path %>
+  </div>
+</div>

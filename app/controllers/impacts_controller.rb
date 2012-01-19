@@ -35,6 +35,7 @@ class ImpactsController < ApplicationController
   # GET /impacts/1/edit
   def edit
     @impact = Impact.find(params[:id])
+    render :layout => false
   end
 
   # POST /impacts
@@ -44,7 +45,7 @@ class ImpactsController < ApplicationController
 
     respond_to do |format|
       if @impact.save
-        format.html { redirect_to @impact, notice: 'Impact was successfully created.' }
+        format.html { redirect_to impacts_path, notice: 'Impact was successfully created.' }
         format.json { render json: @impact, status: :created, location: @impact }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class ImpactsController < ApplicationController
 
     respond_to do |format|
       if @impact.update_attributes(params[:impact])
-        format.html { redirect_to @impact, notice: 'Impact was successfully updated.' }
+        format.html { redirect_to impacts_path, notice: 'Impact was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

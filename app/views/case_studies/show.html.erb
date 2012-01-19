@@ -1,19 +1,22 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
+<%= content_for :page_header do %>
+    Showing <%= @case_study.name %>
+<% end %>
+<div class="row">
+  <div class="span7 offset3">
 
-<p>
-  <b>Name:</b>
-  <%= @case_study.name %>
-</p>
+    <p>
+      <b>Name:</b>
+      <%= @case_study.name %>
+    </p>
 
-<p>
-  <b>Description:</b>
-  <%= @case_study.description %>
-</p>
+    <p>
+      <b>Description:</b>
+      <%= @case_study.description %>
+    </p>
 
 
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_case_study_path(@case_study) %> |
 <%= link_to 'Back', case_studies_path %>
-
-<% end %>

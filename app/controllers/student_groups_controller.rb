@@ -1,6 +1,19 @@
 class StudentGroupsController < ApplicationController
   # GET /student_groups
   # GET /student_groups.json
+
+
+  #before_filter :allow_only_facilitator,:check_params ,:except => ['create','update','destroy','show']
+  before_filter :allow_only_facilitator,:check_params ,:only => ['new','index']
+  def check_params
+    if(params[:facilitator_group_id].nil?)
+      redirect_to facilitator_groups_path,:alert=>"choose a facilitator group first"
+
+
+    end
+  end
+
+
   def index
     #here we list all students group belonging to that facilitator group
     @facilitator_group=FacilitatorGroup.find(params[:facilitator_group_id])
@@ -47,7 +60,7 @@ class StudentGroupsController < ApplicationController
 
     respond_to do |format|
       if @student_group.save
-        format.html { redirect_to @student_group, notice: 'Student group was successfully created.' }
+        format.html { redirect_to participation_management_path(:student_group_id=>@student_group.id), notice: 'Student group was successfully created.' }
         format.json { render json: @student_group, status: :created, location: @student_group }
       else
         format.html { render action: "new" }

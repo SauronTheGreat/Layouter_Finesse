@@ -1,6 +1,8 @@
 class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
+
+
   def index
     @units = Unit.all
 
@@ -35,6 +37,7 @@ class UnitsController < ApplicationController
   # GET /units/1/edit
   def edit
     @unit = Unit.find(params[:id])
+    render :layout => false
   end
 
   # POST /units
@@ -44,7 +47,7 @@ class UnitsController < ApplicationController
 
     respond_to do |format|
       if @unit.save
-        format.html { redirect_to @unit, notice: 'Unit was successfully created.' }
+        format.html { redirect_to units_path, notice: 'Unit was successfully created.' }
         format.json { render json: @unit, status: :created, location: @unit }
       else
         format.html { render action: "new" }
@@ -60,7 +63,7 @@ class UnitsController < ApplicationController
 
     respond_to do |format|
       if @unit.update_attributes(params[:unit])
-        format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
+        format.html { redirect_to units_path, notice: 'Unit was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -73,11 +76,16 @@ class UnitsController < ApplicationController
   # DELETE /units/1.json
   def destroy
     @unit = Unit.find(params[:id])
-    @unit.destroy
+
+
 
     respond_to do |format|
+      if @unit.destroy
       format.html { redirect_to units_url }
       format.json { head :ok }
-    end
+      else
+        format.html {redirect_to units_path,:alert => "Some Media is Using this Unit Thus, you cannot delete it now"}
+      end
+      end
   end
 end

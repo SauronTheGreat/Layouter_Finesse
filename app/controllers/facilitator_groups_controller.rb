@@ -1,6 +1,7 @@
 class FacilitatorGroupsController < ApplicationController
   # GET /facilitator_groups
   # GET /facilitator_groups.json
+  before_filter :allow_only_facilitator
   def index
     @facilitator=Facilitator.find_by_user_id(current_user.id)
 
@@ -37,6 +38,7 @@ class FacilitatorGroupsController < ApplicationController
 
   # GET /facilitator_groups/1/edit
   def edit
+    @facilitator=Facilitator.find_by_user_id(current_user.id)
     @facilitator_group = FacilitatorGroup.find(params[:id])
   end
 

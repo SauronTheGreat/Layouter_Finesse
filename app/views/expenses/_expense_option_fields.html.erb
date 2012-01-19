@@ -1,0 +1,11 @@
+<div class="form1">
+  <div class='clearfix'>
+    <%= f.label :amount %>
+    <div class='input'>
+      <%= f.number_field :amount, :class=>"xlarge" %>
+    </div>
+  </div>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_function "remove parameter", "remove_fields(this)" %>
+
+</div>

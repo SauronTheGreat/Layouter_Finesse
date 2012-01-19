@@ -1,30 +1,42 @@
-<%= content_for :main_content do %>
-<h1>Listing employee_categories</h1>
+<% @employee_category||=EmployeeCategory.new %>
+<%= content_for :secondary_content do %>
+    <h3> New Employee Category</h3>
+    <div style="margin-left: -15%;margin-top: 10%">
+      <%= render 'form' %>
+
+    </div>
+
+<% end %>
+
+
+
+<%= content_for :page_header do %>
+    Listing <span style="color: white"> Employee Category</span>
+<% end %>
 
 <table>
   <tr>
     <th>Name</th>
     <th>Base effect on sales</th>
     <th>Base salary</th>
-    <th></th>
+
     <th></th>
     <th></th>
   </tr>
 
-<% @employee_categories.each do |employee_category| %>
-  <tr>
-    <td><%= employee_category.name %></td>
-    <td><%= employee_category.base_effect_on_sales %></td>
-    <td><%= employee_category.base_salary %></td>
-    <td><%= link_to 'Show', employee_category %></td>
-    <td><%= link_to 'Edit', edit_employee_category_path(employee_category) %></td>
-    <td><%= link_to 'Destroy', employee_category, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @employee_categories.each do |employee_category| %>
+      <tr>
+        <td><%= employee_category.name %></td>
+        <td><%= employee_category.base_effect_on_sales %></td>
+        <td><%= employee_category.base_salary %></td>
+
+        <td><%= link_to 'Edit', edit_employee_category_path(employee_category), :class => "edit", :id=>employee_category.id %></td>
+        <td><%= link_to 'Destroy', employee_category, confirm: 'Are you sure?', method: :delete %></td>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Employee category', new_employee_category_path %>
 
-<% end %>
+

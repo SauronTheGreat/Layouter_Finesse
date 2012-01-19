@@ -1,6 +1,8 @@
 class FactoriesController < ApplicationController
   # GET /factories
   # GET /factories.json
+
+  before_filter :allow_only_superadmin
   def index
     @factories = Factory.all
 
@@ -26,15 +28,14 @@ class FactoriesController < ApplicationController
   def new
     @factory = Factory.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @factory }
-    end
+    render :layout => false
+
   end
 
   # GET /factories/1/edit
   def edit
     @factory = Factory.find(params[:id])
+    render :layout => false
   end
 
   # POST /factories

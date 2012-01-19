@@ -1,29 +1,48 @@
-<%= content_for :main_content do %>
+<%= content_for :head do %>
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+<% end %>
 
+<%= content_for :header do %>
 <h1>Listing environmental_parameters</h1>
+<% end %>
 
+<%= content_for :main_content do %>
 <table>
   <tr>
+
     <th>Name</th>
-    <th>Value</th>
-    <th></th>
-    <th></th>
+
+    <th>Amount</th>
+
     <th></th>
   </tr>
 
 <% @environmental_parameters.each do |environmental_parameter| %>
   <tr>
+
     <td><%= environmental_parameter.name %></td>
-    <td><%= environmental_parameter.value %></td>
-    <td><%= link_to 'Show', environmental_parameter %></td>
-    <td><%= link_to 'Edit', edit_environmental_parameter_path(environmental_parameter) %></td>
-    <td><%= link_to 'Destroy', environmental_parameter, confirm: 'Are you sure?', method: :delete %></td>
+
+    <td><%= environmental_parameter.amount %></td>
+
+    <td>
+    <%= link_to image_tag(icon("show"),:size=>"64x64"), environmental_parameter, :title=>'Show' %>
+    <%= link_to image_tag(icon("edit"),:size=>"64x64"), edit_environmental_parameter_path(environmental_parameter), :title=>'Edit' %>
+    <%= link_to image_tag(icon("delete"),:size=>"64x64"), environmental_parameter, confirm: 'Are you sure?', method: :delete, :title=>'Delete' %>
+    </td>
   </tr>
 <% end %>
 </table>
+<% end %>
 
 <br />
-
-<%= link_to 'New Environmental parameter', new_environmental_parameter_path %>
-
+<%= content_for :navigation do %>
 <% end %>
+<%= content_for :extra do %>
+<%= link_to image_tag('new_icon.png',:size=>"100x100"), new_environmental_parameter_path, :title=>"Add a environmental_parameter" %>
+<% end %>
+<%= content_for :footer do %>
+<% end %>
+

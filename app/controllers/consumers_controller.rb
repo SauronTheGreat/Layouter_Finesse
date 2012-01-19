@@ -1,6 +1,7 @@
 class ConsumersController < ApplicationController
   # GET /consumers
   # GET /consumers.json
+  before_filter :allow_none
   def index
     @consumers = Consumer.all
 

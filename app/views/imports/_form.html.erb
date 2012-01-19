@@ -1,28 +1,42 @@
-<%= form_for(@import) do |f| %>
-  <% if @import.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@import.errors.count, "error") %> prohibited this import from being saved:</h2>
+<div class="row">
+  <div class="span7 offset3">
+    <%= form_for(@import) do |f| %>
+        <% if @import.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@import.errors.count, "error") %> prohibited this import from being saved:</h2>
 
-      <ul>
-      <% @import.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+              <ul>
+                <% @import.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+        <div class="clearfix">
+          <%= f.label :name %>
+          <div class="input">
+            <%= f.text_field :name, :class=>"xlarge" %>
+          </div>
+        </div>
+
+        <div class="clearfix">
+          <%= f.label :file %>
+          <div class="input">
+            <%= f.file_field :excel_list, :class=>"xlarge" %>
+          </div>
+        </div>
+
+        <%= f.hidden_field :facilitator_group_id, :value=>params[:facilitator_group_id] %>
+        <div class="row">
+          <div class="span1 offset3">
+            <% if params[:action]== "new" %>
+                <%= f.submit "Submit", :class=>"primary btn" %>
+            <% else %>
+                <%= f.submit "Update", :class=>"primary btn" %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :file %><br />
-    <%= f.file_field :excel_list %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

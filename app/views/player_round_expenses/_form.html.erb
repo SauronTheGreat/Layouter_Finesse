@@ -1,30 +1,311 @@
+<script type="text/javascript">
+    $(function () {
+        $("a[rel=twipsy]").twipsy({
+            live: true
+        })
+                .click(function(e) {
+                    e.preventDefault();
+
+                });
+
+//        $(".hr_expenses").hide();
+        $(".media_expenses").hide();
+        $(".channel_expenses").hide();
+        $(".factory_expenses").hide();
+        $(".investments").hide();
+        $(".loans").hide();
+        $(".misc").hide();
+
+
+    })
+</script>
+
+<%= javascript_include_tag "#{Rails.root}/app/assets/javascripts/countdown.js " %>
+
+<% @round_id=ActiveRound.first.round_id %>
+
+
+
+
+
+<!--Round Box0-->
+
+<!--TABS -->
+
+<% @expense_type_hr=ExpenseType.find_by_name("HR") %>
+<% @expense_type_media=ExpenseType.find_by_name("Media") %>
+<% @expense_type_channel=ExpenseType.find_by_name("Channel") %>
+<% @expense_type_factory=ExpenseType.find_by_name("Factory") %>
+<% @expense_type_misc=ExpenseType.find_by_name("Miscellaneous") %>
+
 <%= form_tag :action => 'create' %>
 <% @player_round_expenses.each_with_index do |player_round_expense, index| %>
     <%= fields_for "player_round_expenses[#{index}]", player_round_expense do |f| %>
-
         <% @expense=Expense.find(@round_expenses[index].expense_id) %>
         <% @expense_options=@expense.expense_options %>
         <%= f.hidden_field :round_id, :value=>@round.id %>
         <%= f.hidden_field :player_id, :value=>@player.id %>
-
         <%= f.hidden_field :expense_id, :value=>@expense.id %>
-<%= f.hidden_field :brand_id, :value=>@brand.id %>
+        <%= f.hidden_field :brand_id, :value=>@brand.id %>
 
-        <%= f.label @expense.name %>
-        <% @expense_options.each do |option| %>
-            <%= f.radio_button :expense_option_id,option.id %> - <%= option.amount %>
+        <% case @expense.expense_type_id %>
+<% when @expense_type_hr.id %>
+            <script type="text/javascript">
+                $(function() {
+
+
+                    $(".hr_expenses .tabs").append('<li><a href="#tabs-<%= @expense.id %>"> <%= @expense.name %></a></li>');
+                    $(".hr_expenses .tab-content").append('<div id="tabs-<%= @expense.id %>" class="tab-pane"><%=  @round_expenses[index].summary %> <br/><br/><br/><% @expense_options.each do |option| %><%= f.radio_button :expense_option_id, option.id %>  <%= option.amount %><br><br><% end %></div>');
+                    $(".hr_expenses .tabs li:first").addClass("active");
+                    $(".hr_expenses .tab-content div:first").addClass("active");
+
+                });
+            </script>
+        <% when @expense_type_media.id %>
+            <script type="text/javascript">
+                $(function() {
+
+
+                    $(".media_expenses .tabs").append('<li><a href="#tabs-<%= @expense.id %>"> <%= @expense.name %></a></li>');
+                    $(".media_expenses .tab-content").append('<div id="tabs-<%= @expense.id %>" class="tab-pane"><%=  @round_expenses[index].summary %> <br/><br/><br/><% @expense_options.each do |option| %><%= f.radio_button :expense_option_id, option.id %> - <%= option.amount %><br><br><% end %></div>');
+                    $(".media_expenses .tabs li:first").addClass("active");
+                    $(".media_expenses .tab-content div:first").addClass("active");
+
+
+                });
+            </script>
+
+        <% when @expense_type_channel.id %>
+            <script type="text/javascript">
+                $(function() {
+                    $(".channel_expenses .tabs").append('<li><a href="#<%= @expense.id %>"> <%= @expense.name %></a></li>');
+                    $(".channel_expenses .tab-content").append('<div id="<%= @expense.id %>"class="tab-pane"><%=  @round_expenses[index].summary %> <br/><br/><br/><% @expense_options.each do |option| %><%= f.radio_button :expense_option_id, option.id %> - <%= option.amount %><br><br><% end %></div>');
+                    $(".channel_expenses .tabs li:first").addClass("active");
+                    $(".channel_expenses .tab-content div:first").addClass("active");
+
+
+                });
+            </script>
+        <% when @expense_type_factory.id %>
+            <script type="text/javascript">
+                $(function() {
+                    $(".factory_expenses .tabs").append('<li><a href="#tabs-<%= @expense.id %>"> <%= @expense.name %></a></li>');
+                    $(".factory_expenses .tab-content").append('<div id="tabs-<%= @expense.id %>" class="tab-pane"><%=  @round_expenses[index].summary %> <br/><br/><br/><% @expense_options.each do |option| %><%= f.radio_button :expense_option_id, option.id %> - <%= option.amount %><br><br><% end %></div>');
+                    $(".factory_expenses .tabs li:first").addClass("active");
+                    $(".factory_expenses .tab-content div:first").addClass("active");
+
+                });
+            </script>
+        <% when @expense_type_misc.id %>
+            <script type="text/javascript">
+                $(function() {
+                    $(".misc .tabs").append('<li><a href="#tabs-<%= @expense.id %>"> <%= @expense.name %></a></li>');
+                    $(".misc .tab-content").append('<div id="tabs-<%= @expense.id %>" class="tab-pane"><%=  @round_expenses[index].summary %> <br/><br/><br/><% @expense_options.each do |option| %><%= f.radio_button :expense_option_id, option.id %> - <%= option.amount %><br><br><% end %></div>');
+                    $(".misc .tabs li:first").addClass("active");
+                    $(".misc .tab-content div:first").addClass("active");
+
+                });
+            </script>
+
+
+
+        <% else %>
+            <script type="text/javascript">
+                $(function() {
+
+
+                });
+            </script>
+
         <% end %>
-
-
-
-
-
-
-        <br>
-        <br>
-
-
     <% end %>
 <% end %>
-<%= submit_tag %>
 
+<!--investments-->
+<% if !@player_round_investments.nil? %>
+    <% @player_round_investments.each_with_index do |player_round_investment, index| %>
+        <%= fields_for "player_round_investments[#{index}]", player_round_investment do |f| %>
+            <% @investment=Investment.find(@round_investments[index].investment_id) %>
+            <%= f.hidden_field :round_id, :value=>@round.id %>
+            <%= f.hidden_field :player_id, :value=>@player.id %>
+            <%= f.hidden_field :investment_id, :value=>@investment.id %>
+            <%= f.hidden_field :brand_id, :value=>@brand.id %>
+
+            <script type="text/javascript">
+                $(function() {
+
+                    $(".investments .tabs").append('<li><a href="#tabs-<%= @investment.id+10 %>"> <%=  @investment.name %></a></li>');
+                    $(".investments .tab-content").append('<div id="tabs-<%= @investment.id+10 %>" class="tab-pane"><%= f.label @investment.name %> <%= f.text_field :amount %></div>');
+                    $(".investments .tabs li:first").addClass("active");
+                    $(".investments .tab-content div:first").addClass("active");
+
+                });
+            </script>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+<!--loans-->
+<% if !@player_round_loans.nil? %>
+
+    <% @player_round_loans.each_with_index do |player_round_loan, index| %>
+        <%= fields_for "player_round_loans[#{index}]", player_round_loan do |f| %>
+            <% @loan=Loan.find(@round_loans[index].loan_id) %>
+            <%= f.hidden_field :round_id, :value=>@round.id %>
+            <%= f.hidden_field :player_id, :value=>@player.id %>
+            <%= f.hidden_field :loan_id, :value=>@loan.id %>
+            <%= f.hidden_field :brand_id, :value=>@brand.id %>
+
+            <script type="text/javascript">
+                $(function() {
+
+                    $(".loans .tabs").append('<li><a href="#tabs-<%= @loan.id+20 %>"> <%=  @loan.name %></a></li>');
+                    $(".loans .tab-content").append('<div id="tabs-<%= @loan.id+20 %>" class="tab-pane"><%= f.label @loan.name %>  <%= f.text_field :amount %></div>');
+                    $(".loans .tabs li:first").addClass("active");
+                    $(".loans .tab-content div:first").addClass("active");
+
+                });
+            </script>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+
+<script type="text/javascript">
+    //this is the javascript to handle the click events of the links
+
+    $(function() {
+
+        $(".btn").click(function() {
+
+            $(".hr_expenses").hide();
+            $(".media_expenses").hide();
+            $(".channel_expenses").hide();
+            $(".factory_expenses").hide();
+            $(".investments").hide();
+            $(".loans").hide();
+            $(".misc").hide();
+
+
+            var target_div = $(this).attr("id");
+            $("." + target_div).show();
+
+
+        });
+
+    });
+
+</script>
+
+<div class="row">
+  <div class="span4" id="option_panel" style="margin-left: 50px">
+    <!--HR Box-->
+    <div class="row show-grid ">
+      <a href="#" class="btn info span3" id="hr_expenses" rel="twipsy" title="List of HR expenses" style="width: 200px;height:50px;text-align: center; font-size: 20px">HR
+        Expenses</a>
+    </div>
+    <!--PBT BOX-->
+    <div class="row show-grid" style="margin-top: 10px;">
+      <a href="#" class="btn info span3" id="media_expenses" rel="twipsy" title="List of marketing decisions" style="width: 200px;height:50px;text-align: center;font-size: 20px">Media
+        Expenses</a>
+    </div>
+
+    <!--PAT bOX-->
+    <div class="row show-grid" style="margin-top: 10px;">
+      <a href="#" class="btn info span3" id="channel_expenses" rel="twipsy" title="List of Capital decisions" style="width: 200px;height:50px;text-align: center;font-size: 20px">Channel
+        Expenses</a>
+    </div>
+
+    <!--INVESTMENT BOX-->
+    <div class="row show-grid" style="margin-top: 10px">
+      <a href="#" class="btn info span3" id="investments" rel="twipsy" title="List of Investments" style="width: 200px;height:50px;text-align: center;font-size: 20px">Investments</a>
+    </div>
+
+    <!--LOAN BOX-->
+    <div class="row show-grid" style="margin-top: 10px">
+      <a href="#" class="btn info span3" id="loans" rel="twipsy" title="List of marketing loans" style="width: 200px;height:50px;text-align: center;font-size: 20px">Loans</a>
+    </div>
+
+    <!--SALES BOX-->
+    <div class="row show-grid" style="margin-top: 10px">
+      <a href="#" class="btn info span3" id="factory_expenses" rel="twipsy" title="List of sales" style="width: 200px;height:50px;text-align: center;font-size: 20px">Factory</a>
+    </div>
+
+
+    <!--MISC EXPENSES-->
+    <div class="row show-grid" style="margin-top: 10px">
+      <a href="#" class="btn info span3" id="misc" rel="twipsy" title="List of sales" style="width: 200px;height:50px;text-align: center;font-size: 20px">Miscellaneous</a>
+    </div>
+
+  </div>
+  <div class="span5 offset1" style="margin-top:55px ;width: 400px;border: 2px solid black;padding: 50px 50px 50px 50px;border-radius: 12px ;height:300px;font-size: 16px">
+
+    <div class="hr_expenses">
+      <ul class="tabs" id="sample"></ul>
+      <br>
+
+
+      <div class="tab-content"></div>
+    </div>
+
+    <div class="media_expenses">
+      <ul class="tabs"></ul>
+      <div class="tab-content"></div>
+    </div>
+
+    <div class="channel_expenses">
+      <ul class="tabs"></ul>
+      <div class="tab-content"></div>
+    </div>
+
+    <div class="factory_expenses">
+      <ul class="tabs"></ul>
+      <div class="tab-content"></div>
+    </div>
+
+    <div class="investments">
+      <ul class="tabs"></ul>
+      <div class="tab-content"></div>
+    </div>
+
+    <div class="loans">
+      <ul class="tabs"></ul>
+      <div class="tab-content"></div>
+    </div>
+
+    <div class="misc">
+      <ul class="tabs"></ul>
+      <div class="tab-content"></div>
+    </div>
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<div class="row">
+  <div class="span5 offset4 label warning" style="font-size: 15px;">
+    <!--REVIEW BOX-->
+    <div class="row">
+      <div class="span1" style="margin-top: 5px;">Review<br/> Decisions</div>
+      <div class="span3 offset1">
+        <%= link_to image_tag ('excel.png'), :size => '40x40' %>
+        <%= link_to image_tag ('msg.png'), :size => '40x40' %>
+        <%= link_to image_tag ('print.png'), :size => '40x40' %>
+      </div>
+    </div>
+  </div>
+  <div class="span2" style="height: 50px;width:200px"><%= submit_tag 'Update Decisions', :class=>"primary btn" %></div>
+
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs()
+    })
+</script>

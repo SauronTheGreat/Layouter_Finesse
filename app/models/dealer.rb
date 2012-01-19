@@ -1,13 +1,28 @@
 class Dealer < ActiveRecord::Base
 
+
+  #validations
+  validates_presence_of :market_id
+ # validates_presence_of :catchment_of_consumers
+  validates_presence_of :dealer_category_id
+  validates_presence_of :name
+
+ # validates_uniqueness_of :name
+
+
+
+
+
   belongs_to :market
+  belongs_to :dealer_category
   has_many :dealer_preferences, :dependent => :destroy
   has_many :consumers,:dependent => :destroy
+
 
   #we have to write a method which will be invoked to create dealers for each market , when game is initiated
 
   #we pass the market id as an argument
-  def self.create_dealers_of_world(market_id)
+  def self.create_dealers_of_world(market_id,round_id)
     @market=Market.find(market_id)
 
 
@@ -31,9 +46,10 @@ class Dealer < ActiveRecord::Base
     @national_dealers.each_with_index do |national_dealer,index|
       @dealer=Dealer.new
       @dealer.market_id=@market.id
-      @dealer.name="National"+"#{index+1}"
+      @dealer.name="National"+"#{index+1}+#{@market.name}"
       @dealer.catchment_of_consumers=remaining_consumers/@national_dealers.count
       @dealer.dealer_category_id=dealer_category.id
+      @dealer.round_id=round_id
       @dealer.save!
 
 
@@ -45,11 +61,12 @@ class Dealer < ActiveRecord::Base
       #create a new dealer object as assign them properties
       @dealer=Dealer.new
       @dealer.market_id=@market.id
-      @dealer.name="Local"+"#{dealer+1}"
+      @dealer.name="Local"+"#{dealer+1}+#{@market.name}"
 
       #now we decide how much consumer_catchment is to be given for each local dealer
       @dealer.catchment_of_consumers=consumer_per_dealer
       @dealer.dealer_category_id=@category.id
+      @dealer.round_id=round_id
       @dealer.save!
 
 

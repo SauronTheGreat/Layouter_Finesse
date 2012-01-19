@@ -1,3 +1,4 @@
+
 <%= form_for(@market) do |f| %>
     <% if @market.errors.any? %>
         <div id="error_explanation">
@@ -11,32 +12,53 @@
         </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :name %>
-      <br/>
-      <%= f.text_field :name %>
+    <div class="clearfix">
+      <b>  <%= f.label :name %></b>
+
+      <div class="input">
+        <%= f.text_field :name, :class=>"xlarge" %>
+      </div>
     </div>
-    <div class="field">
+    <br/>
+    <br/>
+    <div class="clearfix">
       <%= f.label :catchment_of_dealers %>
-      <br/>
-      <%= f.number_field :catchment_of_dealers %>
+      <div class="input">
+        <%= f.number_field :catchment_of_dealers, :class=>"xlarge" %>
+      </div>
     </div>
-    <div class="field">
+    <br/>
+    <br/>
+    <div class="clearfix">
       <%= f.label :catchment_of_vendors %>
-      <br/>
-      <%= f.number_field :catchment_of_vendors %>
+      <div class="input">
+        <%= f.number_field :catchment_of_vendors, :class=>"xlarge" %>
+      </div>
     </div>
-
-    <div class="field">
+    <br/>
+    <br/>
+    <div class="clearfix">
       <%= f.label :no_of_consumers %>
-      <br/>
-      <%= f.number_field :no_of_consumers %>
+      <div class="input">
+        <%= f.number_field :no_of_consumers, :class=>"xlarge" %>
+      </div>
     </div>
 
-
-
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-<% end %>
+     <div class="clearfix">
+        <%= f.label :market_image %>
+        <div class="input">
+          <%= f.file_field :market_image, :class=>"xlarge" %>
+        </div>
+      </div>
+    <br/>
+    <br/>
+     <div class="row">
+       <div class="span1 offset3">
+    <% if params[:action]== "new" %>
+        <%= f.submit "Submit", :class=>"primary btn" %>
+    <% else %>
+        <%= f.submit "Update", :class=>"primary btn" %>
+    <% end %>
+      </div>
+      </div>
+    <% end %>

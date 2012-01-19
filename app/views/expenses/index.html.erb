@@ -1,26 +1,114 @@
-<%= content_for :main_content do %>
-<h1>Listing expenses</h1>
+<script type="text/javascript">
+    $(function() {
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @expenses.each do |expense| %>
-  <tr>
-    <td><%= expense.name %></td>
-    <td><%= link_to 'Show', expense %></td>
-    <td><%= link_to 'Edit', edit_expense_path(expense) %></td>
-    <td><%= link_to 'Destroy', expense, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+        $('#show_form').modal({
+            backdrop: true,
+            keyboard: true
+        });
+
+
+    });
+</script>
+
+
+
+
+
+<div id="show_form" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+
+    <h3>Showing Details</h3>
+  </div>
+  <div class="modal-body" id="show">
+
+  </div>
+
+</div>
+
+
+
+
+
+
+<%= content_for :page_header do %>
+    Listing <span style="color: white"> Expenses</span>
 <% end %>
-</table>
 
-<br />
+<% @expense||=Expense.new %>
+<%= content_for :secondary_content do %>
 
-<%= link_to 'New Expense', new_expense_path %>
+
+    <div style="margin-left: -30%;margin-top: 20%">
+      <h3 style="margin-left: 40%;margin-top: -10%">Add New Expense</h3>
+
+      <%= render 'form' %>
+    </div>
 
 <% end %>
+
+
+<!--Tne script for tabs-->
+
+
+
+<!--the script for tabs ends here-->
+<script type="text/javascript">
+    $(function() {
+        <% @expense_types.each do |expense_type| %>
+
+        $(".tabs").append('<li ><a style="font-size:14px" href="<%="##{expense_type.id}" %>"><%= expense_type.name %></a> </li>');
+        $(".tabs li:first").addClass("active");
+        $(".tab-content").append('<div id="<%= expense_type.id %>" class="tab-pane"><table></table></div>');
+        <% expense_type.expenses.each do |expense| %>
+        $("#" + "<%=expense_type.id%> table").append('<tr><td><%= expense.name %></td><td><%= link_to 'Show', expense ,:class => "primary btn span2 show",:style => "text-align:center"%></td><td> <%= link_to 'Edit', edit_expense_path(expense), :class => "edit primary btn span2", :id=>@expense.id ,:style => "text-align:center"%></td><td><%= button_to 'Destroy', expense, confirm: 'Are you sure?', method: :delete,:class => "danger btn span3" %></td></tr>');
+        $(".tab-content div:first").addClass("active");
+        <% end %>
+
+        <% end %>
+
+        <% @expenses.each do |expense| %>
+
+        <% end %>
+    });
+
+
+</script>
+
+<!--The tabs code start here,,-->
+
+
+<ul class="tabs">
+</ul>
+
+<div class="tab-content">
+
+</div>
+
+
+
+
+<!--The tabs code ends here,,-->
+
+
+
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+
+        $(".show").click(function(event) {
+
+            event.preventDefault();
+            $.get($(this).attr("href"), function(data) {
+                $("#show").html(data);
+            });
+            $("#show_form").modal("toggle");
+
+        });
+
+
+
+    })
+</script>

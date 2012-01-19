@@ -1,13 +1,17 @@
-<%= content_for :main_content do %>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @import.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_import_path(@import) %> |
-<%= link_to 'Back', imports_path %>
-
+<%= content_for :page_header do %>
+    Showing <%= @import.name %>
 <% end %>
+<div class="row">
+  <div class="span7 offset3">
+
+    <p>
+      <b>Name:</b>
+      <%= @import.name %>
+    </p>
+
+
+    <%= link_to 'Edit', edit_import_path(@import) %> |
+    <%= link_to 'Back', imports_path %>
+
+  </div>
+</div>

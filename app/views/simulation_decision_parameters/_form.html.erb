@@ -1,24 +1,40 @@
+<div class="row">
+  <div class="span7 offset3">
+    <%= form_tag :action => 'create' %>
+    <% @simulation_decision_parameters.each_with_index do |decision_parameter, index| %>
+        <%= fields_for "simulation_decision_parameters[#{index}]", decision_parameter do |f| %>
+            <% if @simulation_parameters_ids.include?(@decision_parameters[index].id) %>
+                <% @state=true %>
+            <% else %>
+                <% @state=false %>
+            <% end %>
+
+            <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
+            <div class="clearfix">
+              <label for="appendedInput"> <%= f.label "#{@decision_parameters[index].name}" %> </label>
+
+              <div class="input">
+                <div class="input-append">
+                  <br>
+                  <%= f.check_box :decision_parameter_id, {:checked=>@state} %>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
 
 
-
-<%= form_tag :action => 'create' %>
-<% @simulation_decision_parameters.each_with_index do |decision_parameter, index| %>
-    <%= fields_for "simulation_decision_parameters[#{index}]", decision_parameter do |f| %>
-        <% if @simulation_parameters_ids.include?(@decision_parameters[index].id) %>
-            <% @state=true %>
-        <% else %>
-            <% @state=false %>
         <% end %>
-
-        <%= f.hidden_field :simulation_id, :value=>@simulation.id %>
-
-        <%= f.label "#{@decision_parameters[index].name}" %>
-        <%= f.check_box :decision_parameter_id,{:checked=>@state} %>
-         <br>
-        <br>
-
-
     <% end %>
-<% end %>
-<%= submit_tag %>
+    <div class="row">
+      <div class="span1 offset3">
+        <% if params[:action]== "new" %>
+            <%= submit_tag "Submit", :class=>"primary btn" %>
+        <% else %>
+            <%= f.submit_tag "Update", :class=>"primary btn" %>
+        <% end %>
+      </div>
+    </div>
 
+  </div>
+</div>

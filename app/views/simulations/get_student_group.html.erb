@@ -1,7 +1,7 @@
-<%= content_for :main_content do %>
-<h2>Listing Student Groups...</h2>
+<%= content_for :page_header do %>
+<h2>Select a Student Group.</h2>
 
-
+<% end %>
 <b>Student Group</b>
 <%= form_tag :action => 'set_student_group' do |form| %>
      <%= hidden_field_tag :simulation_id,@simulation.id %>
@@ -10,4 +10,4 @@
 
 
 <% end %>
-<% end %>
+
